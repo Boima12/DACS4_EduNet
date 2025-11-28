@@ -23,9 +23,8 @@ git push origin new_branch
 cập nhật mới nhất từ GitHub
 
 ```
-git add .
-git commit -m "any message"
+git restore .
 git checkout main
-git fetch --all
-git pull
+git fetch --all --prune
+git pull origin main
 ```
