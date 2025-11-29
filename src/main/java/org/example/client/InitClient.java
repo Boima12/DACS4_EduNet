@@ -1,6 +1,6 @@
 package org.example.client;
 
-public class Client {
+public class InitClient {
 	// mới thêm code
 
 }

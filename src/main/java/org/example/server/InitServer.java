@@ -1,5 +1,5 @@
 package org.example.server;
 
-public class Server {
+public class InitServer {
     // Server implementation goes here
 }
