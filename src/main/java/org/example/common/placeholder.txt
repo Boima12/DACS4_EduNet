@@ -1,1 +1,0 @@
-This file here to prevent GitHub auto removal of empty folders.
