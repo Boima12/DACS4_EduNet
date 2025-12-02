@@ -23,7 +23,6 @@ git push origin new_branch
 cập nhật mới nhất từ GitHub
 
 ```
-git restore .
 git checkout main
 git fetch --all --prune
 git pull origin main
