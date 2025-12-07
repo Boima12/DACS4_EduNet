@@ -1,0 +1,44 @@
+INFO  [main] org.example.client.model.CoreClient - Created new runtime memoryBox.json
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4c05da27
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.client.model.CoreClient - 192.168.1.9 - 6060 - 123456
+INFO  [AWT-EventQueue-0] org.example.client.model.CoreClient - memoryBox:  :
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - {
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler -   "type": "establishingRequest",
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler -   "maLienKet": 123456
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - }
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@774e05dd
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@54c64d24
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2224a813
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@462f75f9
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1a4daf30
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Hello???
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@462f75f9
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Hello??? - {
+  "type": "establishingRequest",
+  "maLienKet": 971215
+} - end
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - {
+  "type": "establishingRequest",
+  "maLienKet": 971215
+}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {

@@ -2,6 +2,7 @@ package org.example.server.view.login;
 
 import org.example.common.utils.gui.Alert;
 import org.example.common.utils.gui.RoundedBorder;
+import org.example.server.model.database.JDBCUtil;
 
 import java.awt.EventQueue;
 
@@ -14,12 +15,14 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Login {
 
+	private OnLoginListenter onLoginListener;
+	
 	private JFrame frame;
 	private JPasswordField tf_password;
-	private JButton btn_login;
 
 	/**
 	 * Launch the application.
@@ -50,6 +53,10 @@ public class Login {
 
 	public void undisplay() {
 		frame.setVisible(false);
+	}
+	
+	public void setOnLoginListenerCallback(OnLoginListenter callback) {
+		this.onLoginListener = callback;
 	}
 
 	/**
@@ -86,7 +93,7 @@ public class Login {
 		});
 		frame.getContentPane().add(tf_password);
 
-		btn_login = new JButton("Login");
+		JButton btn_login = new JButton("Login");
 		btn_login.setBorderPainted(false);
 		btn_login.setForeground(new Color(255, 255, 255));
 		btn_login.setBackground(new Color(38, 139, 255));
@@ -102,8 +109,14 @@ public class Login {
 	}
 	
 	private void onLogin() {
-		// TODO retrieve correctPassword from database implementation
-		String correctPassword = "123";
+		// retrieve server password from database
+		AtomicReference<String> correctPassword = new AtomicReference<>();
+        String sql = "SELECT server_password FROM server_config";
+        JDBCUtil.runQuery(sql, rs -> {
+            while (rs.next()) {
+                correctPassword.set(rs.getString("server_password"));
+            }
+        });
 	    
 		String passwordData = new String(tf_password.getPassword()).trim();
 
@@ -112,10 +125,10 @@ public class Login {
 	        return;
 	    }
 	    
-	    if (passwordData.equals(correctPassword)) {
-	    	System.out.println("Check");	    	
-	    } else {
+	    if (!passwordData.equals(correctPassword.get())) {
 	    	Alert.showError("Mật khẩu sai.");
+	    } else {
+	    	if (onLoginListener != null) onLoginListener.onLogin(); 
 	    }
 	}
 

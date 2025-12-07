@@ -1,7 +1,5 @@
 package org.example.server.view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JPanel;
@@ -10,10 +8,10 @@ import javax.swing.JScrollPane;
 import org.example.common.utils.gui.ImageHelper;
 import org.example.common.utils.gui.RoundedBorder;
 import org.example.common.utils.gui.WrapLayout;
+import org.example.server.view.dashboard.LienKetModal;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -24,9 +22,6 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 import java.awt.FlowLayout;
-import java.awt.Rectangle;
-import java.awt.GridLayout;
-import javax.swing.UIManager;
 
 // added imports
 import java.awt.event.MouseAdapter;
@@ -35,6 +30,7 @@ import java.awt.event.MouseEvent;
 public class Dashboard {
 
 	private String currentSelectedComputer;
+    private String ServerLocalAddress;
 	
 	private JFrame frame;
 	private JLabel lbl_info_icon;
@@ -44,26 +40,19 @@ public class Dashboard {
 	private JPanel selectedClientItem;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Dashboard window = new Dashboard();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
-	public Dashboard() {
+	public Dashboard(String ServerLocalAddress) {
+        this.ServerLocalAddress = ServerLocalAddress;
 		initialize();
+	}
+	
+	public void display() {
+		frame.setVisible(true);
+	}
+
+	public void undisplay() {
+		frame.setVisible(false);
 	}
 
 	/**
@@ -74,6 +63,7 @@ public class Dashboard {
 		frame.getContentPane().setBackground(new Color(240, 240, 240));
 		frame.getContentPane().setLayout(null);
 		frame.setBounds(100, 100, 1200, 767);
+        frame.setTitle("Dashboard - " + ServerLocalAddress);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel sidebar = new JPanel();
@@ -194,7 +184,7 @@ public class Dashboard {
 		btn_do_lkClient.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+				onlkClient();
 			}
 		});
 		dashboard_options.add(btn_do_lkClient);
@@ -342,4 +332,8 @@ public class Dashboard {
 	    return client_item;
 	}
 
+	public void onlkClient() {
+        UIState.lkModal = new LienKetModal(frame);
+        UIState.lkModal.setVisible(true);
+    }
 }
