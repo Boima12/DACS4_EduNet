@@ -5,6 +5,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 import org.example.client.controller.ClientNetwork;
+import org.example.client.States;
 import org.example.client.view.EClient;
 import org.example.client.view.eClientConnector.EClientConnector;
 import org.example.common.objects.MemoryBox;
@@ -14,6 +15,7 @@ import org.example.common.utils.gui.Alert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@SuppressWarnings("Convert2MethodRef")
 public class CoreClient {
 
     private boolean isEstablished = false;
@@ -45,15 +47,13 @@ public class CoreClient {
             eClientWindow = new EClient();
             eClientConnectorWindow = new EClientConnector();
 
-            eClientConnectorWindow.setOnEstablishListenerCallback((String serverIP, String port, String maLienKet) -> {
-            	askForServerApproval(serverIP, port, maLienKet);
-
+            States.setOnEstablishListenerCallback(() -> {
                 MemoryBox memoryBox = GsonHelper.readJsonFile(runtimeJsonFile.getPath(), MemoryBox.class);
                 if (memoryBox != null && "yesEstablished".equals(memoryBox.serverConnection)) {
-            		connectToServer();
+                    connectToServer();
                     eClientConnectorWindow.undisplay();
-            		eClientWindow.display();
-            	}
+                    eClientWindow.display();
+                }
             });
 
             if (isEstablished) {
@@ -80,22 +80,6 @@ public class CoreClient {
             log.info("Created new runtime memoryBox.json");
         } catch (IOException e) {
             log.error("Failed copying default memoryBox.json", e);
-        }
-    }
-
-    private boolean askForServerApproval(String serverIP, String port, String maLienKet) {
-        try {
-            clientNetwork = new ClientNetwork(serverIP, Integer.parseInt(port));
-            clientNetwork.send_establishingRequest(Integer.parseInt(maLienKet));
-            return true;
-        } catch (NumberFormatException nfe) {
-            Alert.showError("Port or code format is invalid.");
-            log.error("Invalid number format in askForServerApproval", nfe);
-            return false;
-        } catch (IOException ioe) {
-            Alert.showError("Không thể kết nối tới server: " + ioe.getMessage());
-            log.error("Failed to open socket for establishing request", ioe);
-            return false;
         }
     }
 

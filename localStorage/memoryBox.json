@@ -1,6 +1,1 @@
-{
-  "serverConnection": "notEstablished",
-  "token": "",
-  "server_IP": "",
-  "server_port": ""
-}
+{"serverConnection":"yesEstablished","token":"5cc8e85ab3d62a50768c46f2c29f64d038246b060349a8629d8bdb4be3d7d977c1f62cd2e9619e9b2ca87a68e85f691fd924030c6cacd585fa78077ea14c9c75","server_IP":"192.168.1.9","server_port":"6060"}

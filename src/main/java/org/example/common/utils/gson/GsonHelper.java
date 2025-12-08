@@ -21,7 +21,7 @@ public class GsonHelper {
 
     // Dùng 1 instance duy nhất
     private static final Gson gson = new GsonBuilder()
-            .setPrettyPrinting()   // Format đẹp
+            // Use compact JSON (no pretty-printing) so network messages are single-line
             .create();
 
     /* toJson: Object -> JSON string

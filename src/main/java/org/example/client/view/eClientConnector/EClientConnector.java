@@ -14,6 +14,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import org.example.client.controller.ClientNetwork;
+import org.example.client.model.CoreClient;
 import org.example.common.utils.gui.Alert;
 import org.example.common.utils.gui.ImageHelper;
 import org.example.common.utils.gui.RoundedBorder;
@@ -22,10 +24,14 @@ import javax.swing.UIManager;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class EClientConnector {
 
-	private OnEstablishListener onEstablishListener;
+//	private OnEstablishListener onEstablishListener;
 	private boolean isLanModeConnector = false;
+    private static final Logger log = LoggerFactory.getLogger(CoreClient.class);
 	
 	private JFrame frame;
 	private JTextField tf_serverIP;
@@ -37,21 +43,6 @@ public class EClientConnector {
 	private JButton btn_lan_open;
 	private JButton btn_lan_close;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EClientConnector window = new EClientConnector();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -68,9 +59,9 @@ public class EClientConnector {
 		frame.setVisible(false);
 	}
 	
-	public void setOnEstablishListenerCallback(OnEstablishListener callback) {
-		this.onEstablishListener = callback;
-	}
+//	public void setOnEstablishListenerCallback(OnEstablishListener callback) {
+//		this.onEstablishListener = callback;
+//	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -218,9 +209,24 @@ public class EClientConnector {
             return;
         }
 
-		if (onEstablishListener != null) onEstablishListener.onEstablish(serverIP, portStr, maLienKetStr);
+//        if (onEstablishListener != null) onEstablishListener.onEstablish(serverIP, portStr, maLienKetStr);
+
+        askForServerApproval(serverIP, portStr, maLienKetStr);
 	}
-	
+
+    private void askForServerApproval(String serverIP, String port, String maLienKet) {
+        try {
+            ClientNetwork clientNetwork = new ClientNetwork(serverIP, Integer.parseInt(port));
+            clientNetwork.send_establishingRequest(Integer.parseInt(maLienKet));
+        } catch (NumberFormatException nfe) {
+            Alert.showError("Port or code format is invalid.");
+            log.error("Invalid number format in askForServerApproval", nfe);
+        } catch (IOException ioe) {
+            Alert.showError("Không thể kết nối tới server: " + ioe.getMessage());
+            log.error("Failed to open socket for establishing request", ioe);
+        }
+    }
+
 	private void toggleLanConnector() {
 		if (!isLanModeConnector) {
 			// TODO open LAN network for server to perform a LAN client scan

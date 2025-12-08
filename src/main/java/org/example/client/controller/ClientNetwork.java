@@ -5,9 +5,11 @@ import java.net.Socket;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.example.client.States;
 import org.example.common.objects.MemoryBox;
 import org.example.common.objects.messages.EstablishingRequestJSON;
 import org.example.common.utils.gson.GsonHelper;
+import org.example.common.utils.gui.Alert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,6 +66,7 @@ public class ClientNetwork {
     }
 
     private void speak(String message) {
+        log.info("Sending: {}", message);
         try {
             out.write(message);
             out.newLine();
@@ -97,7 +100,7 @@ public class ClientNetwork {
         speak(jsonString);
     }
 
-    public void onEstablishingResponse(JsonObject json) {
+    public void onEstablishingResponse(JsonObject json) throws IOException {
         boolean approval = json.get("approval").getAsBoolean();
 
         if (approval) {
@@ -111,8 +114,11 @@ public class ClientNetwork {
             memoryBox.server_IP = server_IP;
             memoryBox.server_port = server_port;
             GsonHelper.writeJsonFile(runtimeJsonFile.getPath(), memoryBox);
+
+            if (States.onEstablishListener != null) States.onEstablishListener.onEstablish();
         } else {
             log.info("Connection denied by server.");
+            Alert.showError("Mã liên kết không hợp lệ.");
         }
     }
 }

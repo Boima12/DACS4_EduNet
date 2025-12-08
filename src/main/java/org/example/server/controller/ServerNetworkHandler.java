@@ -74,6 +74,7 @@ public class ServerNetworkHandler {
     }
 
     private void speak(String message) {
+        log.info("Sending: {}", message);
         try {
             out.write(message);
             out.newLine();
