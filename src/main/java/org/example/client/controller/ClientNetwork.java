@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.example.client.States;
 import org.example.common.objects.MemoryBox;
+import org.example.common.objects.messages.ConnectionRequestJSON;
 import org.example.common.objects.messages.EstablishingRequestJSON;
 import org.example.common.utils.gson.GsonHelper;
 import org.example.common.utils.gui.Alert;
@@ -50,14 +51,20 @@ public class ClientNetwork {
                     // Route theo type
                     switch (type) {
                         case "establishingResponse":
-                            onEstablishingResponse(json);
+                            hear_establishingResponse(json);
                             break;
+
+                        case "connectionResponse":
+                            hear_connectionResponse(json);
+                            break;
+
                         default:
                             log.warn("Unknown message type: {}", type);
                             break;
                     }
                 }
             } catch (Exception e) {
+                log.info("This client hear() has stopped, calling closeEverything()");
                 closeEverything();
             }
         });
@@ -78,6 +85,8 @@ public class ClientNetwork {
     }
 
     public void closeEverything() {
+        log.info("Client {} disconnected.", clientSocket != null ? clientSocket.getInetAddress() : null);
+
         try {
             if (clientSocket != null) {
                 clientSocket.close();
@@ -93,6 +102,8 @@ public class ClientNetwork {
         }
     }
 
+
+    //  == Establishing (Thiết lập kết nối lần đầu) ==
     public void send_establishingRequest(int maLienKet) {
         EstablishingRequestJSON establishingRequestJSON = new EstablishingRequestJSON();
         establishingRequestJSON.maLienKet = maLienKet;
@@ -100,7 +111,7 @@ public class ClientNetwork {
         speak(jsonString);
     }
 
-    public void onEstablishingResponse(JsonObject json) throws IOException {
+    public void hear_establishingResponse(JsonObject json) throws IOException {
         boolean approval = json.get("approval").getAsBoolean();
 
         if (approval) {
@@ -109,6 +120,7 @@ public class ClientNetwork {
             String server_port = json.get("server_port").getAsString();
 
             MemoryBox memoryBox = GsonHelper.readJsonFile(runtimeJsonFile.getPath(), MemoryBox.class);
+            assert memoryBox != null;
             memoryBox.serverConnection = "yesEstablished";
             memoryBox.token = client_token;
             memoryBox.server_IP = server_IP;
@@ -116,9 +128,54 @@ public class ClientNetwork {
             GsonHelper.writeJsonFile(runtimeJsonFile.getPath(), memoryBox);
 
             if (States.onEstablishListener != null) States.onEstablishListener.onEstablish();
+            closeEverything();
         } else {
             log.info("Connection denied by server.");
             Alert.showError("Mã liên kết không hợp lệ.");
+            closeEverything();
+        }
+    }
+
+
+    //  == Connection (Kết nối với server) ==
+    public void send_connectionRequest(String client_token) {
+        ConnectionRequestJSON connectionRequestJSON = new ConnectionRequestJSON();
+        connectionRequestJSON.client_token = client_token;
+        String jsonString = GsonHelper.toJson(connectionRequestJSON);
+        speak(jsonString);
+    }
+
+    public void hear_connectionResponse(JsonObject json) {
+        boolean isLinked = json.get("isLinked").getAsBoolean();
+
+        if (isLinked) {
+            log.info("Connection approved by server.");
+            if (States.onConnectionListener != null) States.onConnectionListener.onConnection();
+        } else {
+            log.info("Connection denied by server.");
+            Alert.showError("Kết nối bị từ chối bởi server, nếu cần thiết lập kết nối mới, hãy xóa file localStorage/memoryBox.json.");
+            closeEverything();
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

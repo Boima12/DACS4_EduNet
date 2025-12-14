@@ -10,12 +10,11 @@ import org.example.client.view.EClient;
 import org.example.client.view.eClientConnector.EClientConnector;
 import org.example.common.objects.MemoryBox;
 import org.example.common.utils.gson.GsonHelper;
-import org.example.common.utils.gui.Alert;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@SuppressWarnings("Convert2MethodRef")
+@SuppressWarnings({"DataFlowIssue", "FieldCanBeLocal"})
 public class CoreClient {
 
     private boolean isEstablished = false;
@@ -51,14 +50,15 @@ public class CoreClient {
                 MemoryBox memoryBox = GsonHelper.readJsonFile(runtimeJsonFile.getPath(), MemoryBox.class);
                 if (memoryBox != null && "yesEstablished".equals(memoryBox.serverConnection)) {
                     connectToServer();
-                    eClientConnectorWindow.undisplay();
-                    eClientWindow.display();
                 }
             });
 
             if (isEstablished) {
-            	connectToServer();
-                eClientWindow.display();
+                try {
+                    connectToServer();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             } else {
                 eClientConnectorWindow.display();
             }
@@ -83,11 +83,16 @@ public class CoreClient {
         }
     }
 
-    private void connectToServer() {
+    private void connectToServer() throws IOException {
     	MemoryBox memoryBox = GsonHelper.readJsonFile(runtimeJsonFile.getPath(), MemoryBox.class);
-        log.info("memoryBox: {} {}:{}", memoryBox.token, memoryBox.server_IP, memoryBox.server_port);	// remove this later
+        clientNetwork = new ClientNetwork(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
+        clientNetwork.send_connectionRequest(memoryBox.token);
 
-    	// TODO implement network establish with server
-
+        SwingUtilities.invokeLater(() -> {
+           States.setOnConnectionListenerCallback(() -> {
+                eClientConnectorWindow.undisplay();
+                eClientWindow.display();
+           });
+        });
     }
 }

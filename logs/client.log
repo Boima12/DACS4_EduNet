@@ -1,171 +1,7 @@
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7709293d
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
 INFO  [main] org.example.client.model.CoreClient - Created new runtime memoryBox.json
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4c05da27
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-INFO  [AWT-EventQueue-0] org.example.client.model.CoreClient - 192.168.1.9 - 6060 - 123456
-INFO  [AWT-EventQueue-0] org.example.client.model.CoreClient - memoryBox:  :
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - {
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler -   "type": "establishingRequest",
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler -   "maLienKet": 123456
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - }
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@774e05dd
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {
-INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@54c64d24
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2224a813
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@462f75f9
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1a4daf30
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Hello???
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@462f75f9
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Hello??? - {
-  "type": "establishingRequest",
-  "maLienKet": 971215
-} - end
-INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - {
-  "type": "establishingRequest",
-  "maLienKet": 971215
-}
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-ERROR [AWT-EventQueue-0] o.e.server.model.database.JDBCUtil - Failed to initialize HikariCP
-com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Communications link failure
-
-The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
-	at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:610)
-	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:597)
-	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:97)
-	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:80)
-	at org.example.server.model.database.JDBCUtil.<clinit>(JDBCUtil.java:40)
-	at org.example.server.view.login.Login.onLogin(Login.java:115)
-	at org.example.server.view.login.Login$3.actionPerformed(Login.java:105)
-	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
-	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
-	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
-	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
-	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
-	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6620)
-	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3398)
-	at java.desktop/java.awt.Component.processEvent(Component.java:6385)
-	at java.desktop/java.awt.Container.processEvent(Container.java:2266)
-	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4995)
-	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2324)
-	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4827)
-	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4948)
-	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4575)
-	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4516)
-	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2310)
-	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2780)
-	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4827)
-	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:775)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
-	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:98)
-	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:747)
-	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
-	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:744)
-	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
-	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
-Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
-
-The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
-	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:165)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:55)
-	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:840)
-	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:416)
-	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:237)
-	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:180)
-	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:144)
-	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:373)
-	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:210)
-	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:488)
-	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:576)
-	... 40 common frames omitted
-Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
-
-The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:67)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:484)
-	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:52)
-	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:95)
-	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:140)
-	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:156)
-	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:79)
-	at com.mysql.cj.NativeSession.connect(NativeSession.java:142)
-	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:964)
-	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:828)
-	... 48 common frames omitted
-Caused by: java.net.ConnectException: Connection refused: no further information
-	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
-	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:673)
-	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:540)
-	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:590)
-	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
-	at java.base/java.net.Socket.connect(Socket.java:666)
-	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:144)
-	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:53)
-	... 51 common frames omitted
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@71a6f4a4
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@54c64d24
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {
-  "type": "establishingRequest",
-  "maLienKet": 140887
-}
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@690fb7d2
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"establishingRequest","maLienKet":367741}
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"establishingRequest","maLienKet":367741}
-INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"establishingResponse","approval":true,"client_token":"11aa5757610f2b0e5c7ac52dacc1fd7911068d920c7ac55de0da679e78ae856342f1369590adc957cebcc8771e402fbb3286f0766efbf3b29963ab922b424018","server_IP":"192.168.1.9","server_port":6060}
-INFO  [AWT-EventQueue-0] org.example.client.model.CoreClient - memoryBox: 11aa5757610f2b0e5c7ac52dacc1fd7911068d920c7ac55de0da679e78ae856342f1369590adc957cebcc8771e402fbb3286f0766efbf3b29963ab922b424018 192.168.1.9:6060
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@774e05dd
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-INFO  [AWT-EventQueue-0] org.example.client.model.CoreClient - memoryBox: 11aa5757610f2b0e5c7ac52dacc1fd7911068d920c7ac55de0da679e78ae856342f1369590adc957cebcc8771e402fbb3286f0766efbf3b29963ab922b424018 192.168.1.9:6060
-INFO  [main] org.example.client.model.CoreClient - Created new runtime memoryBox.json
-INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"establishingRequest","maLienKet":846373}
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"establishingRequest","maLienKet":846373}
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"establishingResponse","approval":false,"client_token":"","server_IP":"","server_port":6060}
-INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"establishingResponse","approval":false,"client_token":"","server_IP":"","server_port":6060}
-INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection denied by server.
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@462f75f9
-INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"establishingRequest","maLienKet":365654}
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"establishingRequest","maLienKet":365654}
-INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"establishingResponse","approval":false,"client_token":"","server_IP":"","server_port":6060}
-INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"establishingResponse","approval":false,"client_token":"","server_IP":"","server_port":6060}
-INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection denied by server.
 ERROR [AWT-EventQueue-0] org.example.client.model.CoreClient - Failed to open socket for establishing request
 java.net.ConnectException: Connection refused: connect
 	at java.base/sun.nio.ch.Net.connect0(Native Method)
@@ -177,10 +13,10 @@ java.net.ConnectException: Connection refused: connect
 	at java.base/java.net.Socket.connect(Socket.java:600)
 	at java.base/java.net.Socket.<init>(Socket.java:509)
 	at java.base/java.net.Socket.<init>(Socket.java:289)
-	at org.example.client.controller.ClientNetwork.<init>(ClientNetwork.java:26)
-	at org.example.client.view.eClientConnector.EClientConnector.askForServerApproval(EClientConnector.java:219)
-	at org.example.client.view.eClientConnector.EClientConnector.onEstablish(EClientConnector.java:214)
-	at org.example.client.view.eClientConnector.EClientConnector$1.actionPerformed(EClientConnector.java:111)
+	at org.example.client.controller.ClientNetwork.<init>(ClientNetwork.java:27)
+	at org.example.client.view.eClientConnector.EClientConnector.askForServerApproval(EClientConnector.java:210)
+	at org.example.client.view.eClientConnector.EClientConnector.onEstablish(EClientConnector.java:205)
+	at org.example.client.view.eClientConnector.EClientConnector$1.actionPerformed(EClientConnector.java:104)
 	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
 	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
 	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
@@ -216,8 +52,52 @@ java.net.ConnectException: Connection refused: connect
 	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
 	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
 	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
-INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"establishingRequest","maLienKet":365655}
-INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"establishingRequest","maLienKet":365655}
-INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Sending: {"type":"establishingResponse","approval":true,"client_token":"5cc8e85ab3d62a50768c46f2c29f64d038246b060349a8629d8bdb4be3d7d977c1f62cd2e9619e9b2ca87a68e85f691fd924030c6cacd585fa78077ea14c9c75","server_IP":"192.168.1.9","server_port":6060}
-INFO  [Thread-1] o.e.client.controller.ClientNetwork - Received: {"type":"establishingResponse","approval":true,"client_token":"5cc8e85ab3d62a50768c46f2c29f64d038246b060349a8629d8bdb4be3d7d977c1f62cd2e9619e9b2ca87a68e85f691fd924030c6cacd585fa78077ea14c9c75","server_IP":"192.168.1.9","server_port":6060}
-INFO  [Thread-1] org.example.client.model.CoreClient - memoryBox: 5cc8e85ab3d62a50768c46f2c29f64d038246b060349a8629d8bdb4be3d7d977c1f62cd2e9619e9b2ca87a68e85f691fd924030c6cacd585fa78077ea14c9c75 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"establishingRequest","maLienKet":785176}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"establishingRequest","maLienKet":785176}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"establishingResponse","approval":true,"client_token":"b1469ed15247fe09fabc71071e4d2ef01076dbef9e4a4a419c6637700e440831897e24e2ce886c8bae590aff5b737064c1b2a82b7e15c0501953ab61b88ef9f5","server_IP":"192.168.1.9","server_port":6060}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"establishingResponse","approval":true,"client_token":"b1469ed15247fe09fabc71071e4d2ef01076dbef9e4a4a419c6637700e440831897e24e2ce886c8bae590aff5b737064c1b2a82b7e15c0501953ab61b88ef9f5","server_IP":"192.168.1.9","server_port":6060}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"b1469ed15247fe09fabc71071e4d2ef01076dbef9e4a4a419c6637700e440831897e24e2ce886c8bae590aff5b737064c1b2a82b7e15c0501953ab61b88ef9f5"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client /192.168.1.9 disconnected.
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"b1469ed15247fe09fabc71071e4d2ef01076dbef9e4a4a419c6637700e440831897e24e2ce886c8bae590aff5b737064c1b2a82b7e15c0501953ab61b88ef9f5"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client /192.168.1.9 disconnected.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - This client hear() has stopped, calling closeEverything()
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client /192.168.1.9 disconnected.
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - 1
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client with token b1469ed15247fe09fabc71071e4d2ef01076dbef9e4a4a419c6637700e440831897e24e2ce886c8bae590aff5b737064c1b2a82b7e15c0501953ab61b88ef9f5 connected successfully.
+INFO  [Thread-1] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5a6ea9c
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"b1469ed15247fe09fabc71071e4d2ef01076dbef9e4a4a419c6637700e440831897e24e2ce886c8bae590aff5b737064c1b2a82b7e15c0501953ab61b88ef9f5"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"b1469ed15247fe09fabc71071e4d2ef01076dbef9e4a4a419c6637700e440831897e24e2ce886c8bae590aff5b737064c1b2a82b7e15c0501953ab61b88ef9f5"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5a6ea9c
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"b1469ed15247fe09fabc71071e4d2ef01076dbef9e4a4a419c6637700e440831897e24e2ce886c8bae590aff5b737064c1b2a82b7e15c0501953ab61b88ef9f5"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"b1469ed15247fe09fabc71071e4d2ef01076dbef9e4a4a419c6637700e440831897e24e2ce886c8bae590aff5b737064c1b2a82b7e15c0501953ab61b88ef9f5"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":false}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client /192.168.1.9 with token b1469ed15247fe09fabc71071e4d2ef01076dbef9e4a4a419c6637700e440831897e24e2ce886c8bae590aff5b737064c1b2a82b7e15c0501953ab61b88ef9f5 failed to connect: invalid token.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":false}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection denied by server.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client /192.168.1.9 disconnected.
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client /192.168.1.9 disconnected.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - This client hear() has stopped, calling closeEverything()
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"b1469ed15247fe09fabc71071e4d2ef01076dbef9e4a4a419c6637700e440831897e24e2ce886c8bae590aff5b737064c1b2a82b7e15c0501953ab61b88ef9f5"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"b1469ed15247fe09fabc71071e4d2ef01076dbef9e4a4a419c6637700e440831897e24e2ce886c8bae590aff5b737064c1b2a82b7e15c0501953ab61b88ef9f5"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":false}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client /192.168.1.9 with token b1469ed15247fe09fabc71071e4d2ef01076dbef9e4a4a419c6637700e440831897e24e2ce886c8bae590aff5b737064c1b2a82b7e15c0501953ab61b88ef9f5 failed to connect: invalid token.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":false}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection denied by server.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client /192.168.1.9 disconnected.
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client /192.168.1.9 disconnected.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - This client hear() has stopped, calling closeEverything()
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client /192.168.1.9 disconnected.

@@ -1,7 +1,6 @@
 package org.example.client.view.eClientConnector;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +9,6 @@ import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -22,14 +20,12 @@ import org.example.common.utils.gui.RoundedBorder;
 
 import javax.swing.UIManager;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EClientConnector {
 
-//	private OnEstablishListener onEstablishListener;
 	private boolean isLanModeConnector = false;
     private static final Logger log = LoggerFactory.getLogger(CoreClient.class);
 	
@@ -58,10 +54,7 @@ public class EClientConnector {
 	public void undisplay() {
 		frame.setVisible(false);
 	}
-	
-//	public void setOnEstablishListenerCallback(OnEstablishListener callback) {
-//		this.onEstablishListener = callback;
-//	}
+
 
 	/**
 	 * Initialize the contents of the frame.
@@ -208,8 +201,6 @@ public class EClientConnector {
             Alert.showError("Mã liên kết phải là số gồm 6 chữ số");;
             return;
         }
-
-//        if (onEstablishListener != null) onEstablishListener.onEstablish(serverIP, portStr, maLienKetStr);
 
         askForServerApproval(serverIP, portStr, maLienKetStr);
 	}

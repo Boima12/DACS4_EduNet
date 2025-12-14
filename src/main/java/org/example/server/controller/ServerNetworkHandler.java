@@ -4,9 +4,11 @@ import java.io.*;
 import java.net.Socket;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.example.common.objects.messages.ConnectionResponseJSON;
 import org.example.common.objects.messages.EstablishingResponseJSON;
 import org.example.common.utils.gson.GsonHelper;
 import org.example.common.utils.network.NetworkUtils;
@@ -58,8 +60,13 @@ public class ServerNetworkHandler {
                     // Route theo type
                     switch (type) {
                         case "establishingRequest":
-                            onEstablishingRequest(json);
+                            hear_establishingRequest(json);
                             break;
+
+                        case "connectionRequest":
+                            hear_connectionRequest(json);
+                            break;
+
                         default:
                             log.warn("Unknown message type: {}", type);
                             break;
@@ -88,6 +95,7 @@ public class ServerNetworkHandler {
     public void closeEverything() {
         try {
             // removing this one client from clients ArrayList
+            log.info("Client {} disconnected.", clientSocket.getInetAddress());
             clients.remove(this);
 
             if (clientSocket != null) {
@@ -117,7 +125,9 @@ public class ServerNetworkHandler {
         return hex.toString();
     }
 
-    private void onEstablishingRequest(JsonObject json) {
+
+//  == Establishing (Thiết lập kết nối lần đầu) ==
+    private void hear_establishingRequest(JsonObject json) {
         int maLienKet = json.get("maLienKet").getAsInt();
 
         // if maLienKet is match with server states.MA_LIEN_KET
@@ -149,6 +159,42 @@ public class ServerNetworkHandler {
             establishingResponseJSON.approval = false;
             String jsonString = GsonHelper.toJson(establishingResponseJSON);
             speak(jsonString);
+        }
+    }
+
+
+//  == Connection (Kết nối với server) ==
+    private void hear_connectionRequest(JsonObject json) {
+        String client_token = json.get("client_token").getAsString();
+
+        // check if client_token exists in table established_clients
+        AtomicReference<Integer> count = new AtomicReference<>();
+        String sql = "SELECT COUNT(*) FROM established_clients WHERE client_token = ?";
+        JDBCUtil.runQuery(sql, rs -> {
+            while (rs.next()) {
+                count.set(rs.getInt(1));
+            }
+        }, client_token);
+
+        if (count.get() > 0) {
+            // connection approved
+            ConnectionResponseJSON connectionResponseJSON = new ConnectionResponseJSON();
+            connectionResponseJSON.isLinked = true;
+            String jsonString = GsonHelper.toJson(connectionResponseJSON);
+            speak(jsonString);
+
+            // TODO update dashboard UI.
+
+            log.info("Client {} connected successfully.", clientSocket.getInetAddress());
+
+        } else {
+            // connection denied
+            ConnectionResponseJSON connectionResponseJSON = new ConnectionResponseJSON();
+            connectionResponseJSON.isLinked = false;
+            String jsonString = GsonHelper.toJson(connectionResponseJSON);
+            speak(jsonString);
+
+            log.info("Client {} with token {} failed to connect: invalid token.", clientSocket.getInetAddress(), client_token);
         }
     }
 }
