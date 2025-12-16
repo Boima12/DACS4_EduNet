@@ -91,7 +91,7 @@ public class CoreClient {
         SwingUtilities.invokeLater(() -> {
            ClientStates.setOnConnectionListenerCallback(() -> {
                 eClientConnectorWindow.undisplay();
-                eClientWindow.display();
+                eClientWindow.display(memoryBox.server_IP, memoryBox.server_port);
            });
         });
     }

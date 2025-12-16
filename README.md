@@ -1,5 +1,6 @@
 # Đồ án cơ sở 4 - EduNet
 
+> ĐỌC FILE setup/SETUP.MD ĐỂ BIẾT CÁCH CHẠY
 
 ### Các câu lệnh Github
 

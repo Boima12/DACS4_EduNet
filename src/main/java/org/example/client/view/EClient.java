@@ -1,7 +1,5 @@
 package org.example.client.view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -11,44 +9,38 @@ import org.example.common.utils.network.NetworkUtils;
 
 import java.awt.Font;
 
+@SuppressWarnings("FieldMayBeFinal")
 public class EClient {
 
 	private boolean isStatusConnected;
 	private String localIP;
+	private String serverIP;
+    private String serverPort;
 	
 	private JFrame frame;
 	private JLabel lbl_status2;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EClient window = new EClient();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    private JLabel lbl_serverIP;
 
 	/**
 	 * Create the application.
 	 */
 	public EClient() {
-		isStatusConnected = true;	// TODO remove later
-		
+		isStatusConnected = true;	// TODO remove later when implement 15s check functionality
 		localIP = NetworkUtils.getLocalIPAddress();
-		
+
 		initialize();
-		
 		updateStatus();
 	}
 	
-	public void display() {
+	public void display(String serverIP, String serverPort) {
+        this.serverIP = serverIP;
+        this.serverPort = serverPort;
+        // Update label text after values are set to avoid nulls
+        if (lbl_serverIP != null) {
+            lbl_serverIP.setText("Server IP: " + (this.serverIP != null ? this.serverIP : "-") + ":" + (this.serverPort != null ? this.serverPort : "-"));
+            lbl_serverIP.revalidate();
+            lbl_serverIP.repaint();
+        }
 		frame.setVisible(true);
 	}
 
@@ -84,7 +76,8 @@ public class EClient {
 		lbl_status2.setBounds(186, 62, 151, 22);
 		frame.getContentPane().add(lbl_status2);
 		
-		JLabel lbl_serverIP = new JLabel("Server IP: 192.168.xxx.xxx:6060");
+		// Initialize with placeholder; actual text set in display()
+		lbl_serverIP = new JLabel("Server IP: -:-");
 		lbl_serverIP.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_serverIP.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lbl_serverIP.setBounds(53, 94, 287, 22);

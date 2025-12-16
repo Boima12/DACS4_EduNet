@@ -227,3 +227,56 @@ INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Load
 INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
 INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
 ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4b234523
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [main] org.example.client.model.CoreClient - Created new runtime memoryBox.json
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"establishingRequest","client_name":"Boima","maLienKet":826823}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"establishingRequest","client_name":"Boima","maLienKet":826823}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"establishingResponse","approval":true,"client_name":"Boima","client_token":"34eea2b71bf6e7b3c9cc4aeb52d3f69d49ff9763df9eb142903da200843d06cfc9b22c14809541b2710a41f968c7656dce17148e9a7aba15bf07c80a24c31f5c","server_IP":"192.168.1.9","server_port":6060}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"establishingResponse","approval":true,"client_name":"Boima","client_token":"34eea2b71bf6e7b3c9cc4aeb52d3f69d49ff9763df9eb142903da200843d06cfc9b22c14809541b2710a41f968c7656dce17148e9a7aba15bf07c80a24c31f5c","server_IP":"192.168.1.9","server_port":6060}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"34eea2b71bf6e7b3c9cc4aeb52d3f69d49ff9763df9eb142903da200843d06cfc9b22c14809541b2710a41f968c7656dce17148e9a7aba15bf07c80a24c31f5c"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"34eea2b71bf6e7b3c9cc4aeb52d3f69d49ff9763df9eb142903da200843d06cfc9b22c14809541b2710a41f968c7656dce17148e9a7aba15bf07c80a24c31f5c"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client Boima - /192.168.1.9 disconnected.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - This client hear() has stopped, calling closeEverything()
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client Boima - /192.168.1.9 disconnected.
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@709f19e9
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"34eea2b71bf6e7b3c9cc4aeb52d3f69d49ff9763df9eb142903da200843d06cfc9b22c14809541b2710a41f968c7656dce17148e9a7aba15bf07c80a24c31f5c"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"34eea2b71bf6e7b3c9cc4aeb52d3f69d49ff9763df9eb142903da200843d06cfc9b22c14809541b2710a41f968c7656dce17148e9a7aba15bf07c80a24c31f5c"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4b234523
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"34eea2b71bf6e7b3c9cc4aeb52d3f69d49ff9763df9eb142903da200843d06cfc9b22c14809541b2710a41f968c7656dce17148e9a7aba15bf07c80a24c31f5c"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"34eea2b71bf6e7b3c9cc4aeb52d3f69d49ff9763df9eb142903da200843d06cfc9b22c14809541b2710a41f968c7656dce17148e9a7aba15bf07c80a24c31f5c"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
