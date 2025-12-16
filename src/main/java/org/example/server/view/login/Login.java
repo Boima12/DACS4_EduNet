@@ -66,6 +66,7 @@ public class Login {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(251, 251, 251));
 		frame.setBounds(100, 100, 533, 331);
+		frame.setTitle("EduNet - Admin login");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		

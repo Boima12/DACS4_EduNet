@@ -3,7 +3,7 @@ package org.example.client;
 import org.example.client.view.eClient.OnConnectionListener;
 import org.example.client.view.eClientConnector.OnEstablishListener;
 
-public class States {
+public class ClientStates {
 
     // callbacks
     public static OnEstablishListener onEstablishListener;

@@ -5,7 +5,7 @@ import java.net.Socket;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import org.example.client.States;
+import org.example.client.ClientStates;
 import org.example.common.objects.MemoryBox;
 import org.example.common.objects.messages.ConnectionRequestJSON;
 import org.example.common.objects.messages.EstablishingRequestJSON;
@@ -19,6 +19,7 @@ public class ClientNetwork {
     private final Socket clientSocket;
     private final BufferedReader in;
     private final BufferedWriter out;
+    private String client_name;
 
     private static final Logger log = LoggerFactory.getLogger(ClientNetwork.class);
     private final File runtimeJsonFile = new File("localStorage/memoryBox.json");
@@ -85,7 +86,7 @@ public class ClientNetwork {
     }
 
     public void closeEverything() {
-        log.info("Client {} disconnected.", clientSocket != null ? clientSocket.getInetAddress() : null);
+        log.info("Client {} - {} disconnected.", client_name, clientSocket != null ? clientSocket.getInetAddress() : null);
 
         try {
             if (clientSocket != null) {
@@ -104,14 +105,16 @@ public class ClientNetwork {
 
 
     //  == Establishing (Thiết lập kết nối lần đầu) ==
-    public void send_establishingRequest(int maLienKet) {
+    public void send_establishingRequest(String client_name, int maLienKet) {
         EstablishingRequestJSON establishingRequestJSON = new EstablishingRequestJSON();
+        establishingRequestJSON.client_name = client_name;
         establishingRequestJSON.maLienKet = maLienKet;
         String jsonString = GsonHelper.toJson(establishingRequestJSON);
         speak(jsonString);
     }
 
     public void hear_establishingResponse(JsonObject json) throws IOException {
+        client_name = json.get("client_name").getAsString();
         boolean approval = json.get("approval").getAsBoolean();
 
         if (approval) {
@@ -122,12 +125,13 @@ public class ClientNetwork {
             MemoryBox memoryBox = GsonHelper.readJsonFile(runtimeJsonFile.getPath(), MemoryBox.class);
             assert memoryBox != null;
             memoryBox.serverConnection = "yesEstablished";
+            memoryBox.client_name = client_name;
             memoryBox.token = client_token;
             memoryBox.server_IP = server_IP;
             memoryBox.server_port = server_port;
             GsonHelper.writeJsonFile(runtimeJsonFile.getPath(), memoryBox);
 
-            if (States.onEstablishListener != null) States.onEstablishListener.onEstablish();
+            if (ClientStates.onEstablishListener != null) ClientStates.onEstablishListener.onEstablish();
             closeEverything();
         } else {
             log.info("Connection denied by server.");
@@ -150,7 +154,7 @@ public class ClientNetwork {
 
         if (isLinked) {
             log.info("Connection approved by server.");
-            if (States.onConnectionListener != null) States.onConnectionListener.onConnection();
+            if (ClientStates.onConnectionListener != null) ClientStates.onConnectionListener.onConnection();
         } else {
             log.info("Connection denied by server.");
             Alert.showError("Kết nối bị từ chối bởi server, nếu cần thiết lập kết nối mới, hãy xóa file localStorage/memoryBox.json.");

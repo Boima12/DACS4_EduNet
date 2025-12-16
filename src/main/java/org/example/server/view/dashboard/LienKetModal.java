@@ -2,7 +2,8 @@ package org.example.server.view.dashboard;
 
 import javax.swing.*;
 import java.awt.*;
-import org.example.server.States;
+
+import org.example.server.ServerStates;
 
 public class LienKetModal extends JDialog {
 
@@ -11,7 +12,7 @@ public class LienKetModal extends JDialog {
     public LienKetModal(JFrame parent) {
         super(parent, "Mã liên kết", true); // true = modal
         this.maLienKet = generateMaLienKet();
-        States.MA_LIEN_KET = maLienKet;
+        ServerStates.MA_LIEN_KET = maLienKet;
 
         initUI();
         setupEvents();
@@ -55,8 +56,8 @@ public class LienKetModal extends JDialog {
         return (int) (Math.random() * 900000) + 100000;
     }
 
-    private void turnOffLinkMode() {
-        States.MA_LIEN_KET = 1;
+    public void turnOffLinkMode() {
+        ServerStates.MA_LIEN_KET = 1;
         dispose();
     }
 }

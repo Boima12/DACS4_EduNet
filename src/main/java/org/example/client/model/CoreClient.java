@@ -4,8 +4,8 @@ import javax.swing.SwingUtilities;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
+import org.example.client.ClientStates;
 import org.example.client.controller.ClientNetwork;
-import org.example.client.States;
 import org.example.client.view.EClient;
 import org.example.client.view.eClientConnector.EClientConnector;
 import org.example.common.objects.MemoryBox;
@@ -46,7 +46,7 @@ public class CoreClient {
             eClientWindow = new EClient();
             eClientConnectorWindow = new EClientConnector();
 
-            States.setOnEstablishListenerCallback(() -> {
+            ClientStates.setOnEstablishListenerCallback(() -> {
                 MemoryBox memoryBox = GsonHelper.readJsonFile(runtimeJsonFile.getPath(), MemoryBox.class);
                 if (memoryBox != null && "yesEstablished".equals(memoryBox.serverConnection)) {
                     connectToServer();
@@ -89,7 +89,7 @@ public class CoreClient {
         clientNetwork.send_connectionRequest(memoryBox.token);
 
         SwingUtilities.invokeLater(() -> {
-           States.setOnConnectionListenerCallback(() -> {
+           ClientStates.setOnConnectionListenerCallback(() -> {
                 eClientConnectorWindow.undisplay();
                 eClientWindow.display();
            });

@@ -33,6 +33,7 @@ public class EClientConnector {
 	private JTextField tf_serverIP;
 	private JButton btn_connect;
 	private JTextField tf_port;
+	private JTextField tf_clientName;
 	private JTextField tf_maLienKet;
 	private JLabel lbl_lan_icon;
 	private JLabel lbl_lan_status;
@@ -82,15 +83,51 @@ public class EClientConnector {
 		JLabel lbl_serverIP = new JLabel("Server IP:");
 		lbl_serverIP.setHorizontalAlignment(SwingConstants.RIGHT);
 		lbl_serverIP.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lbl_serverIP.setBounds(20, 97, 103, 28);
+		lbl_serverIP.setBounds(20, 77, 103, 28);
 		panel_manual.add(lbl_serverIP);
 		
 		tf_serverIP = new JTextField();
 		tf_serverIP.setBackground(new Color(240, 240, 240));
-		tf_serverIP.setBounds(126, 97, 335, 28);
+		tf_serverIP.setBounds(126, 77, 335, 28);
 		tf_serverIP.setColumns(10);
 		panel_manual.add(tf_serverIP);
-
+		
+		JLabel lbl_port = new JLabel("Port:");
+		lbl_port.setHorizontalAlignment(SwingConstants.RIGHT);
+		lbl_port.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lbl_port.setBounds(20, 115, 103, 28);
+		panel_manual.add(lbl_port);
+		
+		tf_port = new JTextField();
+		tf_port.setColumns(10);
+		tf_port.setBackground(UIManager.getColor("Button.background"));
+		tf_port.setBounds(126, 115, 335, 28);
+		panel_manual.add(tf_port);
+		
+		JLabel lbl_clientName = new JLabel("Tên máy:");
+		lbl_clientName.setHorizontalAlignment(SwingConstants.RIGHT);
+		lbl_clientName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lbl_clientName.setBounds(20, 153, 103, 28);
+		panel_manual.add(lbl_clientName);
+		
+		tf_clientName = new JTextField();
+		tf_clientName.setColumns(10);
+		tf_clientName.setBackground(UIManager.getColor("Button.background"));
+		tf_clientName.setBounds(126, 153, 335, 28);
+		panel_manual.add(tf_clientName);
+		
+		JLabel lbl_maLienKet = new JLabel("Mã liên kết:");
+		lbl_maLienKet.setHorizontalAlignment(SwingConstants.RIGHT);
+		lbl_maLienKet.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lbl_maLienKet.setBounds(20, 191, 103, 28);
+		panel_manual.add(lbl_maLienKet);
+		
+		tf_maLienKet = new JTextField();
+		tf_maLienKet.setColumns(10);
+		tf_maLienKet.setBackground(UIManager.getColor("Button.background"));
+		tf_maLienKet.setBounds(126, 191, 335, 28);
+		panel_manual.add(tf_maLienKet);
+		
 		btn_connect = new JButton("Thiết lập kết nối");
 		btn_connect.setBorderPainted(false);
 		btn_connect.setForeground(new Color(255, 255, 255));
@@ -108,30 +145,6 @@ public class EClientConnector {
             }
 		});
 		panel_manual.add(btn_connect);
-		
-		JLabel lbl_port = new JLabel("Port:");
-		lbl_port.setHorizontalAlignment(SwingConstants.RIGHT);
-		lbl_port.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lbl_port.setBounds(20, 135, 103, 28);
-		panel_manual.add(lbl_port);
-		
-		tf_port = new JTextField();
-		tf_port.setColumns(10);
-		tf_port.setBackground(UIManager.getColor("Button.background"));
-		tf_port.setBounds(126, 135, 335, 28);
-		panel_manual.add(tf_port);
-		
-		JLabel lbl_maLienKet = new JLabel("Mã liên kết:");
-		lbl_maLienKet.setHorizontalAlignment(SwingConstants.RIGHT);
-		lbl_maLienKet.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lbl_maLienKet.setBounds(20, 173, 103, 28);
-		panel_manual.add(lbl_maLienKet);
-		
-		tf_maLienKet = new JTextField();
-		tf_maLienKet.setColumns(10);
-		tf_maLienKet.setBackground(UIManager.getColor("Button.background"));
-		tf_maLienKet.setBounds(126, 173, 335, 28);
-		panel_manual.add(tf_maLienKet);
 		
 		JPanel panel_auto = new JPanel();
 		panel_auto.setBackground(new Color(251, 251, 251));
@@ -184,9 +197,10 @@ public class EClientConnector {
         // validate inputs
         String serverIP = tf_serverIP.getText().trim();
         String portStr = tf_port.getText().trim();
+        String client_nameStr = tf_clientName.getText().trim();
         String maLienKetStr = tf_maLienKet.getText().trim();
 
-        if (serverIP.isEmpty() || portStr.isEmpty() || maLienKetStr.isEmpty()) {
+        if (serverIP.isEmpty() || portStr.isEmpty() || client_nameStr.isEmpty() || maLienKetStr.isEmpty()) {
             Alert.showError("Các trường không được để trống");
             return;
         }
@@ -202,13 +216,13 @@ public class EClientConnector {
             return;
         }
 
-        askForServerApproval(serverIP, portStr, maLienKetStr);
+        askForServerApproval(serverIP, portStr, client_nameStr, maLienKetStr);
 	}
 
-    private void askForServerApproval(String serverIP, String port, String maLienKet) {
+    private void askForServerApproval(String serverIP, String port, String client_name, String maLienKet) {
         try {
             ClientNetwork clientNetwork = new ClientNetwork(serverIP, Integer.parseInt(port));
-            clientNetwork.send_establishingRequest(Integer.parseInt(maLienKet));
+            clientNetwork.send_establishingRequest(client_name, Integer.parseInt(maLienKet));
         } catch (NumberFormatException nfe) {
             Alert.showError("Port or code format is invalid.");
             log.error("Invalid number format in askForServerApproval", nfe);
