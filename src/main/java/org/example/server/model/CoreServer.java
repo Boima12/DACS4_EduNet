@@ -14,7 +14,7 @@ import javax.swing.*;
 import java.net.ServerSocket;
 
 /**
- * run view/Login.java to let user login
+ * Trung tâm chỉ huy cho cả Server
  *
  */
 @SuppressWarnings({"Convert2MethodRef", "CodeBlock2Expr"})

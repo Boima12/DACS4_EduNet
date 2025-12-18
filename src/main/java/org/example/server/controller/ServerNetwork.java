@@ -7,6 +7,12 @@ import java.net.Socket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * File Network của Server
+ * File này là ServerSocket chính, tạo các thread ServerNetworkHandler để xử lý từng client một.
+ * Code xử lý network cho bên client nằm ở ServerNetworkHandler.java
+ *
+ */
 public class ServerNetwork {
 
 	private final ServerSocket server;

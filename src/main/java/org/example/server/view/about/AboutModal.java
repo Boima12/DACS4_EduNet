@@ -3,6 +3,10 @@ package org.example.server.view.about;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Code UI cho cửa sổ hiển thị giới thiệu
+ *
+ */
 public class AboutModal {
 
     private AboutModal() {

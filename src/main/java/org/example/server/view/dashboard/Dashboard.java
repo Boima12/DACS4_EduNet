@@ -18,6 +18,11 @@ import org.example.server.model.database.JDBCUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Code UI/logic cho giao diện dashboard
+ * JPanel này sẽ được load vào bên ServerUI.java bằng build()
+ *
+ */
 @SuppressWarnings({"PatternVariableCanBeUsed", "Convert2Lambda"})
 public class Dashboard {
 
@@ -33,7 +38,7 @@ public class Dashboard {
 	 * Create the application.
 	 */
 	public Dashboard() {
-		initialize();	// line này dùng để bật WindowBuilder, nếu comment line này sẽ tối ưu ứng dụng nhưng không thể sài windowBuilder trong file này
+		initialize();	// line này dùng để bật WindowBuilder, nếu comment line này sẽ tối ưu ứng dụng nhưng không thể sài Eclipse windowBuilder trong file này
 	}
 
 	/**

@@ -24,6 +24,10 @@ import javax.swing.JPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Code UI/logic cho cửa sổ thiết lập kết nối lần đầu của EClient
+ *
+ */
 public class EClientConnector {
 
 	private boolean isLanModeConnector = false;

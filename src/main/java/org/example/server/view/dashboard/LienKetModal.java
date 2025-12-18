@@ -5,6 +5,10 @@ import java.awt.*;
 
 import org.example.server.ServerStates;
 
+/**
+ * cửa sổ hiển thị mã 6 số để client liên kết lần đầu
+ *
+ */
 public class LienKetModal extends JDialog {
 
     private int maLienKet;

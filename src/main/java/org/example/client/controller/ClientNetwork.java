@@ -14,6 +14,10 @@ import org.example.common.utils.gui.Alert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Code xử lý Network chính của Client.
+ *
+ */
 public class ClientNetwork {
 
     private final Socket clientSocket;

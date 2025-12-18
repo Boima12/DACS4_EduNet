@@ -7,6 +7,10 @@ import org.example.server.view.dashboard.OnClient_dashboardConnectedListener;
 import org.example.server.view.dashboard.OnClient_dashboardDisconnectedListener;
 import org.example.server.view.dashboard.OnClient_dashboardNewClientListener;
 
+/**
+ * Server States, nơi trung chuyển các trạng thái và callback cho code server
+ *
+ */
 public class ServerStates {
 	
 	public static int MA_LIEN_KET = 1;

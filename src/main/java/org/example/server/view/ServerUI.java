@@ -23,9 +23,11 @@ import org.example.server.view.settings.Settings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 
-
+/**
+ * UI chính của server
+ *
+ */
 @SuppressWarnings({"FieldMayBeFinal", "PatternVariableCanBeUsed"})
 public class ServerUI {
 

@@ -11,8 +11,10 @@ import java.util.ArrayList;
 /**
  * A custom JPanel representing a single client item in the dashboard.
  * This panel displays a client icon and name, with selection functionality.
+ *
+ * tóm lại file này là để hiển thị 1 client cho client_dashboard trong dashboard.java
  */
-@SuppressWarnings("FieldMayBeFinal")
+@SuppressWarnings({"FieldMayBeFinal", "JavadocBlankLines"})
 public class Client_dashboard_JPanel extends JPanel {
     private static final Color SELECTED_BG = new Color(209, 237, 248);
     private static final Color UNSELECTED_BG = new Color(251, 251, 251);

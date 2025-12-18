@@ -18,6 +18,10 @@ import org.example.server.model.database.JDBCUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Code xử lý Network chính của Server cho mỗi client kết nối đến.
+ *
+ */
 public class ServerNetworkHandler {
 
     public static ArrayList<ServerNetworkHandler> clients = new ArrayList<>();
