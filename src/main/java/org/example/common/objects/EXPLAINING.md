@@ -9,3 +9,5 @@ Các file trong thư mục này là định dạng class JSON cho tin nhắn k�
 - EstablishResponseJSON.java: Phản hồi thiết lập kết nối lần đầu từ Server đến Client
 - ConnectionRequestJSON.java: Yêu cầu kết nối bình thường từ Client đến Server
 - ConnectionResponseJSON.java: Phản hồi kết nối từ Server đến Client
+- SystemInfoRequestJSON.java: Yêu cầu thông tin hệ thống được gửi từ Server đến Client
+- SystemInfoResponseJSON.java: Phản hồi thông tin hệ thống từ Client ra lại cho Server
