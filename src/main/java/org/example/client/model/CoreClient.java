@@ -14,6 +14,10 @@ import org.example.common.utils.gson.GsonHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Trung tâm chỉ huy cho cả Client
+ *
+ */
 @SuppressWarnings({"DataFlowIssue", "FieldCanBeLocal"})
 public class CoreClient {
 

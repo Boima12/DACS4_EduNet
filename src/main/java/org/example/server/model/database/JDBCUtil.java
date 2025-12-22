@@ -12,6 +12,10 @@ import org.example.server.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * File kết nối với CSDL MySQL sử dụng thư viện HikariCP connection pool.
+ * Có các mẫu code cho các methods.
+ */
 @SuppressWarnings("SqlSourceToSinkFlow")
 public class JDBCUtil {
 

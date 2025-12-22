@@ -11,6 +11,7 @@ import com.google.gson.JsonParser;
 
 import org.example.common.objects.messages.ConnectionResponseJSON;
 import org.example.common.objects.messages.EstablishingResponseJSON;
+import org.example.common.objects.messages.SystemInfoRequestJSON;
 import org.example.common.utils.gson.GsonHelper;
 import org.example.common.utils.network.NetworkUtils;
 import org.example.server.ServerStates;
@@ -18,13 +19,20 @@ import org.example.server.model.database.JDBCUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.example.server.controller.ServerNetwork.clients;
+
+/**
+ * Code xử lý Network chính của Server cho mỗi client kết nối đến.
+ *
+ */
 public class ServerNetworkHandler {
 
-    public static ArrayList<ServerNetworkHandler> clients = new ArrayList<>();
+//    public static ArrayList<ServerNetworkHandler> clients = new ArrayList<>();
     private Socket clientSocket;
     private BufferedReader in;
     private BufferedWriter out;
     private String client_name;
+    private volatile boolean isClosed = false;
 
     private static final Logger log = LoggerFactory.getLogger(ServerNetworkHandler.class);
 
@@ -38,6 +46,10 @@ public class ServerNetworkHandler {
         } catch (IOException e) {
             log.error(String.valueOf(e));
         }
+    }
+
+    public String getClient_name() {
+        return client_name;
     }
 
     public void hear() {
@@ -68,6 +80,10 @@ public class ServerNetworkHandler {
                             hear_connectionRequest(json);
                             break;
 
+                        case "systemInfoResponse":
+                            hear_systemInfoResponse(json);
+                            break;
+
                         default:
                             log.warn("Unknown message type: {}", type);
                             break;
@@ -82,6 +98,10 @@ public class ServerNetworkHandler {
     }
 
     private void speak(String message) {
+        if (isClosed) {
+            log.warn("Attempted to send message on closed connection: {}", message);
+            return;
+        }
         log.info("Sending: {}", message);
         try {
             out.write(message);
@@ -94,6 +114,11 @@ public class ServerNetworkHandler {
     }
 
     public void closeEverything() {
+        if (isClosed) {
+            return; // Already closed, prevent double-closing
+        }
+        isClosed = true;
+
         try {
             log.info("Client {} - {} disconnected.", client_name, clientSocket.getInetAddress());
 
@@ -172,7 +197,7 @@ public class ServerNetworkHandler {
             speak(jsonString);
         }
     }
-
+    
 
 //  == Connection (Kết nối với server) ==
     private void hear_connectionRequest(JsonObject json) {
@@ -218,5 +243,23 @@ public class ServerNetworkHandler {
 
             log.info("Client {} with token {} failed to connect: invalid token.", clientSocket.getInetAddress(), client_token);
         }
+    }
+    
+    
+//  == SystemInfo (nhận gửi thông tin CPU/RAM, ...) ==
+    public void speak_systemInfoRequest() {
+        SystemInfoRequestJSON systemInfoRequestJSON = new SystemInfoRequestJSON();
+        String jsonString = GsonHelper.toJson(systemInfoRequestJSON);
+        speak(jsonString);
+    }
+    
+    private void hear_systemInfoResponse(JsonObject json) {
+        String OS = json.get("OS").getAsString();
+        String CPU_cores = json.get("CPU_cores").getAsString();
+        String CPU_load = json.get("CPU_load").getAsString();
+        String RAM = json.get("RAM").getAsString();
+        String Disk = json.get("Disk").getAsString();
+
+        if (ServerStates.onSystemInfoResponseListener != null) ServerStates.onSystemInfoResponseListener.onSystemInfoResponse(OS, CPU_cores, CPU_load, RAM, String.valueOf(clientSocket.getInetAddress()), Disk);
     }
 }

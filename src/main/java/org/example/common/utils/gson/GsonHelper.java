@@ -15,6 +15,11 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * File helper cho thư viện Gson
+ * Có các mẫu code cho các methods.
+ *
+ */
 public class GsonHelper {
 
     private static final Logger log = LoggerFactory.getLogger(GsonHelper.class);

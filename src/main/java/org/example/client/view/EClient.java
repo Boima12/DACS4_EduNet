@@ -9,6 +9,10 @@ import org.example.common.utils.network.NetworkUtils;
 
 import java.awt.Font;
 
+/**
+ * UI chính của client
+ *
+ */
 @SuppressWarnings("FieldMayBeFinal")
 public class EClient {
 

@@ -10,14 +10,21 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.*;
 
+import org.example.common.utils.gui.Alert;
 import org.example.common.utils.gui.ImageHelper;
 import org.example.common.utils.gui.RoundedBorder;
 import org.example.common.utils.gui.WrapLayout;
 import org.example.server.ServerStates;
 import org.example.server.model.database.JDBCUtil;
+import org.example.server.view.manage.Manage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Code UI/logic cho giao diện dashboard
+ * JPanel này sẽ được load vào bên ServerUI.java bằng build()
+ *
+ */
 @SuppressWarnings({"PatternVariableCanBeUsed", "Convert2Lambda"})
 public class Dashboard {
 
@@ -26,14 +33,19 @@ public class Dashboard {
 	private static JLabel lbl_info_name;
 	public static JPanel client_dashboard;
 	public static ArrayList<JPanel> client_dashboard_JPanelList = new ArrayList<>();
+    public static String currentSelectedClientName = "none";
 
     private static final Logger log = LoggerFactory.getLogger(Dashboard.class);
+    private static JButton btn_manage;
+    private static JButton btn_info_placeholder2;
+    private static JButton btn_info_placeholder3;
+    private static JButton btn_info_placeholder4;
 
 	/**
 	 * Create the application.
 	 */
 	public Dashboard() {
-		initialize();	// line này dùng để bật WindowBuilder, nếu comment line này sẽ tối ưu ứng dụng nhưng không thể sài windowBuilder trong file này
+		initialize();	// line này dùng để bật WindowBuilder, nếu comment line này sẽ tối ưu ứng dụng nhưng không thể sài Eclipse windowBuilder trong file này
 	}
 
 	/**
@@ -70,21 +82,23 @@ public class Dashboard {
 		lbl_info_name.setBounds(10, 250, 230, 30);
 		infobar.add(lbl_info_name);
 		
-		JButton btn_info_placeholder1 = new JButton("Button 1");
-		btn_info_placeholder1.setBorder(new RoundedBorder(8));
-		btn_info_placeholder1.setForeground(new Color(0, 0, 0));
-		btn_info_placeholder1.setBackground(new Color(251, 251, 251));
-		btn_info_placeholder1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_info_placeholder1.setBounds(50, 350, 150, 35);
-		btn_info_placeholder1.addActionListener(new ActionListener() {
+		btn_manage = new JButton("Quản lý");
+		btn_manage.setEnabled(false);
+		btn_manage.setBorder(new RoundedBorder(8));
+		btn_manage.setForeground(new Color(0, 0, 0));
+		btn_manage.setBackground(new Color(251, 251, 251));
+		btn_manage.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_manage.setBounds(50, 350, 150, 35);
+		btn_manage.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+				onManage();
 			}
 		});
-		infobar.add(btn_info_placeholder1);
+		infobar.add(btn_manage);
 		
-		JButton btn_info_placeholder2 = new JButton("Button 2");
+		btn_info_placeholder2 = new JButton("Button 2");
+		btn_info_placeholder2.setEnabled(false);
 		btn_info_placeholder2.setBorder(new RoundedBorder(8));
 		btn_info_placeholder2.setForeground(new Color(0, 0, 0));
 		btn_info_placeholder2.setBackground(new Color(251, 251, 251));
@@ -98,7 +112,8 @@ public class Dashboard {
 		});
 		infobar.add(btn_info_placeholder2);
 		
-		JButton btn_info_placeholder3 = new JButton("Button 3");
+		btn_info_placeholder3 = new JButton("Button 3");
+		btn_info_placeholder3.setEnabled(false);
 		btn_info_placeholder3.setBorder(new RoundedBorder(8));
 		btn_info_placeholder3.setForeground(new Color(0, 0, 0));
 		btn_info_placeholder3.setBackground(new Color(251, 251, 251));
@@ -112,7 +127,8 @@ public class Dashboard {
 		});
 		infobar.add(btn_info_placeholder3);
 		
-		JButton btn_info_placeholder4 = new JButton("Button 4");
+		btn_info_placeholder4 = new JButton("Button 4");
+		btn_info_placeholder4.setEnabled(false);
 		btn_info_placeholder4.setBorder(new RoundedBorder(8));
 		btn_info_placeholder4.setForeground(new Color(0, 0, 0));
 		btn_info_placeholder4.setBackground(new Color(251, 251, 251));
@@ -252,6 +268,12 @@ public class Dashboard {
 					// Update the info panel
 					if (connected) {
 						lbl_info_icon.setIcon(ImageHelper.getScaledIcon("/images/desktop.png", 150, 150));
+
+                        currentSelectedClientName = clientName;
+                        btn_manage.setEnabled(true);
+                        btn_info_placeholder2.setEnabled(true);
+                        btn_info_placeholder3.setEnabled(true);
+                        btn_info_placeholder4.setEnabled(true);
 					} else {
 						lbl_info_icon.setIcon(ImageHelper.getScaledIcon("/images/desktop_off.png", 150, 150));
 					}
@@ -262,6 +284,12 @@ public class Dashboard {
 				public void onDeselected() {
 					lbl_info_icon.setIcon(null);
 					lbl_info_name.setText("Computer name");
+
+                    currentSelectedClientName = "none";
+					btn_manage.setEnabled(false);
+					btn_info_placeholder2.setEnabled(false);
+					btn_info_placeholder3.setEnabled(false);
+					btn_info_placeholder4.setEnabled(false);
 				}
 			},
 			client_dashboard_JPanelList
@@ -339,5 +367,42 @@ public class Dashboard {
                 }
             }
         });
+    }
+
+    public static boolean checkIsClientConnected(String client_name) {
+        for (JPanel panel : client_dashboard_JPanelList) {
+            if (panel instanceof Client_dashboard_JPanel) {
+                Client_dashboard_JPanel clientPanel = (Client_dashboard_JPanel) panel;
+                if (clientPanel.getClientName().equals(client_name)) {
+                    return clientPanel.isClientConnected();
+                }
+            }
+        }
+        return false;
+    }
+    
+    private static void onManage() {
+        if (ServerStates.manage == null) {
+            // check if currentSelectedClientName is online
+            if (!checkIsClientConnected(currentSelectedClientName)) {
+                Alert.showError("Client này hiện không kết nối. Vui lòng chọn Client khác.");
+
+                lbl_info_icon.setIcon(null);
+                lbl_info_name.setText("Computer name");
+
+                currentSelectedClientName = "none";
+                btn_manage.setEnabled(false);
+                btn_info_placeholder2.setEnabled(false);
+                btn_info_placeholder3.setEnabled(false);
+                btn_info_placeholder4.setEnabled(false);
+
+                return;
+            }
+
+            ServerStates.manage = new Manage(currentSelectedClientName);
+            ServerStates.manage.display();
+        } else {
+            Alert.showError("Vui lòng đóng cửa sổ quản lý hiện tại trước khi mở cửa sổ mới.");
+        }
     }
 }

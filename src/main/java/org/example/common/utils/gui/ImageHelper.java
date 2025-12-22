@@ -4,6 +4,10 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+/**
+ * File giúp load icon cho các component giao diện
+ *
+ */
 public class ImageHelper {
 	public static ImageIcon getScaledIcon(String path, int w, int h) {
 	    ImageIcon icon = new ImageIcon(ImageHelper.class.getResource(path));

@@ -17,6 +17,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * Code UI cho cửa sổ đăng nhập của admin
+ *
+ */
 public class Login {
 
 	private OnLoginListenter onLoginListener;

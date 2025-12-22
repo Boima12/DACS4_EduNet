@@ -4,6 +4,11 @@ import java.awt.*;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
+/**
+ * File hỗ trợ tạo kiểu layout FlowLayout có thể tự động xuống dòng khi hết chỗ
+ * Ví dự điển hình nhất là client_dashboard trong Dashboard.java bên Server
+ *
+ */
 public class WrapLayout extends FlowLayout
 {
     public WrapLayout() {

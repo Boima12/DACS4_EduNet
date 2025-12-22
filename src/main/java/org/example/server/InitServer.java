@@ -6,7 +6,7 @@ import java.io.IOException;
 
 
 /**
- * Initializes the CoreServer instance.
+ * Entry file của server
  *
  */
 public class InitServer {

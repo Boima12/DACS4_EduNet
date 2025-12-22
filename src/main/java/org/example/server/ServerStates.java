@@ -6,13 +6,21 @@ import org.example.server.view.dashboard.LienKetModal;
 import org.example.server.view.dashboard.OnClient_dashboardConnectedListener;
 import org.example.server.view.dashboard.OnClient_dashboardDisconnectedListener;
 import org.example.server.view.dashboard.OnClient_dashboardNewClientListener;
+import org.example.server.view.manage.Manage;
+import org.example.server.view.manage.OnSystemInfoRequestListener;
+import org.example.server.view.manage.OnSystemInfoResponseListener;
 
+/**
+ * Server States, nơi trung chuyển các trạng thái và callback cho code server
+ *
+ */
 public class ServerStates {
 	
 	public static int MA_LIEN_KET = 1;
 
     // UI states
     public static LienKetModal lkModal = null;
+    public static Manage manage = null;
 	
     // callbacks
     public static OnServerStartListener onServerStartListener;
@@ -38,5 +46,15 @@ public class ServerStates {
     public static OnClient_dashboardDisconnectedListener onClient_dashboardDisconnectedListener;
     public static void setOnClient_dashboardDisconnectedCallback(OnClient_dashboardDisconnectedListener callback) {
     	onClient_dashboardDisconnectedListener = callback;
+    }
+
+    public static OnSystemInfoRequestListener onSystemInfoRequestListener;
+    public static void setOnSystemInfoRequestListenerCallback(OnSystemInfoRequestListener callback) {
+    	onSystemInfoRequestListener = callback;
+    }
+
+    public static OnSystemInfoResponseListener onSystemInfoResponseListener;
+    public static void setOnSystemInfoResponseListenerCallback(OnSystemInfoResponseListener callback) {
+    	onSystemInfoResponseListener = callback;
     }
 }
