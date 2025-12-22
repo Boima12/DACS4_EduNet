@@ -30,8 +30,7 @@ public class ServerNetwork {
             while (!server.isClosed()) {
                 // accept client when connect to the server
                 Socket clientSocket = server.accept();
-                ServerNetworkHandler serverNetworkHandler = new ServerNetworkHandler(clientSocket);
-                clients.add(serverNetworkHandler);
+                new ServerNetworkHandler(clientSocket);
             }
         } catch (IOException e) {
             log.error(String.valueOf(e));

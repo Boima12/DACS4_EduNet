@@ -368,9 +368,37 @@ public class Dashboard {
             }
         });
     }
+
+    public static boolean checkIsClientConnected(String client_name) {
+        for (JPanel panel : client_dashboard_JPanelList) {
+            if (panel instanceof Client_dashboard_JPanel) {
+                Client_dashboard_JPanel clientPanel = (Client_dashboard_JPanel) panel;
+                if (clientPanel.getClientName().equals(client_name)) {
+                    return clientPanel.isClientConnected();
+                }
+            }
+        }
+        return false;
+    }
     
     private static void onManage() {
         if (ServerStates.manage == null) {
+            // check if currentSelectedClientName is online
+            if (!checkIsClientConnected(currentSelectedClientName)) {
+                Alert.showError("Client này hiện không kết nối. Vui lòng chọn Client khác.");
+
+                lbl_info_icon.setIcon(null);
+                lbl_info_name.setText("Computer name");
+
+                currentSelectedClientName = "none";
+                btn_manage.setEnabled(false);
+                btn_info_placeholder2.setEnabled(false);
+                btn_info_placeholder3.setEnabled(false);
+                btn_info_placeholder4.setEnabled(false);
+
+                return;
+            }
+
             ServerStates.manage = new Manage(currentSelectedClientName);
             ServerStates.manage.display();
         } else {

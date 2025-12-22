@@ -32,6 +32,7 @@ public class ServerNetworkHandler {
     private BufferedReader in;
     private BufferedWriter out;
     private String client_name;
+    private volatile boolean isClosed = false;
 
     private static final Logger log = LoggerFactory.getLogger(ServerNetworkHandler.class);
 
@@ -97,6 +98,10 @@ public class ServerNetworkHandler {
     }
 
     private void speak(String message) {
+        if (isClosed) {
+            log.warn("Attempted to send message on closed connection: {}", message);
+            return;
+        }
         log.info("Sending: {}", message);
         try {
             out.write(message);
@@ -104,12 +109,16 @@ public class ServerNetworkHandler {
             out.flush();
         } catch (IOException e) {
             log.error(String.valueOf(e));
-            System.out.println(e);
             closeEverything();
         }
     }
 
     public void closeEverything() {
+        if (isClosed) {
+            return; // Already closed, prevent double-closing
+        }
+        isClosed = true;
+
         try {
             log.info("Client {} - {} disconnected.", client_name, clientSocket.getInetAddress());
 
