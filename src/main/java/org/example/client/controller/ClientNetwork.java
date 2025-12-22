@@ -6,6 +6,7 @@ import java.net.Socket;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.example.client.ClientStates;
+import org.example.client.controller.services.systemInfo.SystemInfo;
 import org.example.common.objects.MemoryBox;
 import org.example.common.objects.messages.ConnectionRequestJSON;
 import org.example.common.objects.messages.EstablishingRequestJSON;
@@ -56,12 +57,16 @@ public class ClientNetwork {
                     // Route theo type
                     switch (type) {
                         case "establishingResponse":
-                            hear_establishingResponse(json);
+                        	hear_establishingResponse(json);
                             break;
 
                         case "connectionResponse":
                             hear_connectionResponse(json);
                             break;
+
+                        case "systemInfoRequest":
+                        	hear_systemInfoRequest();
+                        	break;
 
                         default:
                             log.warn("Unknown message type: {}", type);
@@ -117,7 +122,7 @@ public class ClientNetwork {
         speak(jsonString);
     }
 
-    public void hear_establishingResponse(JsonObject json) throws IOException {
+    private void hear_establishingResponse(JsonObject json) throws IOException {
         client_name = json.get("client_name").getAsString();
         boolean approval = json.get("approval").getAsBoolean();
 
@@ -153,7 +158,7 @@ public class ClientNetwork {
         speak(jsonString);
     }
 
-    public void hear_connectionResponse(JsonObject json) {
+    private void hear_connectionResponse(JsonObject json) {
         boolean isLinked = json.get("isLinked").getAsBoolean();
 
         if (isLinked) {
@@ -164,6 +169,18 @@ public class ClientNetwork {
             Alert.showError("Kết nối bị từ chối bởi server, nếu cần thiết lập kết nối mới, hãy xóa file localStorage/memoryBox.json.");
             closeEverything();
         }
+    }
+    
+    
+//  == SystemInfo (nhận gửi thông tin CPU/RAM, ...) ==
+    private void hear_systemInfoRequest() {
+        speak_systemInfoResponse();
+    }
+    
+    private void speak_systemInfoResponse() {
+        SystemInfo systemInfo = new SystemInfo();
+        String jsonString = systemInfo.getSystemInfoJSON();
+        speak(jsonString);
     }
 }
 

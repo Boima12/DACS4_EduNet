@@ -3,6 +3,7 @@ package org.example.server.controller;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 public class ServerNetwork {
 
 	private final ServerSocket server;
+    public static ArrayList<ServerNetworkHandler> clients = new ArrayList<>();
 
     private static final Logger log = LoggerFactory.getLogger(ServerNetwork.class);
 	
@@ -29,6 +31,7 @@ public class ServerNetwork {
                 // accept client when connect to the server
                 Socket clientSocket = server.accept();
                 ServerNetworkHandler serverNetworkHandler = new ServerNetworkHandler(clientSocket);
+                clients.add(serverNetworkHandler);
             }
         } catch (IOException e) {
             log.error(String.valueOf(e));

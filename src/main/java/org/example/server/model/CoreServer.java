@@ -1,5 +1,6 @@
 package org.example.server.model;
 
+import org.example.common.utils.gui.Alert;
 import org.example.common.utils.network.NetworkUtils;
 import org.example.server.Config;
 import org.example.server.ServerStates;
@@ -36,6 +37,7 @@ public class CoreServer {
             serverThread.start();
 
             log.info("Server Started on {}:" + Config.SERVER_PORT, localIP);
+            Alert.showInfo("Server khởi động thành công.");
 
             // setup Dashboard.client_dashboard
             Dashboard.setupClient_dashboard();
@@ -46,6 +48,7 @@ public class CoreServer {
             if (serverNetwork != null) {
                 serverNetwork.closeServer();
                 log.info("Server Closed on {}:" + Config.SERVER_PORT, localIP);
+                Alert.showInfo("Server tắt nguồn thành công");
             }
         });
     }
@@ -70,6 +73,16 @@ public class CoreServer {
 
             ServerStates.setOnClient_dashboardDisconnectedCallback((client_name) -> {
                 Dashboard.client_dashboardDisconnected(client_name);
+            });
+
+            ServerStates.setOnSystemInfoRequestListenerCallback((client_name) -> {
+                // find the right client in ServerNetwork.clients base on client_name and request system info
+                for (var client : ServerNetwork.clients) {
+                    if (client.getClient_name().equals(client_name)) {
+                        client.speak_systemInfoRequest();
+                        break;
+                    }
+                }
             });
 
             loginWindow.display();
