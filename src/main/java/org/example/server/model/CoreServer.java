@@ -85,6 +85,21 @@ public class CoreServer {
                 }
             });
 
+            ServerStates.setOnNotificationAllRequestListenerCallback((message) -> {
+                for (var client : ServerNetwork.clients) {
+                    client.speak_notificationRequest(message);
+                }
+            });
+
+            ServerStates.setOnNotificationSingleRequestListenerCallback((client_name, message) -> {
+                for (var client : ServerNetwork.clients) {
+                    if (client.getClient_name().equals(client_name)) {
+                        client.speak_notificationRequest(message);
+                        break;
+                    }
+                }
+            });
+
             loginWindow.display();
         });
     }
