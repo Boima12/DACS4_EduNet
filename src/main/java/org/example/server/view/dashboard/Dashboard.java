@@ -107,7 +107,7 @@ public class Dashboard {
 		btn_info_placeholder2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+                onNotificationSingle();		// link method vào button
 			}
 		});
 		infobar.add(btn_info_placeholder2);
@@ -185,7 +185,7 @@ public class Dashboard {
 		btn_do_placeholder3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+                onNotificationAll(); 		// link method vào button
 			}
 		});
 		dashboard_options.add(btn_do_placeholder3);
