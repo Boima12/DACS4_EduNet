@@ -97,7 +97,7 @@ public class Dashboard {
 		});
 		infobar.add(btn_manage);
 		
-		btn_info_placeholder2 = new JButton("Button 2");
+		btn_info_placeholder2 = new JButton("Thông báo");
 		btn_info_placeholder2.setEnabled(false);
 		btn_info_placeholder2.setBorder(new RoundedBorder(8));
 		btn_info_placeholder2.setForeground(new Color(0, 0, 0));
@@ -107,7 +107,7 @@ public class Dashboard {
 		btn_info_placeholder2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+				onNotificationSingle();		// link method vào button
 			}
 		});
 		infobar.add(btn_info_placeholder2);
@@ -176,7 +176,7 @@ public class Dashboard {
 		});
 		dashboard_options.add(btn_do_lanScan);
 		
-		JButton btn_do_placeholder3 = new JButton("Button 3");
+		JButton btn_do_placeholder3 = new JButton("Thông báo tất cả");
 		btn_do_placeholder3.setForeground(Color.BLACK);
 		btn_do_placeholder3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_do_placeholder3.setBorder(new RoundedBorder(8));
@@ -185,7 +185,7 @@ public class Dashboard {
 		btn_do_placeholder3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+				onNotificationAll(); 		// link method vào button
 			}
 		});
 		dashboard_options.add(btn_do_placeholder3);
@@ -403,6 +403,27 @@ public class Dashboard {
             ServerStates.manage.display();
         } else {
             Alert.showError("Vui lòng đóng cửa sổ quản lý hiện tại trước khi mở cửa sổ mới.");
+        }
+    }
+    
+    private static void onNotificationAll() {
+        NotificationInputModal modal = new NotificationInputModal(frame);
+        String message = modal.showDialog();
+
+        if (message != null && !message.isEmpty()) {
+            System.out.println("Send ALL: " + message);	// sẽ xóa sau, tạm thời làm như vậy để minh họa logic
+            // TODO: broadcast message
+        }
+    }
+
+    
+    private static void onNotificationSingle() {
+        NotificationInputModal modal = new NotificationInputModal(frame);
+        String message = modal.showDialog();
+
+        if (message != null && !message.isEmpty()) {
+            System.out.println("Send SINGLE: " + message);	// sẽ xóa sau, tạm thời làm như vậy để minh họa logic
+            // TODO: send to one client
         }
     }
 }

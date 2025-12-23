@@ -1,0 +1,399 @@
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@128593f6
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@62f255d6
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [main] org.example.client.model.CoreClient - Created new runtime memoryBox.json
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"establishingRequest","client_name":"Boima","maLienKet":117358}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"establishingRequest","client_name":"Boima","maLienKet":117358}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"establishingResponse","approval":true,"client_name":"Boima","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e","server_IP":"192.168.1.9","server_port":6060}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"establishingResponse","approval":true,"client_name":"Boima","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e","server_IP":"192.168.1.9","server_port":6060}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client Boima - /192.168.1.9 disconnected.
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - This client hear() has stopped, calling closeEverything()
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client Boima - /192.168.1.9 disconnected.
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [Thread-1] o.e.client.controller.ClientNetwork - This client hear() has stopped, calling closeEverything()
+INFO  [Thread-1] o.e.client.controller.ClientNetwork - Client null - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3f5e497a
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - This client hear() has stopped, calling closeEverything()
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client null - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@46d07c49
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@786d2fc9
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@110013e5
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"17474 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"17474 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"9.39%","RAM":"17291 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"9.39%","RAM":"17291 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"7.60%","RAM":"17284 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"7.60%","RAM":"17284 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"7.67%","RAM":"17304 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"7.67%","RAM":"17304 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"7.67%","RAM":"17304 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"7.67%","RAM":"17304 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"5.88%","RAM":"17307 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"5.88%","RAM":"17307 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"6.74%","RAM":"17311 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"6.74%","RAM":"17311 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"6.18%","RAM":"17311 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"6.18%","RAM":"17311 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"6.73%","RAM":"17323 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"6.73%","RAM":"17323 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"6.34%","RAM":"17322 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"6.34%","RAM":"17322 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"7.58%","RAM":"17316 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"7.58%","RAM":"17316 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"9.74%","RAM":"17335 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"9.74%","RAM":"17335 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"9.55%","RAM":"17347 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"9.55%","RAM":"17347 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"7.77%","RAM":"17349 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"7.77%","RAM":"17349 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@487b0c4b
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"16479 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"16479 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"6.73%","RAM":"16502 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"6.73%","RAM":"16502 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"5.31%","RAM":"16502 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"5.31%","RAM":"16502 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"5.36%","RAM":"16478 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"5.36%","RAM":"16478 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+ERROR [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - java.io.IOException: Stream closed
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-5] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-5] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-5] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+ERROR [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - java.io.IOException: Stream closed
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [Thread-5] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7ee5e5e2
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+ERROR [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - java.io.IOException: Stream closed
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7ee5e5e2
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"16315 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"16315 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"6.80%","RAM":"16289 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"6.80%","RAM":"16289 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"4.53%","RAM":"16285 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"4.53%","RAM":"16285 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"10.95%","RAM":"16286 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"10.95%","RAM":"16286 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"15.52%","RAM":"16291 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"15.52%","RAM":"16291 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+ERROR [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - java.io.IOException: Stream closed
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@508a5de6
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"16476 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"16476 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+ERROR [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - java.io.IOException: Stream closed
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@23207c24
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"15287 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"15287 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"8.23%","RAM":"15284 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"8.23%","RAM":"15284 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"15295 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"15295 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"5.43%","RAM":"15298 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"5.43%","RAM":"15298 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"5.70%","RAM":"15297 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"5.70%","RAM":"15297 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"5.47%","RAM":"15307 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"5.47%","RAM":"15307 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"6.42%","RAM":"15316 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"6.42%","RAM":"15316 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-5] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-5] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-5] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"15313 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-5] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"15313 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"8.82%","RAM":"15232 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-5] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"8.82%","RAM":"15232 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-5] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@33e1a19c
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"15743 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"15743 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"6.62%","RAM":"15736 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"6.62%","RAM":"15736 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"f2d5b9bae3c3c639ee9d00de5d06a5597ef33cca03138e5a95552313051077d7689127007ea2ed00896dff918b0d5469beffb4d6b9b888517695b9042ed3ae8e"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"15759 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"0.00%","RAM":"15759 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"5.06%","RAM":"15743 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"12","CPU_load":"5.06%","RAM":"15743 / 24339","Disk":"Disk C:\\: 246 / 274 GB used\nDisk D:\\: 269 / 953 GB used\nDisk E:\\: 51 / 199 GB used\n"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Client Boima - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
