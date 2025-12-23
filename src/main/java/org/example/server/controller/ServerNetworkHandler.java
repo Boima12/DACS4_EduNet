@@ -11,6 +11,7 @@ import com.google.gson.JsonParser;
 
 import org.example.common.objects.messages.ConnectionResponseJSON;
 import org.example.common.objects.messages.EstablishingResponseJSON;
+import org.example.common.objects.messages.NotificationRequestJSON;
 import org.example.common.objects.messages.SystemInfoRequestJSON;
 import org.example.common.utils.gson.GsonHelper;
 import org.example.common.utils.network.NetworkUtils;
@@ -261,5 +262,14 @@ public class ServerNetworkHandler {
         String Disk = json.get("Disk").getAsString();
 
         if (ServerStates.onSystemInfoResponseListener != null) ServerStates.onSystemInfoResponseListener.onSystemInfoResponse(OS, CPU_cores, CPU_load, RAM, String.valueOf(clientSocket.getInetAddress()), Disk);
+    }
+
+
+// == Notification (thông báo từ server đến client) ==
+    public void speak_notificationRequest(String message) {
+        NotificationRequestJSON notificationRequestJSON = new NotificationRequestJSON();
+        notificationRequestJSON.msg = message;
+        String jsonString = GsonHelper.toJson(notificationRequestJSON);
+        speak(jsonString);
     }
 }

@@ -68,12 +68,17 @@ public class ClientNetwork {
                         	hear_systemInfoRequest();
                         	break;
 
+                        case "notificationRequest":
+                            hear_notificationRequest(json);
+                            break;
+
                         default:
                             log.warn("Unknown message type: {}", type);
                             break;
                     }
                 }
             } catch (Exception e) {
+                log.error(String.valueOf(e));
                 log.info("This client hear() has stopped, calling closeEverything()");
                 closeEverything();
             }
@@ -181,6 +186,13 @@ public class ClientNetwork {
         SystemInfo systemInfo = new SystemInfo();
         String jsonString = systemInfo.getSystemInfoJSON();
         speak(jsonString);
+    }
+
+
+// == Notification (thông báo từ server đến client) ==
+    private void hear_notificationRequest(JsonObject json) {
+        String notificationMessage = json.get("msg").getAsString();
+        Alert.showInfo(notificationMessage);
     }
 }
 

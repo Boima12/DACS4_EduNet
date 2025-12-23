@@ -30,3 +30,66 @@ INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoRes
 INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Boima2 - /192.168.1.9 disconnected.
 INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
 ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@46d10be5
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima2' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"76f5539ce1fa94c8e0eb9d24b6e816fda51859d61adbe576e62084ef983a20346f76e3b41759c4524dd554bc62fad3bce822faed2d6437fbd0fca7a0bedccbd4"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"76f5539ce1fa94c8e0eb9d24b6e816fda51859d61adbe576e62084ef983a20346f76e3b41759c4524dd554bc62fad3bce822faed2d6437fbd0fca7a0bedccbd4"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima2 - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"notificationRequest","msg":"Hello\n\nChecking stuff\n\n\n3rd line"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"notificationRequest","msg":"Hello\n\nChecking stuff\n\n\n3rd line"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - This client hear() has stopped, calling closeEverything()
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client null - /192.168.1.9 disconnected.
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima2 - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@10bea59f
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima2' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"76f5539ce1fa94c8e0eb9d24b6e816fda51859d61adbe576e62084ef983a20346f76e3b41759c4524dd554bc62fad3bce822faed2d6437fbd0fca7a0bedccbd4"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"76f5539ce1fa94c8e0eb9d24b6e816fda51859d61adbe576e62084ef983a20346f76e3b41759c4524dd554bc62fad3bce822faed2d6437fbd0fca7a0bedccbd4"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima2 - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"notificationRequest","msg":"Hello"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"notificationRequest","msg":"Hello"}
+ERROR [Thread-0] o.e.client.controller.ClientNetwork - java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonElement.getAsString()" because the return value of "com.google.gson.JsonObject.get(String)" is null
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - This client hear() has stopped, calling closeEverything()
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client null - /192.168.1.9 disconnected.
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima2 - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@11b20077
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.1.9:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Boima2' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"76f5539ce1fa94c8e0eb9d24b6e816fda51859d61adbe576e62084ef983a20346f76e3b41759c4524dd554bc62fad3bce822faed2d6437fbd0fca7a0bedccbd4"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"76f5539ce1fa94c8e0eb9d24b6e816fda51859d61adbe576e62084ef983a20346f76e3b41759c4524dd554bc62fad3bce822faed2d6437fbd0fca7a0bedccbd4"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima2 - /192.168.1.9 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"notificationRequest","msg":"Hello \n\nThis is 2nd line\n\n\nThis is 3rd line"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"notificationRequest","msg":"Hello \n\nThis is 2nd line\n\n\nThis is 3rd line"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"notificationRequest","msg":"Yo bro\n\n2nd line\n\n\n3rd line"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"notificationRequest","msg":"Yo bro\n\n2nd line\n\n\n3rd line"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"notificationRequest","msg":"So this is first line\n\n\nthis is second line\n\n\nand this is the third"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"notificationRequest","msg":"So this is first line\n\n\nthis is second line\n\n\nand this is the third"}
+INFO  [Thread-1] o.e.s.c.ServerNetworkHandler - Client Boima2 - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.1.9:6060
+ERROR [Thread-0] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed

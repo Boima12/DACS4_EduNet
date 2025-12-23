@@ -407,11 +407,20 @@ public class Dashboard {
     }
     
     private static void onNotificationAll() {
-    	// TODO
-    }
+        NotificationInputModal modal = new NotificationInputModal(frame);
+        String message = modal.showDialog();
 
+        if (message != null && !message.isEmpty()) {
+            if (ServerStates.onNotificationAllRequestListener != null) ServerStates.onNotificationAllRequestListener.onNotificationAllRequest(message);
+        }
+    }
     
     private static void onNotificationSingle() {
-    	// TODO
+        NotificationInputModal modal = new NotificationInputModal(frame);
+        String message = modal.showDialog();
+
+        if (message != null && !message.isEmpty()) {
+            if (ServerStates.onNotificationSingleRequestListener != null) ServerStates.onNotificationSingleRequestListener.onNotificationSingleRequest(currentSelectedClientName, message);
+        }
     }
 }
