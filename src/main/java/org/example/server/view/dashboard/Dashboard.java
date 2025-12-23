@@ -107,7 +107,7 @@ public class Dashboard {
 		btn_info_placeholder2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				onNotificationSingle();		// link method vào button
+				// TODO
 			}
 		});
 		infobar.add(btn_info_placeholder2);
@@ -185,7 +185,7 @@ public class Dashboard {
 		btn_do_placeholder3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				onNotificationAll(); 		// link method vào button
+				// TODO
 			}
 		});
 		dashboard_options.add(btn_do_placeholder3);
@@ -407,23 +407,11 @@ public class Dashboard {
     }
     
     private static void onNotificationAll() {
-        NotificationInputModal modal = new NotificationInputModal(frame);
-        String message = modal.showDialog();
-
-        if (message != null && !message.isEmpty()) {
-            System.out.println("Send ALL: " + message);	// sẽ xóa sau, tạm thời làm như vậy để minh họa logic
-            // TODO: broadcast message
-        }
+    	// TODO
     }
 
     
     private static void onNotificationSingle() {
-        NotificationInputModal modal = new NotificationInputModal(frame);
-        String message = modal.showDialog();
-
-        if (message != null && !message.isEmpty()) {
-            System.out.println("Send SINGLE: " + message);	// sẽ xóa sau, tạm thời làm như vậy để minh họa logic
-            // TODO: send to one client
-        }
+    	// TODO
     }
 }
