@@ -2,10 +2,7 @@ package org.example.server;
 
 import org.example.server.model.OnServerCloseListener;
 import org.example.server.model.OnServerStartListener;
-import org.example.server.view.dashboard.LienKetModal;
-import org.example.server.view.dashboard.OnClient_dashboardConnectedListener;
-import org.example.server.view.dashboard.OnClient_dashboardDisconnectedListener;
-import org.example.server.view.dashboard.OnClient_dashboardNewClientListener;
+import org.example.server.view.dashboard.*;
 import org.example.server.view.manage.Manage;
 import org.example.server.view.manage.OnSystemInfoRequestListener;
 import org.example.server.view.manage.OnSystemInfoResponseListener;
@@ -56,5 +53,15 @@ public class ServerStates {
     public static OnSystemInfoResponseListener onSystemInfoResponseListener;
     public static void setOnSystemInfoResponseListenerCallback(OnSystemInfoResponseListener callback) {
     	onSystemInfoResponseListener = callback;
+    }
+
+    public static OnNotificationAllRequestListener onNotificationAllRequestListener;
+    public static void setOnNotificationAllRequestListenerCallback(OnNotificationAllRequestListener callback) {
+        onNotificationAllRequestListener = callback;
+    }
+
+    public static OnNotificationSingleRequestListener onNotificationSingleRequestListener;
+    public static void setOnNotificationSingleRequestListenerCallback(OnNotificationSingleRequestListener callback) {
+        onNotificationSingleRequestListener = callback;
     }
 }

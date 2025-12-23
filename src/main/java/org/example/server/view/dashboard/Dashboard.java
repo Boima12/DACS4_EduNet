@@ -411,19 +411,16 @@ public class Dashboard {
         String message = modal.showDialog();
 
         if (message != null && !message.isEmpty()) {
-            System.out.println("Send ALL: " + message);	// sẽ xóa sau, tạm thời làm như vậy để minh họa logic
-            // TODO: broadcast message
+            if (ServerStates.onNotificationAllRequestListener != null) ServerStates.onNotificationAllRequestListener.onNotificationAllRequest(message);
         }
     }
-
     
     private static void onNotificationSingle() {
         NotificationInputModal modal = new NotificationInputModal(frame);
         String message = modal.showDialog();
 
         if (message != null && !message.isEmpty()) {
-            System.out.println("Send SINGLE: " + message);	// sẽ xóa sau, tạm thời làm như vậy để minh họa logic
-            // TODO: send to one client
+            if (ServerStates.onNotificationSingleRequestListener != null) ServerStates.onNotificationSingleRequestListener.onNotificationSingleRequest(currentSelectedClientName, message);
         }
     }
 }
