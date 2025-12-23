@@ -3,6 +3,10 @@ package org.example.common.utils.gui;
 import java.awt.*;
 import javax.swing.border.Border;
 
+/**
+ * File hỗ trợ tạo viền bo tròn cho các thành phần GUI Swing.
+ *
+ */
 public class RoundedBorder implements Border {
     private final int radius;
 

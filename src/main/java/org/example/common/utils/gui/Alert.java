@@ -4,6 +4,10 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import java.awt.Font;
 
+/**
+ * File hỗ trợ hiển thị các hộp thoại cảnh báo, thông báo, lỗi, xác nhận.
+ *
+ */
 public class Alert {
 
     static {

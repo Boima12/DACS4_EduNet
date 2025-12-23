@@ -1,0 +1,67 @@
+package org.example.server;
+
+import org.example.server.model.OnServerCloseListener;
+import org.example.server.model.OnServerStartListener;
+import org.example.server.view.dashboard.*;
+import org.example.server.view.manage.Manage;
+import org.example.server.view.manage.OnSystemInfoRequestListener;
+import org.example.server.view.manage.OnSystemInfoResponseListener;
+
+/**
+ * Server States, nơi trung chuyển các trạng thái và callback cho code server
+ *
+ */
+public class ServerStates {
+	
+	public static int MA_LIEN_KET = 1;
+
+    // UI states
+    public static LienKetModal lkModal = null;
+    public static Manage manage = null;
+	
+    // callbacks
+    public static OnServerStartListener onServerStartListener;
+    public static void setOnServerStartListenerCallback(OnServerStartListener callback) {
+    	onServerStartListener = callback;
+    }
+
+    public static OnServerCloseListener onServerCloseListener;
+    public static void setOnServerCloseListenerCallback(OnServerCloseListener callback) {
+    	onServerCloseListener = callback;
+    }
+
+    public static OnClient_dashboardNewClientListener onClient_dashboardNewClientListener;
+    public static void setOnClient_dashboardNewClientListenerCallback(OnClient_dashboardNewClientListener callback) {
+    	onClient_dashboardNewClientListener = callback;
+    }
+    
+    public static OnClient_dashboardConnectedListener onClient_dashboardConnectedListener;
+    public static void setOnClient_dashboardConnectedCallback(OnClient_dashboardConnectedListener callback) {
+    	onClient_dashboardConnectedListener = callback;
+    }
+
+    public static OnClient_dashboardDisconnectedListener onClient_dashboardDisconnectedListener;
+    public static void setOnClient_dashboardDisconnectedCallback(OnClient_dashboardDisconnectedListener callback) {
+    	onClient_dashboardDisconnectedListener = callback;
+    }
+
+    public static OnSystemInfoRequestListener onSystemInfoRequestListener;
+    public static void setOnSystemInfoRequestListenerCallback(OnSystemInfoRequestListener callback) {
+    	onSystemInfoRequestListener = callback;
+    }
+
+    public static OnSystemInfoResponseListener onSystemInfoResponseListener;
+    public static void setOnSystemInfoResponseListenerCallback(OnSystemInfoResponseListener callback) {
+    	onSystemInfoResponseListener = callback;
+    }
+
+    public static OnNotificationAllRequestListener onNotificationAllRequestListener;
+    public static void setOnNotificationAllRequestListenerCallback(OnNotificationAllRequestListener callback) {
+        onNotificationAllRequestListener = callback;
+    }
+
+    public static OnNotificationSingleRequestListener onNotificationSingleRequestListener;
+    public static void setOnNotificationSingleRequestListenerCallback(OnNotificationSingleRequestListener callback) {
+        onNotificationSingleRequestListener = callback;
+    }
+}
