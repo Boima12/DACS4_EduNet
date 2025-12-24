@@ -32,10 +32,10 @@ public class CoreClient {
     private final File runtimeJsonFile = new File("localStorage/memoryBox.json");
 
     public CoreClient() {
-        MemoryBox memoryBox;
+        MemoryBox memoryBox; 
 
         // if runtimeJsonFile not exists -> copy from resources
-        if (!runtimeJsonFile.exists()) {
+        if (!runtimeJsonFile.exists()) { 
             copyDefaultMemoryBox();
         }
 
@@ -97,7 +97,7 @@ public class CoreClient {
         
         SwingUtilities.invokeLater(() -> {
         	
-            Client_Screen clientScreen = new Client_Screen(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port) + 1);
+            Client_Screen clientScreen = new Client_Screen(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
             clientScreen.setVisible(true);
 
             // Ẩn cửa sổ connector nếu đang hiển thị

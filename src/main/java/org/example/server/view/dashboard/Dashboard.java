@@ -1,21 +1,32 @@
 package org.example.server.view.dashboard;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import org.example.common.utils.gui.Alert;
 import org.example.common.utils.gui.ImageHelper;
 import org.example.common.utils.gui.RoundedBorder;
 import org.example.common.utils.gui.WrapLayout;
 import org.example.server.ServerStates;
+import org.example.server.controller.WatchController;
 import org.example.server.controller.WhiteBoardController;
 import org.example.server.model.database.JDBCUtil;
 import org.example.server.view.manage.Manage;
+import org.example.server.view.watch.WatchPanel;
+import org.example.server.view.watch.WatchView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,37 +37,37 @@ import org.slf4j.LoggerFactory;
  */
 @SuppressWarnings({"PatternVariableCanBeUsed", "Convert2Lambda"})
 public class Dashboard {
-
-	private static JFrame frame;
-	private static JLabel lbl_info_icon;
-	private static JLabel lbl_info_name;
-	public static JPanel client_dashboard;
-	public static ArrayList<JPanel> client_dashboard_JPanelList = new ArrayList<>();
+    private static JFrame frame;
+    private static JLabel lbl_info_icon;
+    private static JLabel lbl_info_name;
+    public static JPanel client_dashboard;
+    public static ArrayList<JPanel> client_dashboard_JPanelList = new ArrayList<>();
     public static String currentSelectedClientName = "none";
 
     private static final Logger log = LoggerFactory.getLogger(Dashboard.class);
     private static JButton btn_manage;
     private static JButton btn_info_placeholder2;
-    private static JButton btn_info_placeholder3;
+    private static JButton btn_info_placeholder3; 
     private static JButton btn_info_placeholder4; 
+    
+    public static int id_port_whiteboard = 6061;
+    public static int id_port_watch = 6062;
 
-	/**
-	 * Create the application.
-	 */
-	public Dashboard() {
-		initialize();	// line này dùng để bật WindowBuilder, nếu comment line này sẽ tối ưu ứng dụng nhưng không thể sài Eclipse windowBuilder trong file này
-	}
+    // SỬA: Khởi tạo trực tiếp để tránh NullPointerException khi gọi build()
+    private static WatchController watchController = new WatchController(id_port_watch);
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 1300, 700);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.getContentPane().add(build());
-	}
+    public Dashboard() {
+        // Constructor bây giờ chỉ lo việc khởi tạo Frame nếu cần
+        initialize();   
+    }
+
+    private void initialize() { 
+        frame = new JFrame();
+        frame.setBounds(100, 100, 1300, 700);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(new BorderLayout());
+        frame.getContentPane().add(build());
+    }
 	
 	public static JPanel build() {
 		JPanel dashboard = new JPanel(); 
@@ -195,18 +206,18 @@ public class Dashboard {
 		btn_do_placeholder4.setBorder(new RoundedBorder(8));
 		btn_do_placeholder4.setBackground(new Color(251, 251, 251));
 		btn_do_placeholder4.setBounds(525, 10, 150, 35);
-//		btn_do_placeholder4.addActionListener(new ActionListener() {
-//		    @Override
-//		    public void actionPerformed(ActionEvent e) {
-//
-//		        // Hiển thị frame mới
-//		        WatchClient watchFrame = new WatchClient();
-//		        watchFrame.setVisible(true);
-//
-//		        // Ẩn frame hiện tại
-//		     //   frame.setVisible(false);
-//		    } 
-//		});
+		
+		btn_do_placeholder4.addActionListener(e -> {
+            if (watchController != null) {
+                watchController.showWatchView();
+            } else {
+                // Đề phòng trường hợp khởi tạo lỗi
+                watchController = new WatchController(id_port_watch);
+                watchController.showWatchView();
+            }
+        });
+//		btn_do_placeholder4.addActionListener(e -> watch_GUI.setVisible(true));
+
 
 		dashboard_options.add(btn_do_placeholder4);
 		
@@ -216,27 +227,7 @@ public class Dashboard {
 		btn_do_placeholder5.setBorder(new RoundedBorder(8));
 		btn_do_placeholder5.setBackground(new Color(251, 251, 251));
 		btn_do_placeholder5.setBounds(695, 10, 150, 35);
-		
-		// Thay đổi ActionListener để mở WhiteBoard server
-//		btn_do_placeholder5.addActionListener(new ActionListener() {
-//		    @Override
-//		    public void actionPerformed(ActionEvent e) {
-//		        try {
-//		            // Nếu muốn mở WhiteBoard server hiển thị toàn bộ lịch sử vẽ
-//		            WhiteBoardController serverWBController = new WhiteBoardController(true); // false nghĩa là server mode
-//		            // Nếu cần hiển thị frame ngay lập tức
-//		             serverWBController.showWindow();  // Tùy vào cách bạn viết WhiteBoardController
-//		        } catch (Exception ex) {
-//		            ex.printStackTrace();
-//		            JOptionPane.showMessageDialog(frame, "Không thể mở WhiteBoard: " + ex.getMessage(),
-//		                    "Lỗi", JOptionPane.ERROR_MESSAGE);
-//		        }
-//		    }
-//		});
 		btn_do_placeholder5.addActionListener(e -> openWhiteBoardServer());
-
-
-//		dashboard_options.add(btn_do_placeholder5);
 
 		dashboard_options.add(btn_do_placeholder5);
 		
@@ -260,7 +251,30 @@ public class Dashboard {
 		
 		return dashboard;
 	}
-
+	
+	public static void client_dashboardConnected(String client_name) {
+        SwingUtilities.invokeLater(() -> {
+            boolean found = false;
+            for (JPanel panel : client_dashboard_JPanelList) {
+                if (panel instanceof Client_dashboard_JPanel) {
+                    Client_dashboard_JPanel clientPanel = (Client_dashboard_JPanel) panel;
+                    if (clientPanel.getClientName().equals(client_name)) {
+                        clientPanel.setConnected(true);
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            if (!found) {
+                // Nếu chưa có trong danh sách thì tạo mới và set online luôn
+                Client_dashboard_JPanel newPanel = createClientItem(client_name, true);
+                client_dashboard.add(newPanel);
+            }
+            client_dashboard.revalidate();
+            client_dashboard.repaint();
+        });
+    }
+	
 	public static void onlkClient() {
         ServerStates.lkModal = new LienKetModal(frame);
         ServerStates.lkModal.setVisible(true);
@@ -345,35 +359,34 @@ public class Dashboard {
         client_dashboard.repaint();
     }
 
-    public static void client_dashboardConnected(String client_name) {
-        // Add a 300ms delay to ensure the panel is added to the list first
-        Thread delayThread = new Thread(() -> {
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-
-            SwingUtilities.invokeLater(() -> {
-                // Find the client panel with matching name and update its connection status
-                for (JPanel panel : client_dashboard_JPanelList) {
-                    if (panel instanceof Client_dashboard_JPanel) {
-                        Client_dashboard_JPanel clientPanel = (Client_dashboard_JPanel) panel;
-                        String panelName = clientPanel.getClientName();
-                        if (panelName.equals(client_name)) {
-                            clientPanel.setConnected(true);
-                            client_dashboard.revalidate();
-                            client_dashboard.repaint();
-                            break; // Found and updated, exit loop
-                        }
-                    }
-                }
-            });
-        });
-        delayThread.setName("Client-Connected-Delay-" + client_name);
-        delayThread.setDaemon(true);
-        delayThread.start();
-    }
+//    public static void client_dashboardConnected(String client_name) {
+//        // Add a 300ms delay to ensure the panel is added to the list first
+//        Thread delayThread = new Thread(() -> {
+//            try { Thread.sleep(300);
+//            } catch (InterruptedException e) {
+//                Thread.currentThread().interrupt();
+//            }
+//
+//            SwingUtilities.invokeLater(() -> {
+//                // Find the client panel with matching name and update its connection status
+//                for (JPanel panel : client_dashboard_JPanelList) {
+//                    if (panel instanceof Client_dashboard_JPanel) {
+//                        Client_dashboard_JPanel clientPanel = (Client_dashboard_JPanel) panel;
+//                        String panelName = clientPanel.getClientName();
+//                        if (panelName.equals(client_name)) {
+//                            clientPanel.setConnected(true);
+//                            client_dashboard.revalidate();
+//                            client_dashboard.repaint();
+//                            break; // Found and updated, exit loop
+//                        }
+//                    }
+//                }
+//            });
+//        });
+//        delayThread.setName("Client-Connected-Delay-" + client_name);
+//        delayThread.setDaemon(true);
+//        delayThread.start();
+//    }
 
     public static void client_dashboardDisconnected(String client_name) {
         SwingUtilities.invokeLater(() -> {
@@ -465,16 +478,12 @@ public class Dashboard {
  // 1. Tạo method tiện ích trong Dashboard
     public static void openWhiteBoardServer() {
         try {
-            // Khởi tạo WhiteBoard server
-            WhiteBoardController serverWBController = new WhiteBoardController(6061);
-            // Hiển thị GUI server
+            // WhiteBoardController nên được quản lý static tương tự watchController 
+            // để tránh mở nhiều Server Socket cùng lúc gây lỗi "Address already in use"
+            WhiteBoardController serverWBController = new WhiteBoardController(id_port_whiteboard);
             serverWBController.showWindow();
         } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(frame, "Không thể mở WhiteBoard: " + ex.getMessage(),
-                    "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Lỗi mở WhiteBoard: " + ex.getMessage());
         }
     }
-
-
 }
