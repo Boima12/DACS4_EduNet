@@ -41,7 +41,7 @@ public class ServerUI {
 	private JPanel viewMain;
 	private JButton btn_power;
 	private JButton btn_dashboard;
-	private JButton btn_layerHolder;
+	private JButton btn_layerHolder; 
 
 	/**
 	 * Create the application.
@@ -65,7 +65,7 @@ public class ServerUI {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize() { 
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(240, 240, 240));
 		frame.getContentPane().setLayout(null);

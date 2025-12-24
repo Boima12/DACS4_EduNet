@@ -7,14 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
-
 import javax.swing.*;
-
 import org.example.common.utils.gui.Alert;
 import org.example.common.utils.gui.ImageHelper;
 import org.example.common.utils.gui.RoundedBorder;
 import org.example.common.utils.gui.WrapLayout;
 import org.example.server.ServerStates;
+import org.example.server.controller.WhiteBoardController;
 import org.example.server.model.database.JDBCUtil;
 import org.example.server.view.manage.Manage;
 import org.slf4j.Logger;
@@ -39,7 +38,7 @@ public class Dashboard {
     private static JButton btn_manage;
     private static JButton btn_info_placeholder2;
     private static JButton btn_info_placeholder3;
-    private static JButton btn_info_placeholder4;
+    private static JButton btn_info_placeholder4; 
 
 	/**
 	 * Create the application.
@@ -53,14 +52,14 @@ public class Dashboard {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1111, 730);
+		frame.setBounds(100, 100, 1300, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(build());
 	}
 	
 	public static JPanel build() {
-		JPanel dashboard = new JPanel();
+		JPanel dashboard = new JPanel(); 
 		dashboard.setLayout(null);
 		dashboard.setBackground(new Color(251, 251, 251));
 		dashboard.setBounds(75, 0, 1111, 730);
@@ -190,32 +189,55 @@ public class Dashboard {
 		});
 		dashboard_options.add(btn_do_placeholder3);
 		
-		JButton btn_do_placeholder4 = new JButton("Button 4");
+		JButton btn_do_placeholder4 = new JButton("Quan sát all Client");
 		btn_do_placeholder4.setForeground(Color.BLACK);
 		btn_do_placeholder4.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_do_placeholder4.setBorder(new RoundedBorder(8));
 		btn_do_placeholder4.setBackground(new Color(251, 251, 251));
 		btn_do_placeholder4.setBounds(525, 10, 150, 35);
-		btn_do_placeholder4.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO
-			}
-		});
+//		btn_do_placeholder4.addActionListener(new ActionListener() {
+//		    @Override
+//		    public void actionPerformed(ActionEvent e) {
+//
+//		        // Hiển thị frame mới
+//		        WatchClient watchFrame = new WatchClient();
+//		        watchFrame.setVisible(true);
+//
+//		        // Ẩn frame hiện tại
+//		     //   frame.setVisible(false);
+//		    } 
+//		});
+
 		dashboard_options.add(btn_do_placeholder4);
 		
-		JButton btn_do_placeholder5 = new JButton("Button 5");
+		JButton btn_do_placeholder5 = new JButton("White Board");
 		btn_do_placeholder5.setForeground(Color.BLACK);
 		btn_do_placeholder5.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_do_placeholder5.setBorder(new RoundedBorder(8));
 		btn_do_placeholder5.setBackground(new Color(251, 251, 251));
 		btn_do_placeholder5.setBounds(695, 10, 150, 35);
-		btn_do_placeholder5.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO
-			}
-		});
+		
+		// Thay đổi ActionListener để mở WhiteBoard server
+//		btn_do_placeholder5.addActionListener(new ActionListener() {
+//		    @Override
+//		    public void actionPerformed(ActionEvent e) {
+//		        try {
+//		            // Nếu muốn mở WhiteBoard server hiển thị toàn bộ lịch sử vẽ
+//		            WhiteBoardController serverWBController = new WhiteBoardController(true); // false nghĩa là server mode
+//		            // Nếu cần hiển thị frame ngay lập tức
+//		             serverWBController.showWindow();  // Tùy vào cách bạn viết WhiteBoardController
+//		        } catch (Exception ex) {
+//		            ex.printStackTrace();
+//		            JOptionPane.showMessageDialog(frame, "Không thể mở WhiteBoard: " + ex.getMessage(),
+//		                    "Lỗi", JOptionPane.ERROR_MESSAGE);
+//		        }
+//		    }
+//		});
+		btn_do_placeholder5.addActionListener(e -> openWhiteBoardServer());
+
+
+//		dashboard_options.add(btn_do_placeholder5);
+
 		dashboard_options.add(btn_do_placeholder5);
 		
 		JTextArea ta_log = new JTextArea();
@@ -423,4 +445,36 @@ public class Dashboard {
             if (ServerStates.onNotificationSingleRequestListener != null) ServerStates.onNotificationSingleRequestListener.onNotificationSingleRequest(currentSelectedClientName, message);
         }
     }
+    
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Dashboard Preview");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(1200, 750);
+            frame.setLocationRelativeTo(null);
+
+            JPanel dashboard = Dashboard.build();
+            frame.setContentPane(dashboard);
+
+            frame.setVisible(true);
+ 
+        });
+    }
+    
+ // 1. Tạo method tiện ích trong Dashboard
+    public static void openWhiteBoardServer() {
+        try {
+            // Khởi tạo WhiteBoard server
+            WhiteBoardController serverWBController = new WhiteBoardController(6061);
+            // Hiển thị GUI server
+            serverWBController.showWindow();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(frame, "Không thể mở WhiteBoard: " + ex.getMessage(),
+                    "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
 }

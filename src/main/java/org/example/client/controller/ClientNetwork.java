@@ -24,7 +24,7 @@ public class ClientNetwork {
     private final Socket clientSocket;
     private final BufferedReader in;
     private final BufferedWriter out;
-    private String client_name;
+    private String client_name; 
 
     private static final Logger log = LoggerFactory.getLogger(ClientNetwork.class);
     private final File runtimeJsonFile = new File("localStorage/memoryBox.json");

@@ -18,7 +18,7 @@ public class SystemInfo {
 
         // ===== CPU =====
         int cpuCores = osBean.getAvailableProcessors();
-        double cpuLoad = osBean.getCpuLoad();
+        double cpuLoad = osBean.getCpuLoad(); 
 
         // ===== RAM =====
         long totalRam = osBean.getTotalMemorySize();
