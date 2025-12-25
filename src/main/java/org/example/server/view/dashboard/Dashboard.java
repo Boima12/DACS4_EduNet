@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 @SuppressWarnings({"PatternVariableCanBeUsed", "Convert2Lambda"})
-public class Dashboard {
+public class Dashboard extends JFrame {
     private static JFrame frame;
     private static JLabel lbl_info_icon;
     private static JLabel lbl_info_name;
@@ -73,7 +73,7 @@ public class Dashboard {
 		JPanel dashboard = new JPanel(); 
 		dashboard.setLayout(null);
 		dashboard.setBackground(new Color(251, 251, 251));
-		dashboard.setBounds(75, 0, 1111, 730);
+		dashboard.setBounds(10, 10, 1200, 700);
 		
 		JPanel infobar = new JPanel();
 		infobar.setBackground(new Color(251, 251, 251));
@@ -464,7 +464,7 @@ public class Dashboard {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Dashboard Preview");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(1200, 750);
+            frame.setBounds(10, 10, 1300, 700);
             frame.setLocationRelativeTo(null);
 
             JPanel dashboard = Dashboard.build();

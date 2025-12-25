@@ -495,3 +495,17 @@ INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by se
 INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Hoang1 - /192.168.56.1 disconnected.
 INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.56.1:6060
 ERROR [Thread-1] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3b333306
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.56.1:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Hoang1' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.56.1:6060
+ERROR [Thread-1] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@a35aa7e
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.56.1:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Hoang1' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
