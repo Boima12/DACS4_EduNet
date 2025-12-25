@@ -1,15 +1,6 @@
 package org.example.server.model;
 
-import java.io.Serializable;
-import org.example.common.objects.WhiteboardCommand;
-
-public class WhiteBoardModel implements Serializable {
-
-    public int x, y;
-    public WhiteboardCommand type;
-
-    public WhiteBoardModel(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
+public class WhiteBoardModel {
+    // TODO xóa file này
+    // đã được dời sang server/model/services/whiteBoard/WhiteBoardModel.java, các future commit vào file này sẽ bị xóa
 }

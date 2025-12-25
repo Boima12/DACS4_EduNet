@@ -6,8 +6,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.example.client.ClientStates;
 import org.example.client.controller.ClientNetwork;
-import org.example.client.view.Client_Screen;
-import org.example.client.view.EClient;
+import org.example.client.view.clientScreen.Client_Screen;
+import org.example.client.view.eClient.EClient;
 import org.example.client.view.eClientConnector.EClientConnector;
 import org.example.common.objects.MemoryBox;
 import org.example.common.utils.gson.GsonHelper;
@@ -92,19 +92,12 @@ public class CoreClient {
     	MemoryBox memoryBox = GsonHelper.readJsonFile(runtimeJsonFile.getPath(), MemoryBox.class);
         clientNetwork = new ClientNetwork(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
         clientNetwork.send_connectionRequest(memoryBox.token);
- 
-//        Client_Screen clientScreen = new Client_Screen(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
         
         SwingUtilities.invokeLater(() -> {
-        	
-            Client_Screen clientScreen = new Client_Screen(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
-            clientScreen.setVisible(true);
-
-            // Ẩn cửa sổ connector nếu đang hiển thị
-            if (eClientConnectorWindow != null) {
-                eClientConnectorWindow.undisplay();
-            }
            ClientStates.setOnConnectionListenerCallback(() -> {
+                Client_Screen clientScreen = new Client_Screen(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
+                clientScreen.setVisible(true);
+
                 eClientConnectorWindow.undisplay();
                 eClientWindow.display(memoryBox.server_IP, memoryBox.server_port);
            });

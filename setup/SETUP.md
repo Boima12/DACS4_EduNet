@@ -1,16 +1,16 @@
 # Hướng dẫn cấu hình môi trường trước khi code
 
 1. Nạp database vào MySQL <br>
-mở ứng dụng quản lý MySQL bên bác, nạp file setup/setup.sql <br>
++ mở ứng dụng quản lý MySQL bên bác, nạp file setup/setup.sql <br>
 
 
 2. Cấu hình tài khoản MySQL <br>
-vào file src/main/java/org/example/server/Config.java chỉnh DATABASE_USERNAME và DATABASE_PASSWORD theo tài khoản MySQL của bác <br>
++ vào file src/main/java/org/example/server/Config.java chỉnh DATABASE_USERNAME và DATABASE_PASSWORD theo tài khoản MySQL của bác <br>
 
 
 3. Load các thư viện Maven vào project <br>
-Trong Eclipse, trên Package Exlorer hoặc Explorer, nhấn chuột phải vào project rồi chọn Maven -> Update Project... -> Nhấn OK <br>
-Trong IntelliJ IDEA, click chuột phải vào file pom.xml -> chọn Maven -> Sync Project <br>
++ Trong Eclipse, trên Package Exlorer hoặc Explorer, nhấn chuột phải vào project rồi chọn Maven -> Update Project... -> Nhấn OK <br>
++ Trong IntelliJ IDEA, click chuột phải vào file pom.xml -> chọn Maven -> Sync Project <br>
 
 
 <hr>

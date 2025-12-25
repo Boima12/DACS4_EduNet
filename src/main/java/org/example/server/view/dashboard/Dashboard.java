@@ -4,29 +4,21 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import org.example.common.utils.gui.Alert;
 import org.example.common.utils.gui.ImageHelper;
 import org.example.common.utils.gui.RoundedBorder;
 import org.example.common.utils.gui.WrapLayout;
 import org.example.server.ServerStates;
-import org.example.server.controller.WatchController;
-import org.example.server.controller.WhiteBoardController;
+import org.example.server.controller.services.watch.WatchController;
+import org.example.server.controller.services.whiteBoard.WhiteBoardController;
 import org.example.server.model.database.JDBCUtil;
 import org.example.server.view.manage.Manage;
-import org.example.server.view.watch.WatchPanel;
-import org.example.server.view.watch.WatchView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,8 +49,7 @@ public class Dashboard extends JFrame {
     private static WatchController watchController = new WatchController(id_port_watch);
 
     public Dashboard() {
-        // Constructor bây giờ chỉ lo việc khởi tạo Frame nếu cần
-        initialize();   
+        initialize();   // line này dùng để bật WindowBuilder, nếu comment line này sẽ tối ưu ứng dụng nhưng không thể sài Eclipse windowBuilder trong file này
     }
 
     private void initialize() { 
@@ -251,30 +242,7 @@ public class Dashboard extends JFrame {
 		
 		return dashboard;
 	}
-	
-	public static void client_dashboardConnected(String client_name) {
-        SwingUtilities.invokeLater(() -> {
-            boolean found = false;
-            for (JPanel panel : client_dashboard_JPanelList) {
-                if (panel instanceof Client_dashboard_JPanel) {
-                    Client_dashboard_JPanel clientPanel = (Client_dashboard_JPanel) panel;
-                    if (clientPanel.getClientName().equals(client_name)) {
-                        clientPanel.setConnected(true);
-                        found = true;
-                        break;
-                    }
-                }
-            }
-            if (!found) {
-                // Nếu chưa có trong danh sách thì tạo mới và set online luôn
-                Client_dashboard_JPanel newPanel = createClientItem(client_name, true);
-                client_dashboard.add(newPanel);
-            }
-            client_dashboard.revalidate();
-            client_dashboard.repaint();
-        });
-    }
-	
+
 	public static void onlkClient() {
         ServerStates.lkModal = new LienKetModal(frame);
         ServerStates.lkModal.setVisible(true);
@@ -360,33 +328,60 @@ public class Dashboard extends JFrame {
     }
 
 //    public static void client_dashboardConnected(String client_name) {
-//        // Add a 300ms delay to ensure the panel is added to the list first
-//        Thread delayThread = new Thread(() -> {
-//            try { Thread.sleep(300);
-//            } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();
-//            }
-//
-//            SwingUtilities.invokeLater(() -> {
-//                // Find the client panel with matching name and update its connection status
-//                for (JPanel panel : client_dashboard_JPanelList) {
-//                    if (panel instanceof Client_dashboard_JPanel) {
-//                        Client_dashboard_JPanel clientPanel = (Client_dashboard_JPanel) panel;
-//                        String panelName = clientPanel.getClientName();
-//                        if (panelName.equals(client_name)) {
-//                            clientPanel.setConnected(true);
-//                            client_dashboard.revalidate();
-//                            client_dashboard.repaint();
-//                            break; // Found and updated, exit loop
-//                        }
+//        SwingUtilities.invokeLater(() -> {
+//            boolean found = false;
+//            for (JPanel panel : client_dashboard_JPanelList) {
+//                if (panel instanceof Client_dashboard_JPanel) {
+//                    Client_dashboard_JPanel clientPanel = (Client_dashboard_JPanel) panel;
+//                    if (clientPanel.getClientName().equals(client_name)) {
+//                        clientPanel.setConnected(true);
+//                        found = true;
+//                        break;
 //                    }
 //                }
-//            });
+//            }
+//            if (!found) {
+//                // Nếu chưa có trong danh sách thì tạo mới và set online luôn
+//                Client_dashboard_JPanel newPanel = createClientItem(client_name, true);
+//                client_dashboard.add(newPanel);
+//            }
+//            client_dashboard.revalidate();
+//            client_dashboard.repaint();
 //        });
-//        delayThread.setName("Client-Connected-Delay-" + client_name);
-//        delayThread.setDaemon(true);
-//        delayThread.start();
 //    }
+//
+//    lí do tui để client_dashboardConnected có 300ms delay là vì client_dashboardConnected() chỉ
+//    là method dùng để cập nhập UI khi client kết nối thôi, còn việc thêm thì đã có
+//    ServerStates.onClient_dashboardNewClientListener.onClient_dashboardNewClient() trong ServerNetworkHandler.java làm việc đó rồi
+
+    public static void client_dashboardConnected(String client_name) {
+        // Add a 300ms delay to ensure the panel is added to the list first
+        Thread delayThread = new Thread(() -> {
+            try { Thread.sleep(300);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+
+            SwingUtilities.invokeLater(() -> {
+                // Find the client panel with matching name and update its connection status
+                for (JPanel panel : client_dashboard_JPanelList) {
+                    if (panel instanceof Client_dashboard_JPanel) {
+                        Client_dashboard_JPanel clientPanel = (Client_dashboard_JPanel) panel;
+                        String panelName = clientPanel.getClientName();
+                        if (panelName.equals(client_name)) {
+                            clientPanel.setConnected(true);
+                            client_dashboard.revalidate();
+                            client_dashboard.repaint();
+                            break; // Found and updated, exit loop
+                        }
+                    }
+                }
+            });
+        });
+        delayThread.setName("Client-Connected-Delay-" + client_name);
+        delayThread.setDaemon(true);
+        delayThread.start();
+    }
 
     public static void client_dashboardDisconnected(String client_name) {
         SwingUtilities.invokeLater(() -> {

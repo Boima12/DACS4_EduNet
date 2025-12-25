@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import org.example.common.objects.WhiteboardCommand;
-import org.example.common.objects.WhiteboardPacket;
+import org.example.common.objects.whiteBoard.WhiteboardCommand;
+import org.example.common.objects.whiteBoard.WhiteboardPacket;
 
 public class WhiteBoardView extends JFrame {
 

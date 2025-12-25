@@ -1,4 +1,4 @@
-package org.example.client.controller.services.systemInfo;
+package org.example.client.model.services.systemInfo;
 
 import java.io.File;
 import java.lang.management.ManagementFactory;

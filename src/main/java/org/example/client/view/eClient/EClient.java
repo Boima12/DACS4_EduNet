@@ -1,4 +1,4 @@
-package org.example.client.view;
+package org.example.client.view.eClient;
 
 import javax.swing.JFrame;
 import java.awt.Color;
