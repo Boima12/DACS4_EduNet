@@ -27,7 +27,7 @@ public class JDBCUtil {
             HikariConfig config = new HikariConfig();
 
             // Thông số kết nối
-            config.setJdbcUrl("jdbc:mysql://localhost:3306/dacs4_edunet?useSSL=false");
+            config.setJdbcUrl("jdbc:mysql://localhost:3306/dacs4_edunet?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC");
             config.setUsername(Config.DATABASE_USERNAME);
             config.setPassword(Config.DATABASE_PASSWORD);
 
