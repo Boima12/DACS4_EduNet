@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -44,7 +45,7 @@ public class Manage {
 	/**
 	 * Create the application.
 	 */
-	public Manage(String client_name) {
+	public Manage(String client_name) { 
 		initialize();
 		onClosingEvent();
 
@@ -221,4 +222,25 @@ public class Manage {
 	private void onSystemInfoRequest() {
         if (ServerStates.onSystemInfoRequestListener != null) ServerStates.onSystemInfoRequestListener.onSystemInfoRequest(client_name);
 	}
+	
+//	public static void main(String[] args) {
+//	    EventQueue.invokeLater(() -> {
+//	        Manage manage = new Manage("Client-Test");
+//	        manage.display();
+//
+//	        // Fake dữ liệu để test giao diện
+//	        manage.lbl_item_name.setText("Client-Test");
+//	        manage.lbl_os.setText("OS: Windows 11");
+//	        manage.lbl_cpu_cores.setText("CPU Cores: 8");
+//	        manage.lbl_cpu_load.setText("CPU Load: 25%");
+//	        manage.lbl_ram.setText("RAM: 16 GB");
+//	        manage.lbl_INetAddress.setText("192.168.1.14");
+//	        manage.ta_diskStorages.setText(
+//	                "Disk C:\\ 120 GB / 256 GB\n" +
+//	                "Disk D:\\ 500 GB / 1 TB"
+//	        );
+//	    });
+//	}
+
+	
 }

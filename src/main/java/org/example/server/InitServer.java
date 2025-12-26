@@ -12,6 +12,6 @@ import java.io.IOException;
 public class InitServer {
     public static void main(String[] args) throws IOException {
         CoreServer coreServer = new CoreServer();
-        coreServer.start();
-    }
+        coreServer.start();  
+    }   
 }

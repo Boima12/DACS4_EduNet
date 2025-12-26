@@ -5,6 +5,8 @@ import org.example.common.utils.network.NetworkUtils;
 import org.example.server.Config;
 import org.example.server.ServerStates;
 import org.example.server.controller.ServerNetwork;
+import org.example.server.controller.services.watch.WatchController;
+import org.example.server.controller.services.whiteBoard.WhiteBoardController;
 import org.example.server.view.ServerUI;
 import org.example.server.view.login.Login;
 import org.example.server.view.dashboard.Dashboard;
@@ -18,13 +20,18 @@ import java.net.ServerSocket;
  * Trung tâm chỉ huy cho cả Server
  *
  */
-@SuppressWarnings({"Convert2MethodRef", "CodeBlock2Expr"})
+@SuppressWarnings({"Convert2MethodRef", "CodeBlock2Expr", "FieldMayBeFinal"})
 public class CoreServer {
 
     private static ServerNetwork serverNetwork;
     private final String localIP = NetworkUtils.getLocalIPAddress();
+    private static int id_port_whiteboard = 6061;
+    private static int id_port_watch = 6062;
+
     private Login loginWindow;
     private ServerUI serverUIWindow;
+    private static WatchController watchController;
+    private static WhiteBoardController serverWBController;
 
     private static final Logger log = LoggerFactory.getLogger(CoreServer.class);
 
@@ -57,6 +64,8 @@ public class CoreServer {
         SwingUtilities.invokeLater(() -> {
             loginWindow = new Login();
             serverUIWindow = new ServerUI(localIP + ":" + Config.SERVER_PORT);
+            serverWBController = new WhiteBoardController(id_port_whiteboard);
+            watchController = new WatchController(id_port_watch);
 
             loginWindow.setOnLoginListenerCallback(() -> {
                 loginWindow.undisplay();
@@ -97,6 +106,26 @@ public class CoreServer {
                         client.speak_notificationRequest(message);
                         break;
                     }
+                }
+            });
+
+            ServerStates.setOnWatchControllerShowListenerCallback(() -> {
+                if (watchController != null) {
+                    watchController.showWatchView();
+                } else {
+                    // Đề phòng trường hợp khởi tạo lỗi
+                    watchController = new WatchController(id_port_watch);
+                    watchController.showWatchView();
+                }
+            });
+
+            ServerStates.setOnWhiteBoardControllerShowListenerCallback(() -> {
+                try {
+                    // WhiteBoardController nên được quản lý static tương tự watchController
+                    // để tránh mở nhiều Server Socket cùng lúc gây lỗi "Address already in use"
+                    serverWBController.showWindow();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Lỗi mở WhiteBoard: " + ex.getMessage());
                 }
             });
 

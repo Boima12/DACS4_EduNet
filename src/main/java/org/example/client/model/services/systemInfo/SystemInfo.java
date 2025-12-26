@@ -1,4 +1,4 @@
-package org.example.client.controller.services.systemInfo;
+package org.example.client.model.services.systemInfo;
 
 import java.io.File;
 import java.lang.management.ManagementFactory;
@@ -18,7 +18,7 @@ public class SystemInfo {
 
         // ===== CPU =====
         int cpuCores = osBean.getAvailableProcessors();
-        double cpuLoad = osBean.getCpuLoad();
+        double cpuLoad = osBean.getCpuLoad(); 
 
         // ===== RAM =====
         long totalRam = osBean.getTotalMemorySize();

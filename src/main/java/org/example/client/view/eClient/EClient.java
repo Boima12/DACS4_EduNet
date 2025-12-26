@@ -1,4 +1,4 @@
-package org.example.client.view;
+package org.example.client.view.eClient;
 
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -33,7 +33,7 @@ public class EClient {
 		localIP = NetworkUtils.getLocalIPAddress();
 
 		initialize();
-		updateStatus();
+		updateStatus(); 
 	}
 	
 	public void display(String serverIP, String serverPort) {
@@ -49,7 +49,7 @@ public class EClient {
 	}
 
 	public void undisplay() {
-		frame.setVisible(false);
+		frame.setVisible(false); 
 	}
 
 	/**

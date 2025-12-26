@@ -2,6 +2,9 @@
 /config/
 /fonts/
 /images/
-/videos/
 /org/
+<<<<<<< HEAD
+/videos/
+=======
 /localStorage/
+>>>>>>> 12f255bc170cb234ec598b186ca1581324fb9f93

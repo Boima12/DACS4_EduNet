@@ -38,7 +38,7 @@ public class EClientConnector {
 	private JButton btn_connect;
 	private JTextField tf_port;
 	private JTextField tf_clientName;
-	private JTextField tf_maLienKet;
+	private JTextField tf_maLienKet; 
 	private JLabel lbl_lan_icon;
 	private JLabel lbl_lan_status;
 	private JButton btn_lan_open;
@@ -48,7 +48,7 @@ public class EClientConnector {
 	/**
 	 * Create the application.
 	 */
-	public EClientConnector() {
+	public EClientConnector() { 
 		initialize();
 	}
 	
