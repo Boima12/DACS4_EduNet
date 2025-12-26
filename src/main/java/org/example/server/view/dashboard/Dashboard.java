@@ -55,6 +55,14 @@ public class Dashboard extends JFrame {
 
     // SỬA: Khởi tạo trực tiếp để tránh NullPointerException khi gọi build()
     private static WatchController watchController = new WatchController(id_port_watch);
+	private static Color mauEE6C4D;
+	private static Color mauffffff;
+	private static Color mau293240;
+	private static Color mauE0FBFC;
+	private static Color mau98C1D9;
+	private static Color mau3D5A80;
+	private static Color mau000000;
+
 
     public Dashboard() {
         // Constructor bây giờ chỉ lo việc khởi tạo Frame nếu cần
@@ -63,42 +71,52 @@ public class Dashboard extends JFrame {
 
     private void initialize() { 
         frame = new JFrame();
-        frame.setBounds(100, 100, 1300, 700);
+        frame.setBounds(100, 60, 1300, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(new BorderLayout());
         frame.getContentPane().add(build());
     }
 	
 	public static JPanel build() {
+		
+	    mauEE6C4D = Color.decode("#EE6C4D");
+		mauffffff = Color.decode("#ffffff");
+		mau000000 = Color.decode("#000000");
+		mau98C1D9 = Color.decode("#98C1D9");
+		mau293240 = Color.decode("#293240");
+		mauE0FBFC = Color.decode("#E0FBFC");
+		mau3D5A80 = Color.decode("#3D5A80");
+
 		JPanel dashboard = new JPanel(); 
 		dashboard.setLayout(null);
 		dashboard.setBackground(new Color(251, 251, 251));
-		dashboard.setBounds(10, 10, 1200, 700);
+		dashboard.setBounds(0, 0, 1225, 700);
 		
 		JPanel infobar = new JPanel();
-		infobar.setBackground(new Color(251, 251, 251));
-		infobar.setBounds(861, 0, 250, 730);
+		infobar.setBackground(mau293240);
+		infobar.setBounds(975, 0, 250, 700);
 		infobar.setLayout(null);
 		dashboard.add(infobar);
 		
 		lbl_info_icon = new JLabel("");
 		lbl_info_icon.setBackground(new Color(240, 240, 240));
-		lbl_info_icon.setBounds(50, 75, 150, 150);
+		lbl_info_icon.setBounds(50, 30, 150, 150);
 		infobar.add(lbl_info_icon);
 		
 		lbl_info_name = new JLabel("Computer name");
+		lbl_info_name.setForeground(mauffffff);
 		lbl_info_name.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_info_name.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lbl_info_name.setBounds(10, 250, 230, 30);
+		lbl_info_name.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lbl_info_name.setBounds(10, 190, 230, 30);
 		infobar.add(lbl_info_name);
 		
 		btn_manage = new JButton("Quản lý");
 		btn_manage.setEnabled(false);
-		btn_manage.setBorder(new RoundedBorder(8));
-		btn_manage.setForeground(new Color(0, 0, 0));
-		btn_manage.setBackground(new Color(251, 251, 251));
-		btn_manage.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_manage.setBounds(50, 350, 150, 35);
+		btn_manage.setBorder(null);
+		btn_manage.setBackground(mau98C1D9);
+		btn_manage.setForeground(mau000000);
+		btn_manage.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btn_manage.setBounds(50, 230, 150, 35);
 		btn_manage.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -109,11 +127,11 @@ public class Dashboard extends JFrame {
 		
 		btn_info_placeholder2 = new JButton("Thông báo");
 		btn_info_placeholder2.setEnabled(false);
-		btn_info_placeholder2.setBorder(new RoundedBorder(8));
-		btn_info_placeholder2.setForeground(new Color(0, 0, 0));
-		btn_info_placeholder2.setBackground(new Color(251, 251, 251));
-		btn_info_placeholder2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_info_placeholder2.setBounds(50, 413, 150, 35);
+		btn_info_placeholder2.setBorder(null);
+		btn_info_placeholder2.setForeground(mau000000);
+		btn_info_placeholder2.setBackground(mau98C1D9);
+		btn_info_placeholder2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btn_info_placeholder2.setBounds(50, 280, 150, 35);
 		btn_info_placeholder2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -124,11 +142,12 @@ public class Dashboard extends JFrame {
 		
 		btn_info_placeholder3 = new JButton("Button 3");
 		btn_info_placeholder3.setEnabled(false);
-		btn_info_placeholder3.setBorder(new RoundedBorder(8));
-		btn_info_placeholder3.setForeground(new Color(0, 0, 0));
-		btn_info_placeholder3.setBackground(new Color(251, 251, 251));
-		btn_info_placeholder3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_info_placeholder3.setBounds(50, 476, 150, 35);
+//		btn_info_placeholder3.setBorder(new RoundedBorder(8));
+		btn_info_placeholder3.setBorder(null);
+		btn_info_placeholder3.setForeground(mau000000);
+		btn_info_placeholder3.setBackground(mau98C1D9);
+		btn_info_placeholder3.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btn_info_placeholder3.setBounds(50, 330, 150, 35);
 		btn_info_placeholder3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -139,11 +158,11 @@ public class Dashboard extends JFrame {
 		
 		btn_info_placeholder4 = new JButton("Button 4");
 		btn_info_placeholder4.setEnabled(false);
-		btn_info_placeholder4.setBorder(new RoundedBorder(8));
-		btn_info_placeholder4.setForeground(new Color(0, 0, 0));
-		btn_info_placeholder4.setBackground(new Color(251, 251, 251));
-		btn_info_placeholder4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_info_placeholder4.setBounds(50, 539, 150, 35);
+		btn_info_placeholder4.setBorder(null);
+		btn_info_placeholder4.setBackground(mau98C1D9);
+		btn_info_placeholder4.setForeground(mau000000);
+		btn_info_placeholder4.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btn_info_placeholder4.setBounds(50, 380, 150, 35);
 		btn_info_placeholder4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -153,17 +172,17 @@ public class Dashboard extends JFrame {
 		infobar.add(btn_info_placeholder4);
 		
 		JPanel dashboard_options = new JPanel();
-		dashboard_options.setBackground(new Color(251, 251, 251));
-		dashboard_options.setBounds(0, 0, 862, 60);
+		dashboard_options.setBackground(mauEE6C4D);
+		dashboard_options.setBounds(0, 0, 975, 60);
 		dashboard_options.setLayout(null);
 		dashboard.add(dashboard_options);
 		
 		JButton btn_do_lkClient = new JButton("Liên kết Client");
-		btn_do_lkClient.setForeground(Color.BLACK);
-		btn_do_lkClient.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_do_lkClient.setBorder(new RoundedBorder(8));
-		btn_do_lkClient.setBackground(new Color(251, 251, 251));
-		btn_do_lkClient.setBounds(15, 10, 150, 35);
+		btn_do_lkClient.setForeground(mauffffff);
+		btn_do_lkClient.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btn_do_lkClient.setBorder(null);
+		btn_do_lkClient.setBackground(mau3D5A80);
+		btn_do_lkClient.setBounds(12, 12, 150, 36);
 		btn_do_lkClient.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -173,11 +192,11 @@ public class Dashboard extends JFrame {
 		dashboard_options.add(btn_do_lkClient);
 
 		JButton btn_do_lanScan = new JButton("Quét mạng tìm Client");
-		btn_do_lanScan.setForeground(Color.BLACK);
-		btn_do_lanScan.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btn_do_lanScan.setBorder(new RoundedBorder(8));
-		btn_do_lanScan.setBackground(new Color(251, 251, 251));
-		btn_do_lanScan.setBounds(185, 10, 150, 35);
+		btn_do_lanScan.setForeground(mauffffff);
+		btn_do_lanScan.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btn_do_lanScan.setBorder(null);
+		btn_do_lanScan.setBackground(mau3D5A80);
+		btn_do_lanScan.setBounds(163, 12, 150, 36);
 		btn_do_lanScan.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -187,11 +206,11 @@ public class Dashboard extends JFrame {
 		dashboard_options.add(btn_do_lanScan);
 		
 		JButton btn_do_placeholder3 = new JButton("Thông báo tất cả");
-		btn_do_placeholder3.setForeground(Color.BLACK);
-		btn_do_placeholder3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_do_placeholder3.setBorder(new RoundedBorder(8));
-		btn_do_placeholder3.setBackground(new Color(251, 251, 251));
-		btn_do_placeholder3.setBounds(355, 10, 150, 35);
+		btn_do_placeholder3.setForeground(mauffffff);
+		btn_do_placeholder3.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btn_do_placeholder3.setBorder(null);
+		btn_do_placeholder3.setBackground(mau3D5A80);
+		btn_do_placeholder3.setBounds(314, 12, 150, 36);
 		btn_do_placeholder3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -201,11 +220,11 @@ public class Dashboard extends JFrame {
 		dashboard_options.add(btn_do_placeholder3);
 		
 		JButton btn_do_placeholder4 = new JButton("Quan sát all Client");
-		btn_do_placeholder4.setForeground(Color.BLACK);
-		btn_do_placeholder4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_do_placeholder4.setBorder(new RoundedBorder(8));
-		btn_do_placeholder4.setBackground(new Color(251, 251, 251));
-		btn_do_placeholder4.setBounds(525, 10, 150, 35);
+		btn_do_placeholder4.setForeground(mauffffff);
+		btn_do_placeholder4.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btn_do_placeholder4.setBorder(null);
+		btn_do_placeholder4.setBackground(mau3D5A80);
+		btn_do_placeholder4.setBounds(465, 12, 150, 36);
 		
 		btn_do_placeholder4.addActionListener(e -> {
             if (watchController != null) {
@@ -216,17 +235,18 @@ public class Dashboard extends JFrame {
                 watchController.showWatchView();
             }
         });
+		
 //		btn_do_placeholder4.addActionListener(e -> watch_GUI.setVisible(true));
 
 
 		dashboard_options.add(btn_do_placeholder4);
 		
 		JButton btn_do_placeholder5 = new JButton("White Board");
-		btn_do_placeholder5.setForeground(Color.BLACK);
-		btn_do_placeholder5.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_do_placeholder5.setBorder(new RoundedBorder(8));
-		btn_do_placeholder5.setBackground(new Color(251, 251, 251));
-		btn_do_placeholder5.setBounds(695, 10, 150, 35);
+		btn_do_placeholder5.setForeground(mauffffff);
+		btn_do_placeholder5.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btn_do_placeholder5.setBorder(null);
+		btn_do_placeholder5.setBackground(mau3D5A80);
+		btn_do_placeholder5.setBounds(616, 12, 150, 36);
 		btn_do_placeholder5.addActionListener(e -> openWhiteBoardServer());
 
 		dashboard_options.add(btn_do_placeholder5);
@@ -235,16 +255,16 @@ public class Dashboard extends JFrame {
 		ta_log.setBackground(new Color(240, 240, 240));
 		ta_log.setLineWrap(true);
 		ta_log.setEditable(false);
-		ta_log.setBounds(0, 495, 862, 235);
+		ta_log.setBounds(0, 495, 975, 205);
 		dashboard.add(ta_log);
 		
 		client_dashboard = new JPanel();
-		client_dashboard.setBackground(new Color(245, 245, 245));
-		client_dashboard.setBounds(75, 59, 862, 435);
+		client_dashboard.setBackground(mauE0FBFC);
+		client_dashboard.setBounds(0, 60, 975, 435);
 		client_dashboard.setLayout(new WrapLayout(FlowLayout.LEFT, 10, 10));
 		JScrollPane client_dashboardScrollPane = new JScrollPane(client_dashboard);
 		client_dashboardScrollPane.setBorder(null);
-		client_dashboardScrollPane.setBounds(0, 59, 862, 435);
+		client_dashboardScrollPane.setBounds(0, 60, 975, 435);
 		client_dashboardScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		client_dashboardScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		dashboard.add(client_dashboardScrollPane);
@@ -286,6 +306,8 @@ public class Dashboard extends JFrame {
 	 * @param isConnected Whether the client is currently connected
 	 * @return A new Client_dashboard_JPanel instance
 	 */
+	
+	// máy tính rồi 
 	public static Client_dashboard_JPanel createClientItem(String name, boolean isConnected) {
 		return new Client_dashboard_JPanel(name, isConnected,
 			new Client_dashboard_JPanel.OnClientItemSelected() {
@@ -358,35 +380,6 @@ public class Dashboard extends JFrame {
         client_dashboard.revalidate();
         client_dashboard.repaint();
     }
-
-//    public static void client_dashboardConnected(String client_name) {
-//        // Add a 300ms delay to ensure the panel is added to the list first
-//        Thread delayThread = new Thread(() -> {
-//            try { Thread.sleep(300);
-//            } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();
-//            }
-//
-//            SwingUtilities.invokeLater(() -> {
-//                // Find the client panel with matching name and update its connection status
-//                for (JPanel panel : client_dashboard_JPanelList) {
-//                    if (panel instanceof Client_dashboard_JPanel) {
-//                        Client_dashboard_JPanel clientPanel = (Client_dashboard_JPanel) panel;
-//                        String panelName = clientPanel.getClientName();
-//                        if (panelName.equals(client_name)) {
-//                            clientPanel.setConnected(true);
-//                            client_dashboard.revalidate();
-//                            client_dashboard.repaint();
-//                            break; // Found and updated, exit loop
-//                        }
-//                    }
-//                }
-//            });
-//        });
-//        delayThread.setName("Client-Connected-Delay-" + client_name);
-//        delayThread.setDaemon(true);
-//        delayThread.start();
-//    }
 
     public static void client_dashboardDisconnected(String client_name) {
         SwingUtilities.invokeLater(() -> {
