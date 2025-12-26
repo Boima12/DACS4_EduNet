@@ -53,3 +53,67 @@ INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoRes
 ERROR [Thread-0] o.e.client.controller.ClientNetwork - java.net.SocketException: Connection reset
 INFO  [Thread-0] o.e.client.controller.ClientNetwork - This client hear() has stopped, calling closeEverything()
 INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client null - /192.168.1.9 disconnected.
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@ef4a6ed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.56.1:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Hoang1' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [main] org.example.client.model.CoreClient - Created new runtime memoryBox.json
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"establishingRequest","client_name":"Hoang2","maLienKet":353631}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"establishingRequest","client_name":"Hoang2","maLienKet":353631}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Sending: {"type":"establishingResponse","approval":true,"client_name":"Hoang2","client_token":"ef626bbfd9436078231e069344c45d1725f07ad056679e310ee89f30e98dfd53bfd5e49cf1b178c5658f0b46008b38e6a37b910cb72e6a237b4dea86081d56ee","server_IP":"192.168.56.1","server_port":6060}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"establishingResponse","approval":true,"client_name":"Hoang2","client_token":"ef626bbfd9436078231e069344c45d1725f07ad056679e310ee89f30e98dfd53bfd5e49cf1b178c5658f0b46008b38e6a37b910cb72e6a237b4dea86081d56ee","server_IP":"192.168.56.1","server_port":6060}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"ef626bbfd9436078231e069344c45d1725f07ad056679e310ee89f30e98dfd53bfd5e49cf1b178c5658f0b46008b38e6a37b910cb72e6a237b4dea86081d56ee"}
+INFO  [Thread-4] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"ef626bbfd9436078231e069344c45d1725f07ad056679e310ee89f30e98dfd53bfd5e49cf1b178c5658f0b46008b38e6a37b910cb72e6a237b4dea86081d56ee"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client Hoang2 - /192.168.56.1 disconnected.
+ERROR [Thread-0] o.e.client.controller.ClientNetwork - java.io.IOException: Stream closed
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - This client hear() has stopped, calling closeEverything()
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client Hoang2 - /192.168.56.1 disconnected.
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Client Hoang2 - /192.168.56.1 disconnected.
+INFO  [Thread-4] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-4] o.e.s.c.ServerNetworkHandler - Client Hoang2 - /192.168.56.1 connected successfully.
+INFO  [Thread-4] o.e.s.c.ServerNetworkHandler - Client Hoang2 - /192.168.56.1 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.56.1:6060
+ERROR [Thread-2] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@273878b0
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.56.1:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [main] org.example.client.model.CoreClient - Created new runtime memoryBox.json
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"establishingRequest","client_name":"Hoang3","maLienKet":970009}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"establishingRequest","client_name":"Hoang3","maLienKet":970009}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Sending: {"type":"establishingResponse","approval":true,"client_name":"Hoang3","client_token":"6bc2a78d7a38fb46b51a7e6520b637f00dee0f176cc6c5417fa06e6c018d60ea2e4b801f29ad530ffd3d2e8a84904e04a0c0760298cadb9917d87e3611210ad2","server_IP":"192.168.56.1","server_port":6060}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"establishingResponse","approval":true,"client_name":"Hoang3","client_token":"6bc2a78d7a38fb46b51a7e6520b637f00dee0f176cc6c5417fa06e6c018d60ea2e4b801f29ad530ffd3d2e8a84904e04a0c0760298cadb9917d87e3611210ad2","server_IP":"192.168.56.1","server_port":6060}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"6bc2a78d7a38fb46b51a7e6520b637f00dee0f176cc6c5417fa06e6c018d60ea2e4b801f29ad530ffd3d2e8a84904e04a0c0760298cadb9917d87e3611210ad2"}
+INFO  [Thread-4] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"6bc2a78d7a38fb46b51a7e6520b637f00dee0f176cc6c5417fa06e6c018d60ea2e4b801f29ad530ffd3d2e8a84904e04a0c0760298cadb9917d87e3611210ad2"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client Hoang3 - /192.168.56.1 disconnected.
+ERROR [Thread-0] o.e.client.controller.ClientNetwork - java.io.IOException: Stream closed
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - This client hear() has stopped, calling closeEverything()
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client Hoang3 - /192.168.56.1 disconnected.
+INFO  [Thread-4] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-1] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-4] o.e.s.c.ServerNetworkHandler - Client Hoang3 - /192.168.56.1 connected successfully.
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Client Hoang3 - /192.168.56.1 disconnected.
+INFO  [Thread-4] o.e.s.c.ServerNetworkHandler - Client Hoang3 - /192.168.56.1 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.56.1:6060
+ERROR [Thread-2] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2bfd54fb
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.56.1:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Hoang3' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"6bc2a78d7a38fb46b51a7e6520b637f00dee0f176cc6c5417fa06e6c018d60ea2e4b801f29ad530ffd3d2e8a84904e04a0c0760298cadb9917d87e3611210ad2"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"6bc2a78d7a38fb46b51a7e6520b637f00dee0f176cc6c5417fa06e6c018d60ea2e4b801f29ad530ffd3d2e8a84904e04a0c0760298cadb9917d87e3611210ad2"}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-3] o.e.s.c.ServerNetworkHandler - Client Hoang3 - /192.168.56.1 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+ERROR [Thread-0] o.e.client.controller.ClientNetwork - java.net.SocketException: Connection reset
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - This client hear() has stopped, calling closeEverything()
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client null - /192.168.56.1 disconnected.

@@ -94,7 +94,7 @@ public class WhiteBoardController {
     private ServerSocket serverSocket;
     private List<ObjectOutputStream> clients = new CopyOnWriteArrayList<>();
     private WhiteBoardView serverView;
-    private int port = 9999; // port mặc định
+    private int port; // port mặc định  
 
     /**
      * Khởi tạo server WhiteBoard
