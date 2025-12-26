@@ -12,7 +12,7 @@ import org.example.client.view.EClient;
 import org.example.client.view.eClientConnector.EClientConnector;
 import org.example.common.objects.MemoryBox;
 import org.example.common.utils.gson.GsonHelper;
-
+import org.example.common.utils.gui.Alert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,6 +70,41 @@ public class CoreClient {
             }
         });
     }
+//    
+//    public void start() {
+//        SwingUtilities.invokeLater(() -> {
+//            eClientWindow = new EClient();
+//            eClientConnectorWindow = new EClientConnector();
+//
+//            ClientStates.setOnEstablishListenerCallback(this::connectToServerAsync);
+//
+//            if (isEstablished) {
+//                connectToServerAsync();
+//            } else {
+//                eClientConnectorWindow.display();
+//            }
+//        });
+//    }
+
+
+    
+    //
+//    private void connectToServerAsync() {
+//        new Thread(() -> {
+//            try {
+//                connectToServer();
+//            } catch (IOException e) {
+//                SwingUtilities.invokeLater(() -> {
+//                    Alert.showError(
+//                        "Không thể kết nối Server!\n" +
+//                        "Kiểm tra:\n" +
+//                        "- Server đã chạy chưa?\n" +
+//                        "- IP / PORT có đúng không?"
+//                    );
+//                });
+//            }
+//        }, "Client-Connect-Thread").start();
+//    }
 
     private void copyDefaultMemoryBox() {
         try (InputStream is = getClass().getResourceAsStream("/localStorage/memoryBox.json")) {

@@ -111,3 +111,167 @@ ERROR [Thread-1] o.e.server.controller.ServerNetwork - java.net.SocketException:
 INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
 INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4ebbb627
 INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@25049400
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.56.1:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Hoang1' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.56.1:6060
+ERROR [Thread-1] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@fb2dc84
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.56.1:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Hoang1' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.56.1:6060
+ERROR [Thread-1] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3b333306
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.56.1:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Hoang1' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Hoang1 - /192.168.56.1 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"20","CPU_load":"0.00%","RAM":"11208 / 16108","Disk":"Disk C:\\: 219 / 237 GB used\nDisk D:\\: 102 / 237 GB used\n"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"20","CPU_load":"0.00%","RAM":"11208 / 16108","Disk":"Disk C:\\: 219 / 237 GB used\nDisk D:\\: 102 / 237 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"20","CPU_load":"7.36%","RAM":"11032 / 16108","Disk":"Disk C:\\: 219 / 237 GB used\nDisk D:\\: 102 / 237 GB used\n"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"20","CPU_load":"7.36%","RAM":"11032 / 16108","Disk":"Disk C:\\: 219 / 237 GB used\nDisk D:\\: 102 / 237 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"20","CPU_load":"6.80%","RAM":"11036 / 16108","Disk":"Disk C:\\: 219 / 237 GB used\nDisk D:\\: 102 / 237 GB used\n"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"20","CPU_load":"6.80%","RAM":"11036 / 16108","Disk":"Disk C:\\: 219 / 237 GB used\nDisk D:\\: 102 / 237 GB used\n"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"notificationRequest","msg":"gfgd"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"notificationRequest","msg":"gfgd"}
+INFO  [AWT-EventQueue-0] o.e.s.c.ServerNetworkHandler - Sending: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"systemInfoRequest"}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Sending: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"20","CPU_load":"9.04%","RAM":"11017 / 16108","Disk":"Disk C:\\: 219 / 237 GB used\nDisk D:\\: 102 / 237 GB used\n"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"systemInfoResponse","OS":"Windows 11 10.0 (amd64) ","CPU_cores":"20","CPU_load":"9.04%","RAM":"11017 / 16108","Disk":"Disk C:\\: 219 / 237 GB used\nDisk D:\\: 102 / 237 GB used\n"}
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.56.1:6060
+ERROR [Thread-1] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+ERROR [Thread-0] o.e.client.controller.ClientNetwork - java.net.SocketException: Connection reset
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - This client hear() has stopped, calling closeEverything()
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client null - /192.168.56.1 disconnected.
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@25049400
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.56.1:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Hoang1' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [Client-Connect-Thread] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Hoang1 - /192.168.56.1 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Hoang1 - /192.168.56.1 disconnected.
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@b9971a5
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.56.1:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Hoang1' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Hoang1 - /192.168.56.1 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Hoang1 - /192.168.56.1 disconnected.
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2825e509
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.56.1:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Hoang1' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4ebbb627
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.56.1:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Hoang1' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Hoang1 - /192.168.56.1 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Hoang1 - /192.168.56.1 disconnected.
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@25049400
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.56.1:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Hoang1' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Hoang1 - /192.168.56.1 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Hoang1 - /192.168.56.1 disconnected.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-4] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-4] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-4] o.e.s.c.ServerNetworkHandler - Client Hoang1 - /192.168.56.1 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+WARN  [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m2s670ms72µs500ns).
+ERROR [Thread-0] o.e.client.controller.ClientNetwork - java.net.SocketException: Connection reset
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - This client hear() has stopped, calling closeEverything()
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client null - /192.168.56.1 disconnected.
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@363a1f23
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.56.1:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Hoang1' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Hoang1 - /192.168.56.1 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Hoang1 - /192.168.56.1 disconnected.
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@25049400
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.56.1:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Hoang1' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Hoang1 - /192.168.56.1 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Hoang1 - /192.168.56.1 disconnected.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.56.1:6060
+ERROR [Thread-1] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4257f2b9
+INFO  [AWT-EventQueue-0] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Started on 192.168.56.1:6060
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - [Setting up] Loaded client 'Hoang1' into dashboard.
+INFO  [AWT-EventQueue-0] o.e.server.view.dashboard.Dashboard - Client dashboard setup complete.
+INFO  [AWT-EventQueue-0] o.e.client.controller.ClientNetwork - Sending: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Received: {"type":"connectionRequest","client_token":"ba67bc13a99ec967969a387c6014eb8e69c583823504edd7ccd6435301fa83b8417d4d202d0dbbd8073561e497cdce18e177a8ce9fa34ac843a1552f92793fc8"}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Sending: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Received: {"type":"connectionResponse","isLinked":true}
+INFO  [Thread-2] o.e.s.c.ServerNetworkHandler - Client Hoang1 - /192.168.56.1 connected successfully.
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Connection approved by server.
+INFO  [AWT-EventQueue-0] org.example.server.model.CoreServer - Server Closed on 192.168.56.1:6060
+ERROR [Thread-1] o.e.server.controller.ServerNetwork - java.net.SocketException: Socket closed
+ERROR [Thread-0] o.e.client.controller.ClientNetwork - java.net.SocketException: Connection reset
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - This client hear() has stopped, calling closeEverything()
+INFO  [Thread-0] o.e.client.controller.ClientNetwork - Client null - /192.168.56.1 disconnected.

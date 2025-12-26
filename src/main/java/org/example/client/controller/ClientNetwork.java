@@ -1,6 +1,7 @@
 package org.example.client.controller;
 
 import java.io.*;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 
 import com.google.gson.JsonObject;
@@ -30,6 +31,12 @@ public class ClientNetwork {
     private final File runtimeJsonFile = new File("localStorage/memoryBox.json");
 
     public ClientNetwork(String serverIP, int port) throws IOException {
+//    	this.clientSocket = new Socket();
+//    	this.clientSocket.connect(
+//    	    new InetSocketAddress(serverIP, port),
+//    	    5000 // timeout 5s
+//    	);
+
         this.clientSocket = new Socket(serverIP, port);
         in = new BufferedReader(new InputStreamReader(new DataInputStream(clientSocket.getInputStream())));
         out = new BufferedWriter(new OutputStreamWriter(new DataOutputStream(clientSocket.getOutputStream())));

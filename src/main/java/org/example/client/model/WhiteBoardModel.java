@@ -10,6 +10,6 @@ public class WhiteBoardModel implements Serializable {
     public WhiteBoardModel(int x, int y, Color color) {
         this.x = x;
         this.y = y;
-        this.color = color != null ? color : Color.BLACK;
+        this.color = color != null ? color : Color.BLACK; 
     }
 }

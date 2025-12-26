@@ -21,6 +21,7 @@ import org.example.common.utils.gui.ImageHelper;
 import org.example.common.utils.gui.RoundedBorder;
 import org.example.common.utils.gui.WrapLayout;
 import org.example.server.ServerStates;
+import org.example.server.controller.LockController;
 import org.example.server.controller.WatchController;
 import org.example.server.controller.WhiteBoardController;
 import org.example.server.model.database.JDBCUtil;
@@ -51,10 +52,11 @@ public class Dashboard extends JFrame {
     private static JButton btn_info_placeholder4; 
     
     public static int id_port_whiteboard = 6061;
-    public static int id_port_watch = 6062;
+    public static int id_port_watch = 6063;
 
     // SỬA: Khởi tạo trực tiếp để tránh NullPointerException khi gọi build()
     private static WatchController watchController = new WatchController(id_port_watch);
+    
 	private static Color mauEE6C4D;
 	private static Color mauffffff;
 	private static Color mau293240;
@@ -140,7 +142,7 @@ public class Dashboard extends JFrame {
 		});
 		infobar.add(btn_info_placeholder2);
 		
-		btn_info_placeholder3 = new JButton("Button 3");
+		btn_info_placeholder3 = new JButton("Khóa Máy");
 		btn_info_placeholder3.setEnabled(false);
 //		btn_info_placeholder3.setBorder(new RoundedBorder(8));
 		btn_info_placeholder3.setBorder(null);
@@ -148,12 +150,18 @@ public class Dashboard extends JFrame {
 		btn_info_placeholder3.setBackground(mau98C1D9);
 		btn_info_placeholder3.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btn_info_placeholder3.setBounds(50, 330, 150, 35);
+		LockController lockServer = new LockController();
+		lockServer.startServer(6000);
 		btn_info_placeholder3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO
+			    lockServer.sendCommandToAll("LOCK");
+
 			}
 		});
+		
+
 		infobar.add(btn_info_placeholder3);
 		
 		btn_info_placeholder4 = new JButton("Button 4");
@@ -167,6 +175,8 @@ public class Dashboard extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO
+			    lockServer.sendCommandToAll("UNLOCK");
+
 			}
 		});
 		infobar.add(btn_info_placeholder4);
@@ -479,4 +489,7 @@ public class Dashboard extends JFrame {
             JOptionPane.showMessageDialog(null, "Lỗi mở WhiteBoard: " + ex.getMessage());
         }
     }
+    
+    
+    
 }
