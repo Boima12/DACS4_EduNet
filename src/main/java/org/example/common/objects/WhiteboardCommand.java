@@ -1,12 +1,6 @@
 package org.example.common.objects;
 
-public enum WhiteboardCommand {
-   BEGIN,
-   DRAW,
-   END,
-   CLEAR,
-   UNDO,
-   LOCK,
-   SYNC
+public class WhiteboardCommand {
+    // TODO xóa file này
+    // đã được dời sang common/objects/whiteBoard/WhiteboardCommand.java, các future commit vào file này sẽ bị xóa
 }
- 

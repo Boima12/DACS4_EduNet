@@ -8,8 +8,8 @@ import java.io.ObjectOutputStream;
 import java.util.Stack;
 import javax.swing.*;
 
-import org.example.common.objects.WhiteboardCommand;
-import org.example.common.objects.WhiteboardPacket;
+import org.example.common.objects.whiteBoard.WhiteboardCommand;
+import org.example.common.objects.whiteBoard.WhiteboardPacket;
 
 public class WhiteBoardView extends JFrame {
 

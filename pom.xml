@@ -50,6 +50,7 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>9.5.0</version>
         </dependency>
+
         <dependency>
         	<groupId>com.classroom</groupId>
         	<artifactId>classroom-client</artifactId>

@@ -6,7 +6,7 @@ import java.net.Socket;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.example.client.ClientStates;
-import org.example.client.controller.services.systemInfo.SystemInfo;
+import org.example.client.model.services.systemInfo.SystemInfo;
 import org.example.common.objects.MemoryBox;
 import org.example.common.objects.messages.ConnectionRequestJSON;
 import org.example.common.objects.messages.EstablishingRequestJSON;
