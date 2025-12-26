@@ -78,7 +78,7 @@ package org.example.server.controller.services.whiteBoard;
 
 import org.example.common.objects.whiteBoard.WhiteboardPacket;
 import org.example.common.objects.whiteBoard.WhiteboardCommand;
-import org.example.server.view.whiteboard.WhiteBoardView;
+import org.example.server.view.whiteBoard.WhiteBoardView;
 
 import java.io.*;
 import java.net.ServerSocket;

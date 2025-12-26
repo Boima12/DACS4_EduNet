@@ -67,6 +67,7 @@ public class WatchController {
             }
         });
         serverThread.setName("Video-Server-Daemon");
+        serverThread.setDaemon(true);
         serverThread.start();
     }
 

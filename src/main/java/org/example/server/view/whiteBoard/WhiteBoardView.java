@@ -1,4 +1,4 @@
-package org.example.server.view.whiteboard;
+package org.example.server.view.whiteBoard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -79,7 +79,7 @@ public class WhiteBoardView extends JFrame {
         add(tools, BorderLayout.NORTH);
         add(board, BorderLayout.CENTER);
        
-        setVisible(true);
+//        setVisible(true);
     }
 
     // Áp dụng packet tới GUI Server

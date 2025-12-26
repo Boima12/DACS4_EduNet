@@ -6,6 +6,8 @@ import org.example.server.view.dashboard.*;
 import org.example.server.view.manage.Manage;
 import org.example.server.view.manage.OnSystemInfoRequestListener;
 import org.example.server.view.manage.OnSystemInfoResponseListener;
+import org.example.server.view.watch.OnWatchControllerShowListener;
+import org.example.server.view.whiteBoard.OnWhiteBoardControllerShowListener;
 
 /**
  * Server States, nơi trung chuyển các trạng thái và callback cho code server
@@ -63,5 +65,15 @@ public class ServerStates {
     public static OnNotificationSingleRequestListener onNotificationSingleRequestListener;
     public static void setOnNotificationSingleRequestListenerCallback(OnNotificationSingleRequestListener callback) {
         onNotificationSingleRequestListener = callback;
+    }
+
+    public static OnWatchControllerShowListener onWatchControllerShowListener;
+    public static void setOnWatchControllerShowListenerCallback(OnWatchControllerShowListener callback) {
+        onWatchControllerShowListener = callback;
+    }
+
+    public static OnWhiteBoardControllerShowListener onWhiteBoardControllerShowListener;
+    public static void setOnWhiteBoardControllerShowListenerCallback(OnWhiteBoardControllerShowListener callback) {
+        onWhiteBoardControllerShowListener = callback;
     }
 }
