@@ -145,6 +145,7 @@ public class ClientNetwork {
             memoryBox.server_port = server_port;
             GsonHelper.writeJsonFile(runtimeJsonFile.getPath(), memoryBox);
 
+            log.info("Establishment approved by server. Closing this connection to reconnect as established client...");
             if (ClientStates.onEstablishListener != null) ClientStates.onEstablishListener.onEstablish();
             closeEverything();
         } else {
