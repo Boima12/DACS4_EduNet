@@ -78,6 +78,10 @@ import org.example.common.utils.gui.WrapLayout;
 //    }
 //}
 
+/**
+ * ??? - Cần Hoàng ghi chú thích cho file
+ *
+ */
 public class WatchView extends JFrame {
 
     private JPanel videoContainer;

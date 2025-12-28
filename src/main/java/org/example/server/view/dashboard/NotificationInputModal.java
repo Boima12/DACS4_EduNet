@@ -3,6 +3,10 @@ package org.example.server.view.dashboard;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Code UI/logic cửa sổ modal nhập thông báo
+ *
+ */
 @SuppressWarnings("serial")
 public class NotificationInputModal extends JDialog {
 

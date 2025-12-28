@@ -11,6 +11,10 @@ import javax.swing.*;
 import org.example.common.objects.whiteBoard.WhiteboardCommand;
 import org.example.common.objects.whiteBoard.WhiteboardPacket;
 
+/**
+ * Code UI/Logic cho cửa sổ giao diện whiteboard của Client.
+ *
+ */
 public class WhiteBoardView extends JFrame {
 
     private boolean locked = false;

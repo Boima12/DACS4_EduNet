@@ -186,6 +186,11 @@ import javax.swing.*;
 
 import org.example.client.controller.services.whiteBoard.WhiteBoardController;
 
+/**
+ * Code UI/Logic cho cửa sổ giao diện quản lý học tập
+ * Gộp chung vào với EClient trong thời gian tới?
+ *
+ */
 public class Client_Screen extends JFrame {
 
     private JPanel contentPane;

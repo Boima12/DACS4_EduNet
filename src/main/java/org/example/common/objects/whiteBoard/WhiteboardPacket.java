@@ -43,6 +43,10 @@ package org.example.common.objects.whiteBoard;
 import java.awt.Color;
 import java.io.Serializable;
 
+/**
+ * ??? - Cần Hoàng ghi chú thích cho file
+ *
+ */
 public class WhiteboardPacket implements Serializable {
 
     private static final long serialVersionUID = 1L;
