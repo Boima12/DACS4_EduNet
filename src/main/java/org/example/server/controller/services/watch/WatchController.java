@@ -13,6 +13,10 @@ import java.net.Socket;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.imageio.ImageIO;
 
+/**
+ * Code xử lý network cho chức năng Watch (giám sát) từ Client
+ *
+ */
 public class WatchController {
 
     private final int port;

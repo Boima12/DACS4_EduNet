@@ -1,5 +1,9 @@
 package org.example.common.objects.whiteBoard;
 
+/**
+ * ??? - Cần Hoàng ghi chú thích cho file
+ *
+ */
 public enum WhiteboardCommand {
    BEGIN,
    DRAW,

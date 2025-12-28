@@ -4,6 +4,10 @@ package org.example.server.view.watch;
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * ??? - Cần Hoàng ghi chú thích cho file
+ *
+ */
 public class WatchPanel extends JPanel {
 
     private JLabel videoLabel;

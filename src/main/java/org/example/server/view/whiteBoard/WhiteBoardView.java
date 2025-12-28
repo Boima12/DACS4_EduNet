@@ -11,6 +11,10 @@ import java.util.function.Consumer;
 import org.example.common.objects.whiteBoard.WhiteboardCommand;
 import org.example.common.objects.whiteBoard.WhiteboardPacket;
 
+/**
+ * Code UI/Logic cho cửa sổ giao diện Whiteboard của Server
+ *
+ */
 public class WhiteBoardView extends JFrame {
 
     private boolean locked = false;
