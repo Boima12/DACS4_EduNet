@@ -52,12 +52,28 @@ public class CoreClient {
             eClientConnectorWindow = new EClientConnector();
 
             ClientStates.setOnEstablishListenerCallback(() -> {
-                MemoryBox memoryBox = GsonHelper.readJsonFile(runtimeJsonFile.getPath(), MemoryBox.class);
-                if (memoryBox != null && "yesEstablished".equals(memoryBox.serverConnection)) {
-                    connectToServer();
-                }
+                // delay 500ms to wait for previous connection close
+                Thread delayThread = new Thread(() -> {
+                    try { Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+
+                    MemoryBox memoryBox = GsonHelper.readJsonFile(runtimeJsonFile.getPath(), MemoryBox.class);
+                    if (memoryBox != null && "yesEstablished".equals(memoryBox.serverConnection)) {
+                        try {
+                            connectToServer();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+                delayThread.setName("First establish wait for previous connection close");
+                delayThread.setDaemon(true);
+                delayThread.start();
             });
 
+            // Nếu đã có memoryBox.json và đã kết nối từ trước
             if (isEstablished) {
                 try {
                     connectToServer();
