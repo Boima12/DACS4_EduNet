@@ -10,12 +10,16 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.*;
+
+import org.example.client.controller.services.lock.LockController;
 import org.example.common.utils.gui.Alert;
 import org.example.common.utils.gui.ImageHelper;
 import org.example.common.utils.gui.RoundedBorder;
 import org.example.common.utils.gui.WrapLayout;
 import org.example.server.ServerStates;
+import org.example.server.model.CoreServer;
 import org.example.server.model.database.JDBCUtil;
+import org.example.server.view.exercise.ExerciseView;
 import org.example.server.view.manage.Manage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +44,8 @@ public class Dashboard extends JFrame {
     private static JButton btn_info_placeholder3; 
     private static JButton btn_info_placeholder4; 
     
+   // private static LockController lockController;
+
 //    public static int id_port_whiteboard = 6061;
 //    public static int id_port_watch = 6062;
 
@@ -122,8 +128,12 @@ public class Dashboard extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO
+				openLockServer();
+				//openLockServer()
+	            //if (ServerStates.onWatchControllerShowListener != null) ServerStates.onWatchControllerShowListener.onWatchControllerShow();
 			}
 		});
+		
 		infobar.add(btn_info_placeholder3);
 		
 		btn_info_placeholder4 = new JButton("Button 4");
@@ -137,8 +147,18 @@ public class Dashboard extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO
+			//	lockController.sendCommandToAll("LOCK");
 			}
 		});
+//		btn_info_placeholder4.addActionListener(e -> {
+//            if (lockController != null) {
+//            	lockController.showWatchView();
+//            } else {
+//                // Đề phòng trường hợp khởi tạo lỗi
+//            	lockController = new WatchController(id_port_watch);
+//                watchController.showWatchView();
+//            }
+//        });
 		infobar.add(btn_info_placeholder4);
 		
 		JPanel dashboard_options = new JPanel();
@@ -152,7 +172,7 @@ public class Dashboard extends JFrame {
 		btn_do_lkClient.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_do_lkClient.setBorder(new RoundedBorder(8));
 		btn_do_lkClient.setBackground(new Color(251, 251, 251));
-		btn_do_lkClient.setBounds(15, 10, 150, 35);
+		btn_do_lkClient.setBounds(0, 10, 150, 35);
 		btn_do_lkClient.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -166,7 +186,7 @@ public class Dashboard extends JFrame {
 		btn_do_lanScan.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btn_do_lanScan.setBorder(new RoundedBorder(8));
 		btn_do_lanScan.setBackground(new Color(251, 251, 251));
-		btn_do_lanScan.setBounds(185, 10, 150, 35);
+		btn_do_lanScan.setBounds(149, 11, 150, 35);
 		btn_do_lanScan.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -180,7 +200,7 @@ public class Dashboard extends JFrame {
 		btn_do_notificationAll.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_do_notificationAll.setBorder(new RoundedBorder(8));
 		btn_do_notificationAll.setBackground(new Color(251, 251, 251));
-		btn_do_notificationAll.setBounds(355, 10, 150, 35);
+		btn_do_notificationAll.setBounds(298, 10, 150, 35);
 		btn_do_notificationAll.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -194,7 +214,7 @@ public class Dashboard extends JFrame {
 		btn_do_watch.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_do_watch.setBorder(new RoundedBorder(8));
 		btn_do_watch.setBackground(new Color(251, 251, 251));
-		btn_do_watch.setBounds(525, 10, 150, 35);
+		btn_do_watch.setBounds(448, 10, 150, 35);
 		
 		btn_do_watch.addActionListener(e -> {
 //            if (watchController != null) {
@@ -217,11 +237,19 @@ public class Dashboard extends JFrame {
 		btn_do_whiteBoard.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_do_whiteBoard.setBorder(new RoundedBorder(8));
 		btn_do_whiteBoard.setBackground(new Color(251, 251, 251));
-		btn_do_whiteBoard.setBounds(695, 10, 150, 35);
+		btn_do_whiteBoard.setBounds(601, 15, 150, 35);
 		btn_do_whiteBoard.addActionListener(e -> openWhiteBoardServer());
-
 		dashboard_options.add(btn_do_whiteBoard);
 		
+		JButton bton_nopbaitap = new JButton("Baitap");
+		bton_nopbaitap.setForeground(Color.BLACK);
+		bton_nopbaitap.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		bton_nopbaitap.setBorder(new RoundedBorder(8));
+		bton_nopbaitap.setBackground(new Color(251, 251, 251));
+		bton_nopbaitap.setBounds(750, 15, 150, 35);
+		bton_nopbaitap.addActionListener(e -> onExercise());
+		dashboard_options.add(bton_nopbaitap);
+
 		JTextArea ta_log = new JTextArea();
 		ta_log.setBackground(new Color(240, 240, 240));
 		ta_log.setLineWrap(true);
@@ -240,9 +268,21 @@ public class Dashboard extends JFrame {
 		client_dashboardScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		dashboard.add(client_dashboardScrollPane);
 		
+		
+		
+		
 		return dashboard;
 	}
-
+//	// Sửa lại phương thức này để kết nối đúng với hệ thống
+//	public static void onExercise() {
+	    // Gọi thông qua CoreServer để View được gắn Controller và nạp dữ liệu cũ
+//	    CoreServer.fireExerciseViewShow();
+//	}
+		public static void onExercise() {
+		    // Gọi đúng lớp trung gian quản lý trạng thái
+		    org.example.server.ServerStates.fireExerciseViewShow();
+		}
+//	
 	public static void onlkClient() {
         ServerStates.lkModal = new LienKetModal(frame);
         ServerStates.lkModal.setVisible(true);
@@ -326,33 +366,6 @@ public class Dashboard extends JFrame {
         client_dashboard.revalidate();
         client_dashboard.repaint();
     }
-
-//    public static void client_dashboardConnected(String client_name) {
-//        SwingUtilities.invokeLater(() -> {
-//            boolean found = false;
-//            for (JPanel panel : client_dashboard_JPanelList) {
-//                if (panel instanceof Client_dashboard_JPanel) {
-//                    Client_dashboard_JPanel clientPanel = (Client_dashboard_JPanel) panel;
-//                    if (clientPanel.getClientName().equals(client_name)) {
-//                        clientPanel.setConnected(true);
-//                        found = true;
-//                        break;
-//                    }
-//                }
-//            }
-//            if (!found) {
-//                // Nếu chưa có trong danh sách thì tạo mới và set online luôn
-//                Client_dashboard_JPanel newPanel = createClientItem(client_name, true);
-//                client_dashboard.add(newPanel);
-//            }
-//            client_dashboard.revalidate();
-//            client_dashboard.repaint();
-//        });
-//    }
-//
-//    lí do tui để client_dashboardConnected có 300ms delay là vì client_dashboardConnected() chỉ
-//    là method dùng để cập nhập UI khi client kết nối thôi, còn việc thêm thì đã có
-//    ServerStates.onClient_dashboardNewClientListener.onClient_dashboardNewClient() trong ServerNetworkHandler.java làm việc đó rồi
 
     public static void client_dashboardConnected(String client_name) {
         // Add a 300ms delay to ensure the panel is added to the list first
@@ -454,31 +467,35 @@ public class Dashboard extends JFrame {
         }
     }
     
-    
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//            JFrame frame = new JFrame("Dashboard Preview");
-//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//            frame.setBounds(10, 10, 1300, 700);
-//            frame.setLocationRelativeTo(null);
-//
-//            JPanel dashboard = Dashboard.build();
-//            frame.setContentPane(dashboard);
-//
-//            frame.setVisible(true);
-//        });
-//    }
-
-//    public static void openWhiteBoardServer() {
-//        try {
-//            WhiteBoardController serverWBController = new WhiteBoardController(id_port_whiteboard);
-//            serverWBController.showWindow();
-//        } catch (Exception ex) {
-//            JOptionPane.showMessageDialog(null, "Lỗi mở WhiteBoard: " + ex.getMessage());
-//        }
-//    }
 
     private static void openWhiteBoardServer() {
         if (ServerStates.onWhiteBoardControllerShowListener != null) ServerStates.onWhiteBoardControllerShowListener.onWhiteBoardControllerShow();
     }
+    
+    
+    
+    private static boolean isLocked = false;
+
+    private static void openLockServer() {
+
+        if (ServerStates.onLockListener == null) return;
+
+        if (!isLocked) {
+            // gửi yêu cầu LOCK
+            ServerStates.onLockListener.onLock("LOCK");
+
+            btn_info_placeholder3.setText("Mở khóa");
+            btn_info_placeholder3.setBackground(Color.RED);
+        } else {
+            // gửi yêu cầu UNLOCK
+            ServerStates.onLockListener.onLock("UNLOCK");
+
+            btn_info_placeholder3.setText("Khóa máy");
+            btn_info_placeholder3.setBackground(new Color(251, 251, 251));
+        }
+
+        isLocked = !isLocked;
+    }
+
+    
 }
