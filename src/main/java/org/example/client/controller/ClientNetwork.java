@@ -2,14 +2,19 @@ package org.example.client.controller;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.example.client.ClientStates;
 import org.example.client.model.services.systemInfo.SystemInfo;
 import org.example.common.objects.MemoryBox;
-import org.example.common.objects.messages.ConnectionRequestJSON;
-import org.example.common.objects.messages.EstablishingRequestJSON;
+import org.example.common.objects.messages.connection.ConnectionRequestJSON;
+import org.example.common.objects.messages.establish.EstablishingRequestJSON;
+import org.example.common.objects.services.exercise.Assignment;
+import org.example.common.objects.services.exercise.Packet;
+import org.example.common.objects.services.exercise.PacketType;
+import org.example.common.objects.services.exercise.Submission;
 import org.example.common.utils.gson.GsonHelper;
 import org.example.common.utils.gui.Alert;
 import org.slf4j.Logger;
@@ -30,7 +35,7 @@ public class ClientNetwork {
     private final File runtimeJsonFile = new File("localStorage/memoryBox.json");
 
     public ClientNetwork(String serverIP, int port) throws IOException {
-        this.clientSocket = new Socket(serverIP, port);
+        clientSocket = new Socket(serverIP, port);
         in = new BufferedReader(new InputStreamReader(new DataInputStream(clientSocket.getInputStream())));
         out = new BufferedWriter(new OutputStreamWriter(new DataOutputStream(clientSocket.getOutputStream())));
         hear();
@@ -70,6 +75,14 @@ public class ClientNetwork {
 
                         case "notificationRequest":
                             hear_notificationRequest(json);
+                            break;
+
+                        case "ASSIGNMENT_LIST":
+                            hear_handleAssignmentList(json);
+                            break;
+
+                        case "SUBMISSION_RESULT", "ERROR":
+                            hear_handleSubmissionResult(json);
                             break;
 
                         default:
@@ -194,6 +207,54 @@ public class ClientNetwork {
     private void hear_notificationRequest(JsonObject json) {
         String notificationMessage = json.get("msg").getAsString();
         Alert.showInfo(notificationMessage);
+    }
+
+
+// == Exercise (bài tập) ==
+    public void speak_requestAssignments() {
+        Packet packet = new Packet(PacketType.REQUEST_ASSIGNMENTS, null);
+        packet.sender = this.client_name;
+        speak(GsonHelper.toJson(packet));
+    }
+
+    private void hear_handleAssignmentList(JsonObject json) {
+        String fullJson = GsonHelper.toJson(json);
+
+        System.out.println("DEBUG: Đã nhận được JSON bài tập: " + fullJson); // Thêm dòng này
+        try {
+            // Parse toàn bộ gói tin
+            Packet p = GsonHelper.fromJson(fullJson, Packet.class);
+
+            // Chuyển đổi dữ liệu bên trong Packet (đang là Object/Map) sang Assignment
+            // Lưu ý: Đảm bảo GsonHelper của Client cũng đã đăng ký LocalDateTimeAdapter
+            String assignmentJson = GsonHelper.toJson(p.data);
+            Assignment assignment = GsonHelper.fromJson(assignmentJson, Assignment.class);
+
+            if (ClientStates.onAssignmentListReceivedListener != null) {
+                ClientStates.onAssignmentListReceivedListener.onAssignmentListReceived(List.of(assignment));
+            }
+            System.out.println("DEBUG: Parse thành công bài tập: " + assignment.title);
+        } catch (Exception e) {
+            log.error("Lỗi khi xử lý danh sách bài tập: {}", e.getMessage());
+        }
+    }
+
+    public void speak_sendSubmission(Submission sub) {
+        Packet packet = new Packet(PacketType.SUBMISSION, sub);
+        packet.sender = this.client_name;
+        speak(GsonHelper.toJson(packet));
+    }
+
+    private void hear_handleSubmissionResult(JsonObject json) {
+        // Server gửi Packet(PacketType.SUBMISSION_RESULT, "Message")
+        // json lúc này là cấu trúc của Packet
+        String type = json.get("type").getAsString();
+        boolean success = type.equals("SUBMISSION_RESULT");
+
+        // Lấy thông báo từ trường data của Packet
+        String message = json.has("data") ? json.get("data").getAsString() : "Thông báo từ Server";
+
+        ClientStates.fireSubmissionResult(success, message);
     }
 }
 

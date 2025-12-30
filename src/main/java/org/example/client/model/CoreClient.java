@@ -6,10 +6,12 @@ import java.nio.charset.StandardCharsets;
 
 import org.example.client.ClientStates;
 import org.example.client.controller.ClientNetwork;
+import org.example.client.controller.services.exercise.ExerciseController;
 import org.example.client.view.clientScreen.Client_Screen;
 import org.example.client.view.eClient.EClient;
 import org.example.client.view.eClientConnector.EClientConnector;
 import org.example.common.objects.MemoryBox;
+import org.example.common.objects.services.exercise.Assignment;
 import org.example.common.utils.gson.GsonHelper;
 
 import org.slf4j.Logger;
@@ -26,7 +28,8 @@ public class CoreClient {
 
     private ClientNetwork clientNetwork;
     private EClient eClientWindow;
-    private EClientConnector eClientConnectorWindow; 
+    private EClientConnector eClientConnectorWindow;
+    private ExerciseController exerciseController;
 
     private static final Logger log = LoggerFactory.getLogger(CoreClient.class);
     private final File runtimeJsonFile = new File("localStorage/memoryBox.json");
@@ -73,6 +76,19 @@ public class CoreClient {
                 delayThread.start();
             });
 
+            ClientStates.setOnAssignmentListReceivedListener(assignments -> {
+                log.info("[Network] Nhận được dữ liệu bài tập từ Server.");
+                if (exerciseController != null) {
+                    SwingUtilities.invokeLater(() -> {
+                        for (Assignment a : assignments) {
+                            exerciseController.addAssignmentToModel(a);
+                        }
+                    });
+                } else {
+                    log.error("[CRITICAL] ExerciseController chưa được khởi tạo để nhận bài tập!");
+                }
+            });
+
             // Nếu đã có memoryBox.json và đã kết nối từ trước
             if (isEstablished) {
                 try {
@@ -108,7 +124,9 @@ public class CoreClient {
     	MemoryBox memoryBox = GsonHelper.readJsonFile(runtimeJsonFile.getPath(), MemoryBox.class);
         clientNetwork = new ClientNetwork(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
         clientNetwork.send_connectionRequest(memoryBox.token);
-        
+
+        exerciseController = new ExerciseController(clientNetwork);
+
         SwingUtilities.invokeLater(() -> {
            ClientStates.setOnConnectionListenerCallback(() -> {
                 Client_Screen clientScreen = new Client_Screen(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));

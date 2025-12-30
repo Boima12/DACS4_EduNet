@@ -1,4 +1,4 @@
-package org.example.common.objects.messages;
+package org.example.common.objects.messages.systemInfo;
 
 public class SystemInfoResponseJSON {
     public String type;

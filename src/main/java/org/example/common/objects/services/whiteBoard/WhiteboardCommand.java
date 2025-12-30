@@ -1,4 +1,4 @@
-package org.example.common.objects.whiteBoard;
+package org.example.common.objects.services.whiteBoard;
 
 /**
  * ??? - Cần Hoàng ghi chú thích cho file

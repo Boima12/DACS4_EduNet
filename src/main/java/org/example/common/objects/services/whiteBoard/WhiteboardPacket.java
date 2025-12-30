@@ -38,7 +38,7 @@
 //}
 //
 
-package org.example.common.objects.whiteBoard;
+package org.example.common.objects.services.whiteBoard;
 
 import java.awt.Color;
 import java.io.Serializable;
