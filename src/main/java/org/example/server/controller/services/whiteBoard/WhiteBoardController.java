@@ -4,8 +4,8 @@
 //import java.net.ServerSocket;
 //import java.net.Socket;
 //import java.util.*;
-//import org.example.common.objects.whiteBoard.WhiteboardPacket;
-//import org.example.common.objects.whiteBoard.WhiteboardCommand;
+//import org.example.common.objects.services.whiteBoard.WhiteboardPacket;
+//import org.example.common.objects.services.whiteBoard.WhiteboardCommand;
 //import org.example.server.view.whiteboard.WhiteBoardView;
 //
 //public class WhiteBoardController {
@@ -76,8 +76,8 @@
 
 package org.example.server.controller.services.whiteBoard;
 
-import org.example.common.objects.whiteBoard.WhiteboardPacket;
-import org.example.common.objects.whiteBoard.WhiteboardCommand;
+import org.example.common.objects.services.whiteBoard.WhiteboardPacket;
+import org.example.common.objects.services.whiteBoard.WhiteboardCommand;
 import org.example.server.view.whiteBoard.WhiteBoardView;
 
 import java.io.*;
@@ -94,7 +94,7 @@ public class WhiteBoardController {
     private ServerSocket serverSocket;
     private List<ObjectOutputStream> clients = new CopyOnWriteArrayList<>();
     private WhiteBoardView serverView;
-    private int port = 9999; // port mặc định
+    private int port; // port mặc định
 
     /**
      * Khởi tạo server WhiteBoard

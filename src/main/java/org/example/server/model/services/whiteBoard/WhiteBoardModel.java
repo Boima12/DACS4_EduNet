@@ -1,7 +1,7 @@
 package org.example.server.model.services.whiteBoard;
 
 import java.io.Serializable;
-import org.example.common.objects.whiteBoard.WhiteboardCommand;
+import org.example.common.objects.services.whiteBoard.WhiteboardCommand;
 
 /**
  * ??? - Cần Hoàng ghi chú thích cho file

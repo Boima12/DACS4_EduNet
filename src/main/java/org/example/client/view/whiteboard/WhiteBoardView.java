@@ -8,8 +8,8 @@ import java.io.ObjectOutputStream;
 import java.util.Stack;
 import javax.swing.*;
 
-import org.example.common.objects.whiteBoard.WhiteboardCommand;
-import org.example.common.objects.whiteBoard.WhiteboardPacket;
+import org.example.common.objects.services.whiteBoard.WhiteboardCommand;
+import org.example.common.objects.services.whiteBoard.WhiteboardPacket;
 
 /**
  * Code UI/Logic cho cửa sổ giao diện whiteboard của Client.

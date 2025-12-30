@@ -9,9 +9,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import org.example.server.controller.services.exercise.LocalDateTimeAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,8 +28,9 @@ public class GsonHelper {
 
     // Dùng 1 instance duy nhất
     private static final Gson gson = new GsonBuilder()
-            // Use compact JSON (no pretty-printing) so network messages are single-line
-            .create();
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .disableHtmlEscaping()
+            .create();  // Use compact JSON (no pretty-printing) so network messages are single-line
 
     /* toJson: Object -> JSON string
     * example uses: String json = GsonHelper.toJson(user);

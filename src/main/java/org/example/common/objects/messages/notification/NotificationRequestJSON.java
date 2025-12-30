@@ -1,4 +1,4 @@
-package org.example.common.objects.messages;
+package org.example.common.objects.messages.notification;
 
 public class NotificationRequestJSON {
     public String type;

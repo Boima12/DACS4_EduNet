@@ -3,19 +3,24 @@ package org.example.server.controller;
 import java.io.*;
 import java.net.Socket;
 import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.example.common.objects.messages.ConnectionResponseJSON;
-import org.example.common.objects.messages.EstablishingResponseJSON;
-import org.example.common.objects.messages.NotificationRequestJSON;
-import org.example.common.objects.messages.SystemInfoRequestJSON;
+
+import org.example.common.objects.messages.connection.ConnectionResponseJSON;
+import org.example.common.objects.messages.establish.EstablishingResponseJSON;
+import org.example.common.objects.messages.notification.NotificationRequestJSON;
+import org.example.common.objects.messages.systemInfo.SystemInfoRequestJSON;
+import org.example.common.objects.services.exercise.Assignment;
+import org.example.common.objects.services.exercise.Packet;
+import org.example.common.objects.services.exercise.PacketType;
+import org.example.common.objects.services.exercise.Submission;
 import org.example.common.utils.gson.GsonHelper;
 import org.example.common.utils.network.NetworkUtils;
 import org.example.server.ServerStates;
+import org.example.server.controller.services.exercise.ExerciseController;
 import org.example.server.model.database.JDBCUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,12 +33,13 @@ import static org.example.server.controller.ServerNetwork.clients;
  */
 public class ServerNetworkHandler {
 
-//    public static ArrayList<ServerNetworkHandler> clients = new ArrayList<>();
     private Socket clientSocket;
     private BufferedReader in;
     private BufferedWriter out;
     private String client_name;
     private volatile boolean isClosed = false;
+
+    private static ExerciseController exerciseController;
 
     private static final Logger log = LoggerFactory.getLogger(ServerNetworkHandler.class);
 
@@ -47,6 +53,10 @@ public class ServerNetworkHandler {
         } catch (IOException e) {
             log.error(String.valueOf(e));
         }
+    }
+
+    public static void setExerciseController(ExerciseController controller) {
+        exerciseController = controller;
     }
 
     public String getClient_name() {
@@ -83,6 +93,15 @@ public class ServerNetworkHandler {
 
                         case "systemInfoResponse":
                             hear_systemInfoResponse(json);
+                            break;
+
+                        // --- CHỨC NĂNG BÀI TẬP (NEW) ---
+                        case "SUBMISSION":
+                            hear_handleSubmissionRequest(json);
+                            break;
+
+                        case "REQUEST_ASSIGNMENTS":
+                            speak_sendAllExistingAssignments();
                             break;
 
                         default:
@@ -124,7 +143,7 @@ public class ServerNetworkHandler {
             log.info("Client {} - {} disconnected.", client_name, clientSocket.getInetAddress());
 
             // update dashboard UI.
-            if (ServerStates.onClient_dashboardDisconnectedListener != null) ServerStates.onClient_dashboardDisconnectedListener.onClient_dashboardDisconnected(client_name);
+            if (ServerStates.onClientDashboardDisconnectedListener != null) ServerStates.onClientDashboardDisconnectedListener.onClient_dashboardDisconnected(client_name);
 
             // removing this one client from clients ArrayList
             clients.remove(this);
@@ -188,7 +207,7 @@ public class ServerNetworkHandler {
             }
             
             // Calling setOnClient_dashboardNewClientListenerCallback() in CoreServer
-            if (ServerStates.onClient_dashboardNewClientListener != null) ServerStates.onClient_dashboardNewClientListener.onClient_dashboardNewClient(client_name);
+            if (ServerStates.onClientDashboardNewClientListener != null) ServerStates.onClientDashboardNewClientListener.onClient_dashboardNewClient(client_name);
             
         } else {
             // send back EstablishingResponseJSON with approved = false
@@ -231,7 +250,7 @@ public class ServerNetworkHandler {
             speak(jsonString);
 
             // update dashboard UI.
-            if (ServerStates.onClient_dashboardConnectedListener != null) ServerStates.onClient_dashboardConnectedListener.onClient_dashboardConnected(client_name);
+            if (ServerStates.onClientDashboardConnectedListener != null) ServerStates.onClientDashboardConnectedListener.onClient_dashboardConnected(client_name);
 
             log.info("Client {} - {} connected successfully.", client_name, clientSocket.getInetAddress());
 
@@ -272,4 +291,85 @@ public class ServerNetworkHandler {
         String jsonString = GsonHelper.toJson(notificationRequestJSON);
         speak(jsonString);
     }
+
+
+// == XỬ LÝ BÀI NỘP TỪ CLIENT ==
+    private void hear_handleSubmissionRequest(JsonObject json) {
+        String rawJson = GsonHelper.toJson(json);
+
+        try {
+            // 1. Parse thành Packet trước
+            Packet packet = GsonHelper.fromJson(rawJson, Packet.class);
+
+            // 2. Chuyển phần data (Object) ngược lại thành chuỗi JSON rồi mới parse sang Submission
+            String dataJson = GsonHelper.toJson(packet.data);
+            Submission submission = GsonHelper.fromJson(dataJson, Submission.class);
+
+            if (exerciseController != null) {
+                exerciseController.handleSubmissionFromClient(submission, this); // Chuyền thêm 'this' để phản hồi
+            }
+        } catch (Exception e) {
+            log.error("Lỗi parse bài nộp: {}", e.getMessage());
+            speak_submissionResult(false, "Lỗi định dạng dữ liệu bài nộp.");
+        }
+    }
+
+    private void speak_sendAllExistingAssignments() {
+        if (exerciseController != null) {
+            for (Assignment a : exerciseController.getAllAssignments()) {
+                speak_assignment(a);
+            }
+        }
+    }
+
+    // Trong ServerNetworkHandler.java
+    public void speak_assignment(Assignment a) {
+        try {
+            Packet p = new Packet(PacketType.ASSIGNMENT_LIST, a);
+            String json = GsonHelper.toJson(p); // Đảm bảo GsonHelper đã có Adapter
+            log.info("Đang gửi bài tập: {}", a.title);
+            speak(json);
+        } catch (Exception e) {
+            log.error("Lỗi gửi bài tập: {}", e.getMessage());        }
+    }
+
+    /**
+     * Gửi phản hồi kết quả nộp bài cho Client này
+     */
+    public void speak_submissionResult(boolean success, String message) {
+        Packet p = new Packet(success ? PacketType.SUBMISSION_RESULT : PacketType.ERROR, message);
+        speak(GsonHelper.toJson(p));
+    }
+
+    /**
+     * Gửi 1 bài tập cụ thể cho Client này
+     */
+//    public void speak_assignment(Assignment a) {
+//        // Gửi dưới dạng Packet JSON để Client dễ parse
+//        Packet p = new Packet(PacketType.ASSIGNMENT_LIST, a);
+//        speak(GsonHelper.toJson(p));
+//    }
+//    public void speak_assignment(Assignment a) {
+//        // Thay vì dùng new Gson(), hãy dùng Builder có Adapter
+//        Gson gson = new GsonBuilder()
+//                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+//                .create();
+//
+//        String json = gson.toJson(a);
+//        // Gửi chuỗi json này qua OutputStream...
+//    }
+
+//          private void handleSubmissionRequest(String rawJson) {
+//        try {
+//            // Chuyển JSON thành đối tượng Submission (bao gồm byte[] fileData)
+//            Submission submission = GsonHelper.fromJson(rawJson, Submission.class);
+//            if (exerciseController != null) {
+//                // Đẩy sang Controller xử lý lưu file và database
+//                exerciseController.handleSubmissionFromClient(submission);
+//            }
+//        } catch (Exception e) {
+//            log.error("Lỗi xử lý bài nộp: {}", e.getMessage());
+//            speak_submissionResult(false, "Định dạng bài nộp không hợp lệ!");
+//        }
+//    }
 }

@@ -1,4 +1,4 @@
-package org.example.common.objects.messages;
+package org.example.common.objects.messages.connection;
 
 public class ConnectionResponseJSON {
     public String type;

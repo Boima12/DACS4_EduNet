@@ -3,7 +3,7 @@ package org.example.client.model.services.systemInfo;
 import java.io.File;
 import java.lang.management.ManagementFactory;
 import com.sun.management.OperatingSystemMXBean;
-import org.example.common.objects.messages.SystemInfoResponseJSON;
+import org.example.common.objects.messages.systemInfo.SystemInfoResponseJSON;
 import org.example.common.utils.gson.GsonHelper;
 
 /**

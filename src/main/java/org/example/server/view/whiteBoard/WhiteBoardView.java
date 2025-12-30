@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import org.example.common.objects.whiteBoard.WhiteboardCommand;
-import org.example.common.objects.whiteBoard.WhiteboardPacket;
+import org.example.common.objects.services.whiteBoard.WhiteboardCommand;
+import org.example.common.objects.services.whiteBoard.WhiteboardPacket;
 
 /**
  * Code UI/Logic cho cửa sổ giao diện Whiteboard của Server

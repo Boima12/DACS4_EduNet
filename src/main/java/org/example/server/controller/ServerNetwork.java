@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import org.example.common.objects.services.exercise.Assignment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +20,8 @@ import org.slf4j.LoggerFactory;
 public class ServerNetwork {
 
 	private final ServerSocket server;
-    public static ArrayList<ServerNetworkHandler> clients = new ArrayList<>();
+//    public static ArrayList<ServerNetworkHandler> clients = new ArrayList<>();
+    public static List<ServerNetworkHandler> clients = Collections.synchronizedList(new ArrayList<>());
 
     private static final Logger log = LoggerFactory.getLogger(ServerNetwork.class);
 	
@@ -47,5 +51,24 @@ public class ServerNetwork {
         } catch (IOException e) {
             log.error(String.valueOf(e));
         }
+    }
+
+    /**
+     * GỬI BÀI TẬP MỚI CHO TẤT CẢ CLIENTS (Broadcast)
+     * Hàm này sẽ được gọi từ ExerciseController khi giáo viên bấm nút "Giao bài"
+     */
+    // TRONG ServerNetwork.java
+    public static void broadcastAssignment(Assignment a) {
+        synchronized (clients) {
+            for (ServerNetworkHandler client : clients) {
+                try {
+                    // Gọi phương thức speak_assignment trong handler của bạn
+                    client.speak_assignment(a);
+                } catch (Exception e) {
+                    log.error("Lỗi gửi bài tập tới client {}: {}", client.getClient_name(), e.getMessage());
+                }
+            }
+        }
+        log.info("Đã gửi bài tập '{}' tới {} sinh viên.", a.title, clients.size());
     }
 }

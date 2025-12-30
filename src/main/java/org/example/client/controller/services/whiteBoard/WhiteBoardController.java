@@ -1,32 +1,3 @@
-//package org.example.client.controller;
-//
-//import java.io.ObjectInputStream;
-//import java.io.ObjectOutputStream;
-//import java.net.Socket;
-//import org.example.client.view.whiteboard.WhiteBoardView;
-//
-///**
-// * WhiteboardController - phiên bản tối ưu (gửi stroke, không gửi PNG)
-// *
-// * - canvasThis: bảng vẽ của mình
-// * - canvasThat: bảng vẽ của người khác (remote)
-// */
-//public class WhiteBoardController {
-//
-//	
-//    public WhiteBoardController() throws Exception {
-//        Socket socket = new Socket("localhost", 9999);
-//        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-//        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-//
-//        new WhiteBoardView(out, in);
-//    }
-//
-////    public static void main(String[] args) throws Exception {
-////        new WhiteBoardController();
-////    }
-//}
-
 package org.example.client.controller.services.whiteBoard;
 
 import java.io.*;
@@ -34,7 +5,7 @@ import java.net.Socket;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import org.example.client.view.whiteboard.WhiteBoardView;
-import org.example.common.objects.whiteBoard.WhiteboardPacket;
+import org.example.common.objects.services.whiteBoard.WhiteboardPacket;
 
 /**
  * WhiteBoardController - Phiên bản client tối ưu
