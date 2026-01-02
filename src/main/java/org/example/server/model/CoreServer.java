@@ -24,7 +24,7 @@ import java.net.ServerSocket;
  * Trung tâm chỉ huy cho cả Server
  *
  */
-@SuppressWarnings({"Convert2MethodRef", "CodeBlock2Expr", "FieldMayBeFinal"})
+@SuppressWarnings({"Convert2MethodRef", "CodeBlock2Expr", "FieldMayBeFinal", "SynchronizeOnNonFinalField"})
 public class CoreServer {
 
     private static ServerNetwork serverNetwork;
@@ -113,10 +113,16 @@ public class CoreServer {
             });
 
             ServerStates.setOnNotificationSingleRequestListenerCallback((client_name, message) -> {
-                for (var client : ServerNetwork.clients) {
-                    if (client.getClient_name().equals(client_name)) {
-                        client.speak_notificationRequest(message);
-                        break;
+                synchronized (ServerNetwork.clients) {
+                    for (var client : ServerNetwork.clients) {
+                        if (client.getClient_name().equals(client_name)) {
+                            if (!client.isClosed()) {
+                                client.speak_notificationRequest(message);
+                            } else {
+                                System.out.println("Client " + client_name + " connection is closed, skipping.");
+                            }
+                            break;
+                        }
                     }
                 }
             });

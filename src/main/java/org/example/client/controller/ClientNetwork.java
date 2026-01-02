@@ -143,6 +143,7 @@ public class ClientNetwork {
     private void hear_establishingResponse(JsonObject json) throws IOException {
         client_name = json.get("client_name").getAsString();
         boolean approval = json.get("approval").getAsBoolean();
+        String denied_reason = json.get("denied_reason").getAsString();
 
         if (approval) {
             String client_token = json.get("client_token").getAsString();
@@ -162,8 +163,8 @@ public class ClientNetwork {
             if (ClientStates.onEstablishListener != null) ClientStates.onEstablishListener.onEstablish();
             closeEverything();
         } else {
-            log.info("Connection denied by server.");
-            Alert.showError("Mã liên kết không hợp lệ.");
+            log.info("Connection denied by server. - {}", denied_reason);
+            Alert.showError(denied_reason);
             closeEverything();
         }
     }

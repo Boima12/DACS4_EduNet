@@ -119,8 +119,6 @@ public class CoreClient {
     }
 
     private void connectToServer() throws IOException {
-        System.out.println("connectToServer() called");
-
     	MemoryBox memoryBox = GsonHelper.readJsonFile(runtimeJsonFile.getPath(), MemoryBox.class);
         clientNetwork = new ClientNetwork(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
         clientNetwork.send_connectionRequest(memoryBox.token);
