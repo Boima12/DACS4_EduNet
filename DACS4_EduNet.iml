@@ -9,6 +9,8 @@
       <excludeFolder url="file://$MODULE_DIR$/bin/localStorage" />
       <excludeFolder url="file://$MODULE_DIR$/bin/org" />
       <excludeFolder url="file://$MODULE_DIR$/bin/videos" />
+      <excludeFolder url="file://$MODULE_DIR$/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/logs" />
     </content>
   </component>
 </module>

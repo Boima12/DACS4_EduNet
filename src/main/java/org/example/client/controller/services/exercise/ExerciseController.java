@@ -204,6 +204,10 @@ import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Hiển thị giao diện logic để nộp bài
+ *
+ */
 public class ExerciseController {
     private static final Logger log = LoggerFactory.getLogger(ExerciseController.class);
     private final ExerciseView view;
