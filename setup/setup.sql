@@ -12,13 +12,16 @@ USE `dacs4_edunet`;
 
 CREATE TABLE IF NOT EXISTS `client_sessions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `client_name` char(200) DEFAULT NULL,
   `client_token` char(200) NOT NULL DEFAULT '0',
-  `connectedAt` date DEFAULT NULL,
-  `disconnectedAt` date DEFAULT NULL,
+  `connectedAt` datetime DEFAULT NULL,
+  `disconnectedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_client_sessions_established_clients` (`client_token`),
-  CONSTRAINT `FK_client_sessions_established_clients` FOREIGN KEY (`client_token`) REFERENCES `established_clients` (`client_token`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `FK_client_sessions_established_clients_2` (`client_name`),
+  CONSTRAINT `FK_client_sessions_established_clients` FOREIGN KEY (`client_token`) REFERENCES `established_clients` (`client_token`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_client_sessions_established_clients_2` FOREIGN KEY (`client_name`) REFERENCES `established_clients` (`client_name`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 CREATE TABLE IF NOT EXISTS `established_clients` (
@@ -26,22 +29,23 @@ CREATE TABLE IF NOT EXISTS `established_clients` (
   `clientInetAddress` char(100) DEFAULT NULL,
   `client_name` char(200) DEFAULT NULL,
   `client_token` char(200) DEFAULT NULL,
-  `createdAt` date DEFAULT NULL,
-  `updatedAt` date DEFAULT NULL,
+  `createdAt` datetime DEFAULT NULL,
+  `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `client_token` (`client_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `client_token` (`client_token`),
+  KEY `client_name` (`client_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 CREATE TABLE IF NOT EXISTS `notifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `client_token` char(200) NOT NULL DEFAULT '0',
-  `content` tinytext NOT NULL,
-  `createdAt` date NOT NULL,
+  `client_name` char(200) DEFAULT NULL,
+  `content` text NOT NULL,
+  `createdAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_notifications_established_clients` (`client_token`),
-  CONSTRAINT `FK_notifications_established_clients` FOREIGN KEY (`client_token`) REFERENCES `established_clients` (`client_token`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `FK_notifications_established_clients` (`client_name`),
+  CONSTRAINT `FK_notifications_established_clients` FOREIGN KEY (`client_name`) REFERENCES `established_clients` (`client_name`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 CREATE TABLE IF NOT EXISTS `server_config` (
@@ -55,18 +59,17 @@ REPLACE INTO `server_config` (`id`, `server_password`) VALUES
 
 CREATE TABLE IF NOT EXISTS `system_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `client_token` char(200) NOT NULL DEFAULT '0',
+  `client_name` char(200) DEFAULT NULL,
   `os_name` char(200) NOT NULL DEFAULT '0',
-  `cpu_cores` int(11) NOT NULL DEFAULT 0,
-  `cpu_load` double NOT NULL DEFAULT 0,
-  `ram_used` int(11) NOT NULL DEFAULT 0,
-  `ram_total` int(11) NOT NULL DEFAULT 0,
+  `cpu_cores` char(50) NOT NULL DEFAULT '0',
+  `cpu_load` char(50) NOT NULL DEFAULT '0',
+  `ram_usage` tinytext NOT NULL,
   `disk_info` tinytext NOT NULL,
-  `createdAt` date NOT NULL,
+  `createdAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_system_info_established_clients` (`client_token`),
-  CONSTRAINT `FK_system_info_established_clients` FOREIGN KEY (`client_token`) REFERENCES `established_clients` (`client_token`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `FK_system_info_established_clients` (`client_name`),
+  CONSTRAINT `FK_system_info_established_clients` FOREIGN KEY (`client_name`) REFERENCES `established_clients` (`client_name`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;

@@ -3,6 +3,8 @@ package org.example.server.controller;
 import java.io.*;
 import java.net.Socket;
 import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicReference;
 
 import com.google.gson.JsonObject;
@@ -31,16 +33,18 @@ import static org.example.server.controller.ServerNetwork.clients;
  * Code xử lý Network chính của Server cho mỗi client kết nối đến.
  *
  */
+@SuppressWarnings("RedundantIfStatement")
 public class ServerNetworkHandler {
 
     private Socket clientSocket;
     private BufferedReader in;
     private BufferedWriter out;
     private String client_name;
+    private String client_token;
+    private String connectedAt;
     private volatile boolean isClosed = false;
 
     private static ExerciseController exerciseController;
-
     private static final Logger log = LoggerFactory.getLogger(ServerNetworkHandler.class);
 
     public ServerNetworkHandler(Socket clientSocket) {
@@ -61,6 +65,10 @@ public class ServerNetworkHandler {
 
     public String getClient_name() {
         return client_name;
+    }
+
+    public boolean isClosed() {
+        return isClosed;
     }
 
     public void hear() {
@@ -145,7 +153,11 @@ public class ServerNetworkHandler {
             // update dashboard UI.
             if (ServerStates.onClientDashboardDisconnectedListener != null) ServerStates.onClientDashboardDisconnectedListener.onClient_dashboardDisconnected(client_name);
 
-            // removing this one client from clients ArrayList
+            // update client_sessions
+            String sql = "INSERT INTO client_sessions (client_name, client_token, connectedAt, disconnectedAt) VALUES (?, ?, ?, ?)";
+            JDBCUtil.runUpdate(sql, client_name, client_token, connectedAt, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
+            // remove this one client from clients ArrayList
             clients.remove(this);
 
             if (clientSocket != null) {
@@ -181,14 +193,41 @@ public class ServerNetworkHandler {
         client_name = json.get("client_name").getAsString();
         int maLienKet = json.get("maLienKet").getAsInt();
 
-        // if maLienKet is match with server states.MA_LIEN_KET
-        if (maLienKet == ServerStates.MA_LIEN_KET) {
+        boolean isApproved = true;
+        String denied_reason = "";
+
+        // check server states.MA_LIEN_KET
+        if (maLienKet != ServerStates.MA_LIEN_KET) {
+            isApproved = false;
+            denied_reason = "Mã liên_kết không hợp lệ.";
+        }
+
+        // if client_name already exist inside established_clients table, set isApproved = false
+        if (isApproved) {
+            AtomicReference<Integer> count = new AtomicReference<>();
+            String sql_check_name = "SELECT COUNT(*) FROM established_clients WHERE client_name = ?";
+            JDBCUtil.runQuery(sql_check_name, rs -> {
+                while (rs.next()) {
+                    count.set(rs.getInt("COUNT(*)"));
+                }
+            }, client_name);
+            if (count.get() > 0) {
+                isApproved = false;
+                denied_reason = "Tên client đã tồn tại, vui lòng chọn tên khác.";
+            }
+        }
+
+        // if isApproved still true, establish success
+        if (isApproved) {
             // generate client_token
             String client_token = generateClientToken();
 
             // save established client into table established_clients
-            String sql = "INSERT INTO established_clients (clientInetAddress, client_name, client_token) VALUES (?, ?, ?)";
-            JDBCUtil.runUpdate(sql, String.valueOf(clientSocket.getInetAddress()), client_name, client_token);
+            String sql = "INSERT INTO established_clients (clientInetAddress, client_name, client_token, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?)";
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String createdAt = sdf.format(new Date());
+            String updatedAt = sdf.format(new Date());
+            JDBCUtil.runUpdate(sql, String.valueOf(clientSocket.getInetAddress()), client_name, client_token, createdAt, updatedAt);
 
             // send back EstablishingResponseJSON with approved = true
             EstablishingResponseJSON establishingResponseJSON = new EstablishingResponseJSON();
@@ -205,14 +244,15 @@ public class ServerNetworkHandler {
                 ServerStates.lkModal.turnOffLinkMode();
                 ServerStates.lkModal = null;
             }
-            
+
             // Calling setOnClient_dashboardNewClientListenerCallback() in CoreServer
             if (ServerStates.onClientDashboardNewClientListener != null) ServerStates.onClientDashboardNewClientListener.onClient_dashboardNewClient(client_name);
-            
+
         } else {
             // send back EstablishingResponseJSON with approved = false
             EstablishingResponseJSON establishingResponseJSON = new EstablishingResponseJSON();
             establishingResponseJSON.approval = false;
+            establishingResponseJSON.denied_reason = denied_reason;
             String jsonString = GsonHelper.toJson(establishingResponseJSON);
             speak(jsonString);
         }
@@ -221,7 +261,7 @@ public class ServerNetworkHandler {
 
 //  == Connection (Kết nối với server) ==
     private void hear_connectionRequest(JsonObject json) {
-        String client_token = json.get("client_token").getAsString();
+        client_token = json.get("client_token").getAsString();
 
         // check if client_token exists in table established_clients
         AtomicReference<Integer> count = new AtomicReference<>();
@@ -252,6 +292,10 @@ public class ServerNetworkHandler {
             // update dashboard UI.
             if (ServerStates.onClientDashboardConnectedListener != null) ServerStates.onClientDashboardConnectedListener.onClient_dashboardConnected(client_name);
 
+            // preparing client_sessions
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            connectedAt = sdf.format(new Date());
+
             log.info("Client {} - {} connected successfully.", client_name, clientSocket.getInetAddress());
 
         } else {
@@ -281,6 +325,11 @@ public class ServerNetworkHandler {
         String Disk = json.get("Disk").getAsString();
 
         if (ServerStates.onSystemInfoResponseListener != null) ServerStates.onSystemInfoResponseListener.onSystemInfoResponse(OS, CPU_cores, CPU_load, RAM, String.valueOf(clientSocket.getInetAddress()), Disk);
+
+        // save data into system_info
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String sql = "INSERT INTO system_info (client_name, os_name, cpu_cores, cpu_load, ram_usage, disk_info, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        JDBCUtil.runUpdate(sql, client_name, OS, CPU_cores, CPU_load, RAM, Disk, sdf.format(new Date()));
     }
 
 
@@ -290,6 +339,11 @@ public class ServerNetworkHandler {
         notificationRequestJSON.msg = message;
         String jsonString = GsonHelper.toJson(notificationRequestJSON);
         speak(jsonString);
+
+        // save notification into table notifications
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String sql = "INSERT INTO notifications (client_name, content, createdAt) VALUES (?, ?, ?)";
+        JDBCUtil.runUpdate(sql, client_name, message, sdf.format(new Date()));
     }
 
 
