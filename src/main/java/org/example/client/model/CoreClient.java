@@ -7,7 +7,6 @@ import java.nio.charset.StandardCharsets;
 import org.example.client.ClientStates;
 import org.example.client.controller.ClientNetwork;
 import org.example.client.controller.services.exercise.ExerciseController;
-import org.example.client.view.clientScreen.Client_Screen;
 import org.example.client.view.eClient.EClient;
 import org.example.client.view.eClientConnector.EClientConnector;
 import org.example.common.objects.MemoryBox;
@@ -51,7 +50,6 @@ public class CoreClient {
 
     public void start() {
         SwingUtilities.invokeLater(() -> {
-            eClientWindow = new EClient();
             eClientConnectorWindow = new EClientConnector();
 
             ClientStates.setOnEstablishListenerCallback(() -> {
@@ -71,7 +69,7 @@ public class CoreClient {
                         }
                     }
                 });
-                delayThread.setName("First establish wait for previous connection close");
+                delayThread.setName("First establish thread");
                 delayThread.setDaemon(true);
                 delayThread.start();
             });
@@ -121,20 +119,24 @@ public class CoreClient {
     }
 
     private void connectToServer() throws IOException {
+        System.out.println("connectToServer() called");
+
     	MemoryBox memoryBox = GsonHelper.readJsonFile(runtimeJsonFile.getPath(), MemoryBox.class);
         clientNetwork = new ClientNetwork(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
         clientNetwork.send_connectionRequest(memoryBox.token);
 
-        exerciseController = new ExerciseController(clientNetwork);
-
         SwingUtilities.invokeLater(() -> {
            ClientStates.setOnConnectionListenerCallback(() -> {
-                Client_Screen clientScreen = new Client_Screen(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
-                clientScreen.setVisible(true);
+//                Client_Screen clientScreen = new Client_Screen(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
+//                clientScreen.setVisible(true);
+
+                eClientWindow = new EClient(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
 
                 eClientConnectorWindow.undisplay();
-                eClientWindow.display(memoryBox.server_IP, memoryBox.server_port);
+                eClientWindow.display();
            });
         });
+
+        exerciseController = new ExerciseController(clientNetwork);
     }
 }
