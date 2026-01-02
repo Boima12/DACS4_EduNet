@@ -51,6 +51,39 @@ public class CoreServer {
             Thread serverThread = new Thread(serverNetwork::startServer);
             serverThread.start();
 
+            log.info("Server Started on {}:" + Config.SERVER_PORT, localIP);
+            Alert.showInfo("Server khởi động thành công.");
+
+            // setup Dashboard.client_dashboard
+            Dashboard.setupClient_dashboard();
+        });
+
+        // turn off server network
+        ServerStates.setOnServerCloseListenerCallback(() -> {
+            if (serverNetwork != null) {
+                serverNetwork.closeServer();
+                log.info("Server Closed on {}:" + Config.SERVER_PORT, localIP);
+                Alert.showInfo("Server tắt nguồn thành công");
+            }
+        });
+    }
+
+    public void start() {
+        SwingUtilities.invokeLater(() -> {
+            loginWindow = new Login();
+            serverUIWindow = new ServerUI(localIP + ":" + Config.SERVER_PORT);
+            serverWBController = new WhiteBoardController(id_port_whiteboard);
+            watchController = new WatchController(id_port_watch);
+            lockController     = new LockController(ID_PORT_LOCK);
+            exerciseController = new ExerciseController();
+
+            lockController.start();
+
+            loginWindow.setOnLoginListenerCallback(() -> {
+                loginWindow.undisplay();
+                serverUIWindow.display();
+            });
+
             ServerStates.setOnClient_dashboardNewClientListenerCallback((client_name) -> {
                 Dashboard.client_dashboardNewClient(client_name);
             });
@@ -129,39 +162,6 @@ public class CoreServer {
                         }
                     }
                 }
-            });
-
-            log.info("Server Started on {}:" + Config.SERVER_PORT, localIP);
-            Alert.showInfo("Server khởi động thành công.");
-
-            // setup Dashboard.client_dashboard
-            Dashboard.setupClient_dashboard();
-        });
-
-        // turn off server network
-        ServerStates.setOnServerCloseListenerCallback(() -> {
-            if (serverNetwork != null) {
-                serverNetwork.closeServer();
-                log.info("Server Closed on {}:" + Config.SERVER_PORT, localIP);
-                Alert.showInfo("Server tắt nguồn thành công");
-            }
-        });
-    }
-
-    public void start() {
-        SwingUtilities.invokeLater(() -> {
-            loginWindow = new Login();
-            serverUIWindow = new ServerUI(localIP + ":" + Config.SERVER_PORT);
-            serverWBController = new WhiteBoardController(id_port_whiteboard);
-            watchController = new WatchController(id_port_watch);
-            lockController     = new LockController(ID_PORT_LOCK);
-            exerciseController = new ExerciseController();
-
-            lockController.start();
-
-            loginWindow.setOnLoginListenerCallback(() -> {
-                loginWindow.undisplay();
-                serverUIWindow.display();
             });
 
             // Lắng nghe yêu cầu hiển thị giao diện bài tập từ Dashboard

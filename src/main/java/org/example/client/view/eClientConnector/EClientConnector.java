@@ -13,7 +13,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import org.example.client.controller.ClientNetwork;
-import org.example.client.model.CoreClient;
 import org.example.common.utils.gui.Alert;
 import org.example.common.utils.gui.ImageHelper;
 import org.example.common.utils.gui.RoundedBorder;
@@ -31,7 +30,7 @@ import org.slf4j.LoggerFactory;
 public class EClientConnector {
 
 	private boolean isLanModeConnector = false;
-    private static final Logger log = LoggerFactory.getLogger(CoreClient.class);
+    private static final Logger log = LoggerFactory.getLogger(EClientConnector.class);
 	
 	private JFrame frame;
 	private JTextField tf_serverIP;
