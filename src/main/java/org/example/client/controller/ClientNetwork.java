@@ -3,7 +3,6 @@ package org.example.client.controller;
 import java.io.*;
 import java.net.Socket;
 import java.util.List;
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.example.client.ClientStates;

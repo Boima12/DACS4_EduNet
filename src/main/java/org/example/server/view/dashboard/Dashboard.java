@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
-
 import javax.swing.*;
 import org.example.common.utils.gui.Alert;
 import org.example.common.utils.gui.ImageHelper;
@@ -40,12 +39,6 @@ public class Dashboard extends JFrame {
     private static JButton btn_info_placeholder3; 
     private static JButton btn_info_placeholder4; 
     
-//    public static int id_port_whiteboard = 6061;
-//    public static int id_port_watch = 6062;
-
-    // SỬA: Khởi tạo trực tiếp để tránh NullPointerException khi gọi build()
-//    private static WatchController watchController = new WatchController(id_port_watch);
-
     public Dashboard() {
         initialize();   // line này dùng để bật WindowBuilder, nếu comment line này sẽ tối ưu ứng dụng nhưng không thể sài Eclipse windowBuilder trong file này
     }
@@ -111,7 +104,7 @@ public class Dashboard extends JFrame {
 		});
 		infobar.add(btn_info_notificationSingle);
 		
-		btn_info_placeholder3 = new JButton("Button 3");
+		btn_info_placeholder3 = new JButton("Khóa Máy");
 		btn_info_placeholder3.setEnabled(false);
 		btn_info_placeholder3.setBorder(new RoundedBorder(8));
 		btn_info_placeholder3.setForeground(new Color(0, 0, 0));
@@ -122,8 +115,7 @@ public class Dashboard extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO
-//                openLockServer();
-                //if (ServerStates.onWatchControllerShowListener != null) ServerStates.onWatchControllerShowListener.onWatchControllerShow();
+                openLockServer();
 			}
 		});
 		infobar.add(btn_info_placeholder3);
@@ -199,18 +191,8 @@ public class Dashboard extends JFrame {
 		btn_do_watch.setBounds(448, 10, 150, 35);
 		
 		btn_do_watch.addActionListener(e -> {
-//            if (watchController != null) {
-//                watchController.showWatchView();
-//            } else {
-//                // Đề phòng trường hợp khởi tạo lỗi
-//                watchController = new WatchController(id_port_watch);
-//                watchController.showWatchView();
-//            }
-
             if (ServerStates.onWatchControllerShowListener != null) ServerStates.onWatchControllerShowListener.onWatchControllerShow();
         });
-//		btn_do_placeholder4.addActionListener(e -> watch_GUI.setVisible(true));
-
 
 		dashboard_options.add(btn_do_watch);
 		
@@ -252,6 +234,7 @@ public class Dashboard extends JFrame {
 		
 		return dashboard;
 	}
+	
 
 	public static void onlkClient() {
         ServerStates.lkModal = new LienKetModal(frame);
