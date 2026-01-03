@@ -98,17 +98,29 @@ public class CoreServer {
 
             ServerStates.setOnSystemInfoRequestListenerCallback((client_name) -> {
                 // find the right client in ServerNetwork.clients base on client_name and request system info
-                for (var client : ServerNetwork.clients) {
-                    if (client.getClient_name().equals(client_name)) {
-                        client.speak_systemInfoRequest();
-                        break;
+                synchronized (ServerNetwork.clients) {
+                    for (var client : ServerNetwork.clients) {
+                        if (client.getClient_name().equals(client_name)) {
+                            if (!client.isClosed()) {
+                                client.speak_systemInfoRequest();
+                            } else {
+                                System.out.println("[SystemInfoRequestListener] Client " + client_name + " connection is closed, did the old one not remove from ArrayList correctly?");
+                            }
+                            break;
+                        }
                     }
                 }
             });
 
             ServerStates.setOnNotificationAllRequestListenerCallback((message) -> {
-                for (var client : ServerNetwork.clients) {
-                    client.speak_notificationRequest(message);
+                synchronized (ServerNetwork.clients) {
+                    for (var client : ServerNetwork.clients) {
+                        if (!client.isClosed()) {
+                            client.speak_notificationRequest(message);
+                        } else {
+                            System.out.println("[NotificationAllRequestListener] Client " + client.getClient_name() + " connection is closed, did this old one not remove from ArrayList correctly?.");
+                        }
+                    }
                 }
             });
 
@@ -119,7 +131,7 @@ public class CoreServer {
                             if (!client.isClosed()) {
                                 client.speak_notificationRequest(message);
                             } else {
-                                System.out.println("Client " + client_name + " connection is closed, skipping.");
+                                System.out.println("[NotificationSingleRequestListener] Client " + client_name + " connection is closed, did the old one not remove from ArrayList correctly?");
                             }
                             break;
                         }
