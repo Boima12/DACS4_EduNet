@@ -295,7 +295,7 @@ public class ServerNetworkHandler {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             connectedAt = sdf.format(new Date());
 
-            log.info("Client {} - {} connected successfully.", client_name, clientSocket.getInetAddress());
+            log.info("Client {} - {} connected successfully. Total clients now: {}", client_name, clientSocket.getInetAddress(), clients.size());
 
         } else {
             // connection denied

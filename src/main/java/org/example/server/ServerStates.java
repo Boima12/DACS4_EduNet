@@ -36,6 +36,16 @@ public class ServerStates {
         onServerCloseListener = callback;
     }
 
+    public static Runnable onClientsCleanUpListener;
+    public static void setOnClientsCleanUpListener(Runnable callback) {
+        onClientsCleanUpListener = callback;
+    }
+    public static void fireClientsCleanUp() {
+        if (onClientsCleanUpListener != null) {
+            onClientsCleanUpListener.run();
+        }
+    }
+
     /* ================= DASHBOARD LISTENERS ================= */
     public static OnClient_dashboardNewClientListener onClientDashboardNewClientListener;
     public static void setOnClient_dashboardNewClientListenerCallback(OnClient_dashboardNewClientListener callback) {

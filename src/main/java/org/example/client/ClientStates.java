@@ -14,6 +14,8 @@ import org.example.client.view.exercise.ShowExerciseListener;
 public class ClientStates {
 
     // =================== Establish & Connection ===================
+    public static boolean isStatusConnected = false;
+
     public static OnEstablishListener onEstablishListener;
     public static void setOnEstablishListenerCallback(OnEstablishListener callback) {
         onEstablishListener = callback;
@@ -22,6 +24,26 @@ public class ClientStates {
     public static OnConnectionListener onConnectionListener;
     public static void setOnConnectionListenerCallback(OnConnectionListener callback) {
         onConnectionListener = callback;
+    }
+
+    public static Runnable onDisconnectedListener;
+    public static void setOnDisconnectedListener(Runnable callback) {
+        onDisconnectedListener = callback;
+    }
+    public static void fireDisconnected() {
+        if (onDisconnectedListener != null) {
+            onDisconnectedListener.run();
+        }
+    }
+
+    public static Runnable onReconnectingListener;
+    public static void setOnReconnectingListener(Runnable callback) {
+        onReconnectingListener = callback;
+    }
+    public static void fireReconnecting() {
+        if (onReconnectingListener != null) {
+            onReconnectingListener.run();
+        }
     }
 
     // ===== Assignment =====

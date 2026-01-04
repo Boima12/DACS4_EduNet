@@ -33,7 +33,6 @@ import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 @SuppressWarnings({"FieldMayBeFinal", "FieldCanBeLocal", "ConstantValue", "UnusedAssignment"})
 public class EClient {
 
-	private boolean isStatusConnected;
 	private String localIP;
 	private String serverIP;
     private int serverPort = 0;
@@ -45,6 +44,12 @@ public class EClient {
 	private JFrame frame;
 	private JLabel lbl_status2;
     private JLabel lbl_serverIP;
+    private JButton btn_traoDoi_msgClass;
+    private JButton btn_traoDoi_msgTeacher;
+    private JButton btn_trucTuyen_callGroup;
+    private JButton btn_trucTuyen_callTeacher;
+    private JButton btn_hocTap_bangTrang;
+    private JButton btn_hocTap_nopBaiTap;
 
 	/**
 	 * Create the application.
@@ -56,7 +61,6 @@ public class EClient {
         this.id_port_watch = serverPort + 2;
         this.id_port_lock = serverPort + 3;
 
-		isStatusConnected = true;	// TODO remove later when implement 15s check functionality
 		localIP = NetworkUtils.getLocalIPAddress();
 
 		initialize();
@@ -98,6 +102,10 @@ public class EClient {
 		frame.setVisible(false); 
 	}
 
+    public void dispose() {
+        frame.dispose();
+    }
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -120,9 +128,9 @@ public class EClient {
 		lbl_status1.setBounds(119, 62, 65, 22);
 		frame.getContentPane().add(lbl_status1);
 		
-		lbl_status2 = new JLabel("Đã liên kết");
-		lbl_status2.setForeground(new Color(19, 166, 19));	
-		lbl_status2.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lbl_status2 = new JLabel("Mất kết nối");
+        lbl_status2.setForeground(new Color(238, 59, 62));
+        lbl_status2.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lbl_status2.setBounds(186, 62, 151, 22);
 		frame.getContentPane().add(lbl_status2);
 		
@@ -142,7 +150,8 @@ public class EClient {
                 new Font("Segoe UI", Font.BOLD, 14), new Color(127, 140, 141)));
 		frame.getContentPane().add(msgPanel);
 		
-		JButton btn_traoDoi_msgClass = new JButton("Gửi tin cho lớp");
+		btn_traoDoi_msgClass = new JButton("Gửi tin cho lớp");
+		btn_traoDoi_msgClass.setEnabled(false);
 		btn_traoDoi_msgClass.setBorder(new RoundedBorder(8));
 		btn_traoDoi_msgClass.setForeground(new Color(0, 0, 0));
 		btn_traoDoi_msgClass.setBackground(new Color(251, 251, 251));
@@ -156,7 +165,8 @@ public class EClient {
 		});
 		msgPanel.add(btn_traoDoi_msgClass);
 		
-		JButton btn_traoDoi_msgTeacher = new JButton("Chat với giáo viên");
+		btn_traoDoi_msgTeacher = new JButton("Chat với giáo viên");
+		btn_traoDoi_msgTeacher.setEnabled(false);
 		btn_traoDoi_msgTeacher.setForeground(Color.BLACK);
 		btn_traoDoi_msgTeacher.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_traoDoi_msgTeacher.setBorder(new RoundedBorder(8));
@@ -179,7 +189,8 @@ public class EClient {
                 new Font("Segoe UI", Font.BOLD, 14), new Color(127, 140, 141)));
 		frame.getContentPane().add(videoPanel);
 		
-		JButton btn_trucTuyen_callGroup = new JButton("Video Call Nhóm");
+		btn_trucTuyen_callGroup = new JButton("Video Call Nhóm");
+		btn_trucTuyen_callGroup.setEnabled(false);
 		btn_trucTuyen_callGroup.setForeground(Color.BLACK);
 		btn_trucTuyen_callGroup.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_trucTuyen_callGroup.setBorder(new RoundedBorder(8));
@@ -194,7 +205,8 @@ public class EClient {
 		});
 		videoPanel.add(btn_trucTuyen_callGroup);
 		
-		JButton btn_trucTuyen_callTeacher = new JButton("Video Call Giáo viên");
+		btn_trucTuyen_callTeacher = new JButton("Video Call Giáo viên");
+		btn_trucTuyen_callTeacher.setEnabled(false);
 		btn_trucTuyen_callTeacher.setForeground(Color.BLACK);
 		btn_trucTuyen_callTeacher.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_trucTuyen_callTeacher.setBorder(new RoundedBorder(8));
@@ -218,7 +230,8 @@ public class EClient {
                 new Font("Segoe UI", Font.BOLD, 14), new Color(127, 140, 141)));
 		frame.getContentPane().add(toolPanel);
 		
-		JButton btn_hocTap_bangTrang = new JButton("Bảng trắng");
+		btn_hocTap_bangTrang = new JButton("Bảng trắng");
+		btn_hocTap_bangTrang.setEnabled(false);
 		btn_hocTap_bangTrang.setForeground(Color.BLACK);
 		btn_hocTap_bangTrang.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_hocTap_bangTrang.setBorder(new RoundedBorder(8));
@@ -237,7 +250,8 @@ public class EClient {
 		});
 		toolPanel.add(btn_hocTap_bangTrang);
 		
-		JButton btn_hocTap_nopBaiTap = new JButton("Nộp bài tập");
+		btn_hocTap_nopBaiTap = new JButton("Nộp bài tập");
+		btn_hocTap_nopBaiTap.setEnabled(false);
 		btn_hocTap_nopBaiTap.setForeground(Color.BLACK);
 		btn_hocTap_nopBaiTap.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_hocTap_nopBaiTap.setBorder(new RoundedBorder(8));
@@ -255,16 +269,28 @@ public class EClient {
 		toolPanel.add(btn_hocTap_nopBaiTap);
 	}
 	
-	private void updateStatus() {
-		// every 15 seconds, update lbl_status2
-		
-		// TODO every 15 seconds check connection between server and client
-		if (isStatusConnected) {
+	public void updateStatus() {
+		if (ClientStates.isStatusConnected) {
 			lbl_status2.setText("Đã liên kết");
-			lbl_status2.setForeground(new Color(19, 166, 19));	
+			lbl_status2.setForeground(new Color(19, 166, 19));
+
+            btn_traoDoi_msgClass.setEnabled(true);
+            btn_traoDoi_msgTeacher.setEnabled(true);
+            btn_trucTuyen_callGroup.setEnabled(true);
+            btn_trucTuyen_callTeacher.setEnabled(true);
+            btn_hocTap_bangTrang.setEnabled(true);
+            btn_hocTap_nopBaiTap.setEnabled(true);
+
 		} else {
 			lbl_status2.setText("Mất kết nối");
-			lbl_status2.setForeground(new Color(238, 59, 62));			
+			lbl_status2.setForeground(new Color(238, 59, 62));
+
+            btn_traoDoi_msgClass.setEnabled(false);
+            btn_traoDoi_msgTeacher.setEnabled(false);
+            btn_trucTuyen_callGroup.setEnabled(false);
+            btn_trucTuyen_callTeacher.setEnabled(false);
+            btn_hocTap_bangTrang.setEnabled(false);
+            btn_hocTap_nopBaiTap.setEnabled(false);
 		}
 	}
 

@@ -20,6 +20,8 @@ import org.slf4j.LoggerFactory;
 import javax.swing.*;
 import java.net.ServerSocket;
 
+import static org.example.server.controller.ServerNetwork.clients;
+
 /**
  * Trung tâm chỉ huy cho cả Server
  *
@@ -65,6 +67,20 @@ public class CoreServer {
                 log.info("Server Closed on {}:" + Config.SERVER_PORT, localIP);
                 Alert.showInfo("Server tắt nguồn thành công");
             }
+        });
+
+        ServerStates.setOnClientsCleanUpListener(() -> {
+            synchronized (ServerNetwork.clients) {
+                for (var client : ServerNetwork.clients) {
+                    if (!client.isClosed()) {
+                        client.closeEverything();
+                    } else {
+                        clients.remove(client);
+                    }
+                }
+            }
+
+            log.info("Clean up protocol completed. Total clients now: {}", clients.size());
         });
     }
 

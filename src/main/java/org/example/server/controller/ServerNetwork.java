@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.example.common.objects.services.exercise.Assignment;
+import org.example.server.ServerStates;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,6 +44,11 @@ public class ServerNetwork {
     }
 
     public void closeServer() {
+        ServerStates.fireClientsCleanUp();
+        closeResource();
+    }
+
+    public void closeResource() {
         try {
             if (server != null) {
                 server.close();
