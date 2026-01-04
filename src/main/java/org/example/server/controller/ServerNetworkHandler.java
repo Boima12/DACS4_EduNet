@@ -147,18 +147,17 @@ public class ServerNetworkHandler {
         }
         isClosed = true;
 
-        try {
-            log.info("Client {} - {} disconnected.", client_name, clientSocket.getInetAddress());
+        // remove this one client from clients ArrayList
+        clients.remove(this);
+        log.info("Client {} - {} disconnected. Total clients now: {}", client_name, clientSocket.getInetAddress(), clients.size());
 
+        try {
             // update dashboard UI.
             if (ServerStates.onClientDashboardDisconnectedListener != null) ServerStates.onClientDashboardDisconnectedListener.onClient_dashboardDisconnected(client_name);
 
             // update client_sessions
             String sql = "INSERT INTO client_sessions (client_name, client_token, connectedAt, disconnectedAt) VALUES (?, ?, ?, ?)";
             JDBCUtil.runUpdate(sql, client_name, client_token, connectedAt, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-
-            // remove this one client from clients ArrayList
-            clients.remove(this);
 
             if (clientSocket != null) {
                 clientSocket.close();
@@ -296,7 +295,7 @@ public class ServerNetworkHandler {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             connectedAt = sdf.format(new Date());
 
-            log.info("Client {} - {} connected successfully.", client_name, clientSocket.getInetAddress());
+            log.info("Client {} - {} connected successfully. Total clients now: {}", client_name, clientSocket.getInetAddress(), clients.size());
 
         } else {
             // connection denied

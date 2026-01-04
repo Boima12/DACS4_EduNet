@@ -50,6 +50,16 @@ public class CoreClient {
         SwingUtilities.invokeLater(() -> {
             eClientConnectorWindow = new EClientConnector();
 
+            ClientStates.setOnDisconnectedListener(() -> {
+                ClientStates.isStatusConnected = false;
+                eClientWindow.updateStatus();
+                log.warn("Disconnected from server. Auto-reconnection is enabled.");
+            });
+
+            ClientStates.setOnReconnectingListener(() -> {
+                log.info("Attempting to reconnect to server...");
+            });
+
             ClientStates.setOnEstablishListenerCallback(() -> {
                 // delay 500ms to wait for previous connection close
                 Thread delayThread = new Thread(() -> {
@@ -118,19 +128,70 @@ public class CoreClient {
 
     private void connectToServer() throws IOException {
     	MemoryBox memoryBox = GsonHelper.readJsonFile(runtimeJsonFile.getPath(), MemoryBox.class);
-        clientNetwork = new ClientNetwork(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
-        clientNetwork.send_connectionRequest(memoryBox.token);
 
-        SwingUtilities.invokeLater(() -> {
-           ClientStates.setOnConnectionListenerCallback(() -> {
+        try {
+            clientNetwork = new ClientNetwork(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
+            clientNetwork.send_connectionRequest(memoryBox.token);
 
-                eClientWindow = new EClient(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
+            SwingUtilities.invokeLater(() -> {
+               ClientStates.setOnConnectionListenerCallback(() -> {
+                    ClientStates.isStatusConnected = true;
+                    if (eClientWindow != null) {
+                        eClientWindow.updateStatus();
+                    } else {
+                        eClientWindow = new EClient(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
+                    }
 
-                eClientConnectorWindow.undisplay();
-                eClientWindow.display();
-           });
+                    exerciseController = new ExerciseController(clientNetwork);
+
+                    eClientConnectorWindow.undisplay();
+                    eClientWindow.display();
+               });
+            });
+
+        } catch (IOException e) {
+            log.warn("Initial connection failed. Client will auto-retry every 15 seconds...");
+            startConnectionRetry(memoryBox);
+        }
+    }
+
+    private void startConnectionRetry(MemoryBox memoryBox) {
+        Thread retryThread = new Thread(() -> {
+            while (clientNetwork == null || !clientNetwork.isConnected()) {
+                try {
+                    Thread.sleep(15000);
+                    log.info("Retrying connection to server...");
+                    clientNetwork = new ClientNetwork(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
+                    clientNetwork.send_connectionRequest(memoryBox.token);
+
+                    SwingUtilities.invokeLater(() -> {
+                        ClientStates.setOnConnectionListenerCallback(() -> {
+                            ClientStates.isStatusConnected = true;
+                            if (eClientWindow != null) {
+                                eClientWindow.updateStatus();
+                            } else {
+                                eClientWindow = new EClient(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
+                            }
+
+                            exerciseController = new ExerciseController(clientNetwork);
+
+                            eClientConnectorWindow.undisplay();
+                            eClientWindow.display();
+                        });
+                    });
+
+                    log.info("Successfully connected to server on retry.");
+                    break; // Exit retry loop on success
+                } catch (IOException e) {
+                    log.warn("Connection retry failed. Will try again in 15 seconds...");
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
         });
-
-        exerciseController = new ExerciseController(clientNetwork);
+        retryThread.setName("CoreClient-ConnectionRetry");
+        retryThread.setDaemon(true);
+        retryThread.start();
     }
 }

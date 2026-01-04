@@ -2,7 +2,10 @@ package org.example.client.controller;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.example.client.ClientStates;
@@ -23,30 +26,110 @@ import org.slf4j.LoggerFactory;
  * Code xử lý Network chính của Client.
  *
  */
+@SuppressWarnings("FieldMayBeFinal")
 public class ClientNetwork {
 
-    private final Socket clientSocket;
-    private final BufferedReader in;
-    private final BufferedWriter out;
-    private String client_name; 
+    private Socket clientSocket;
+    private BufferedReader in;
+    private BufferedWriter out;
+    private String client_name;
 
     private static final Logger log = LoggerFactory.getLogger(ClientNetwork.class);
     private final File runtimeJsonFile = new File("localStorage/memoryBox.json");
 
+    // Reconnection settings
+    private static final int RECONNECT_INTERVAL_MS = 15000; // 15 seconds
+    private static final int MAX_RECONNECT_ATTEMPTS = -1; // -1 = infinite
+    private final AtomicBoolean isConnected = new AtomicBoolean(false);
+    private final AtomicBoolean shouldReconnect = new AtomicBoolean(true);
+    private final AtomicBoolean isReconnecting = new AtomicBoolean(false);
+    private String serverIP;
+    private int serverPort;
+    private String savedToken;
+
     public ClientNetwork(String serverIP, int port) throws IOException {
-        clientSocket = new Socket(serverIP, port);
-        in = new BufferedReader(new InputStreamReader(new DataInputStream(clientSocket.getInputStream())));
-        out = new BufferedWriter(new OutputStreamWriter(new DataOutputStream(clientSocket.getOutputStream())));
-        hear();
+        this.serverIP = serverIP;
+        this.serverPort = port;
+        connect();
+    }
+
+    private void connect() throws IOException {
+        try {
+            clientSocket = new Socket(serverIP, serverPort);
+            in = new BufferedReader(new InputStreamReader(new DataInputStream(clientSocket.getInputStream())));
+            out = new BufferedWriter(new OutputStreamWriter(new DataOutputStream(clientSocket.getOutputStream())));
+            isConnected.set(true);
+            isReconnecting.set(false);
+            log.info("Connected to server {}:{}", serverIP, serverPort);
+            hear();
+        } catch (SocketException e) {
+            log.warn("Cannot connect to server {}:{}. Will retry in {} seconds...", serverIP, serverPort, RECONNECT_INTERVAL_MS / 1000);
+            isConnected.set(false);
+            scheduleReconnect();
+            throw e;
+        }
+    }
+
+    private void attemptReconnect() {
+        if (!shouldReconnect.get() || isReconnecting.get()) {
+            return;
+        }
+
+        isReconnecting.set(true);
+        ClientStates.fireReconnecting();
+        log.info("Attempting to reconnect to server {}:{}...", serverIP, serverPort);
+
+        try {
+            clientSocket = new Socket(serverIP, serverPort);
+            in = new BufferedReader(new InputStreamReader(new DataInputStream(clientSocket.getInputStream())));
+            out = new BufferedWriter(new OutputStreamWriter(new DataOutputStream(clientSocket.getOutputStream())));
+            isConnected.set(true);
+            isReconnecting.set(false);
+            log.info("Reconnected to server {}:{}", serverIP, serverPort);
+
+            // Re-send connection request with saved token
+            if (savedToken != null) {
+                send_connectionRequest(savedToken);
+            }
+
+            hear();
+        } catch (IOException e) {
+            log.warn("Reconnection failed. Will retry in {} seconds...", RECONNECT_INTERVAL_MS / 1000);
+            isReconnecting.set(false);
+            scheduleReconnect();
+        }
+    }
+
+    private void scheduleReconnect() {
+        if (!shouldReconnect.get()) {
+            return;
+        }
+
+        Thread reconnectThread = new Thread(() -> {
+            try {
+                Thread.sleep(RECONNECT_INTERVAL_MS);
+                if (shouldReconnect.get() && !isConnected.get()) {
+                    attemptReconnect();
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                log.debug("Reconnect thread interrupted");
+            }
+        });
+        reconnectThread.setName("ClientNetwork-Reconnect");
+        reconnectThread.setDaemon(true);
+        reconnectThread.start();
     }
 
     public void hear() {
         Thread thread = new Thread(() -> {
             try {
-                while (clientSocket.isConnected()) {
+                while (clientSocket != null && clientSocket.isConnected() && !clientSocket.isClosed()) {
                     String msg = in.readLine();
                     if (msg == null) {
-                        closeEverything();
+                        // Server closed the connection
+                        log.info("Server closed the connection.");
+                        handleDisconnect();
                         break;
                     }
                     log.info("Received: {}", msg);
@@ -89,44 +172,88 @@ public class ClientNetwork {
                             break;
                     }
                 }
+            } catch (SocketException e) {
+                log.warn("Socket exception: {}", e.getMessage());
+                handleDisconnect();
             } catch (Exception e) {
                 log.error(String.valueOf(e));
-                log.info("This client hear() has stopped, calling closeEverything()");
-                closeEverything();
+                log.info("This client hear() has stopped, calling handleDisconnect()");
+                handleDisconnect();
             }
         });
+        thread.setName("ClientNetwork-Listener");
         thread.setDaemon(true);
         thread.start();
     }
 
+    private void handleDisconnect() {
+        if (!isConnected.get()) {
+            return; // Already disconnected
+        }
+
+        isConnected.set(false);
+        closeResources();
+
+        // Notify listeners about disconnection
+        ClientStates.fireDisconnected();
+
+        // Schedule reconnection if enabled
+        if (shouldReconnect.get()) {
+            log.info("Connection lost. Will attempt to reconnect in {} seconds...", RECONNECT_INTERVAL_MS / 1000);
+            scheduleReconnect();
+        }
+    }
+
     private void speak(String message) {
+        if (!isConnected.get() || clientSocket == null || clientSocket.isClosed()) {
+            log.warn("Cannot send message - not connected to server");
+            return;
+        }
+
         log.info("Sending: {}", message);
         try {
             out.write(message);
             out.newLine();
             out.flush();
         } catch (IOException e) {
-            log.error(String.valueOf(e));
-            closeEverything();
+            log.error("Error sending message: {}", e.getMessage());
+            handleDisconnect();
         }
     }
 
     public void closeEverything() {
-        log.info("Client {} - {} disconnected.", client_name, clientSocket != null ? clientSocket.getInetAddress() : null);
+        shouldReconnect.set(false); // Disable reconnection
+        isConnected.set(false);
+        closeResources();
+        log.info("Client {} - {} disconnected (intentional).", client_name, clientSocket != null ? clientSocket.getInetAddress() : null);
+    }
 
+    private void closeResources() {
         try {
-            if (clientSocket != null) {
-                clientSocket.close();
-            }
             if (in != null) {
                 in.close();
             }
             if (out != null) {
                 out.close();
             }
+            if (clientSocket != null && !clientSocket.isClosed()) {
+                clientSocket.close();
+            }
         } catch (IOException e) {
-            log.error(String.valueOf(e));
+            log.error("Error closing resources: {}", e.getMessage());
         }
+    }
+
+    public void stopReconnecting() {
+        shouldReconnect.set(false);
+    }
+
+    public boolean isConnected() {
+        return isConnected.get();
+    }
+
+    public boolean isReconnecting() {
+        return isReconnecting.get();
     }
 
 
@@ -171,6 +298,7 @@ public class ClientNetwork {
 
     //  == Connection (Kết nối với server) ==
     public void send_connectionRequest(String client_token) {
+        this.savedToken = client_token; // Save for reconnection
         ConnectionRequestJSON connectionRequestJSON = new ConnectionRequestJSON();
         connectionRequestJSON.client_token = client_token;
         String jsonString = GsonHelper.toJson(connectionRequestJSON);
