@@ -3,7 +3,6 @@ package org.example.client.model;
 import javax.swing.SwingUtilities;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-
 import org.example.client.ClientStates;
 import org.example.client.controller.ClientNetwork;
 import org.example.client.controller.services.exercise.ExerciseController;
@@ -12,7 +11,6 @@ import org.example.client.view.eClientConnector.EClientConnector;
 import org.example.common.objects.MemoryBox;
 import org.example.common.objects.services.exercise.Assignment;
 import org.example.common.utils.gson.GsonHelper;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

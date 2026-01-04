@@ -154,6 +154,20 @@ public class CoreServer {
                     }
                 }
             });
+            
+            ServerStates.setOnLockListenerCallback(cmd -> {
+                if (lockController == null) return;
+
+                switch (cmd) {
+                    case "LOCK":
+                        lockController.lock();
+                        break;
+                    case "UNLOCK":
+                        lockController.unlock();
+                        break;
+                }
+            });
+
 
             ServerStates.setOnWatchControllerShowListenerCallback(() -> {
                 if (watchController != null) {
@@ -182,6 +196,8 @@ public class CoreServer {
                     ServerNetwork.broadcastAssignment(assignment);
                 }
             });
+            
+            
 
             // Đăng ký: Gửi phản hồi kết quả nộp bài (Thành công/Thất bại) về cho Client
             ServerStates.setOnSubmissionResultListenerCallback((clientName, success, message) -> {
