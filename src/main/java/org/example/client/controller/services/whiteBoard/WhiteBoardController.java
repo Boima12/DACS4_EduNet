@@ -2,61 +2,76 @@ package org.example.client.controller.services.whiteBoard;
 
 import java.io.*;
 import java.net.Socket;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
+
 import org.example.client.view.whiteboard.WhiteBoardView;
 import org.example.common.objects.services.whiteBoard.WhiteboardPacket;
 
 /**
- * WhiteBoardController - Phiên bản client tối ưu
- *
- * - Gửi stroke (WhiteboardPacket) tới server
- * - Nhận stroke từ server và cập nhật trực tiếp trong WhiteBoardView
+ * WhiteBoardController - Client (FINAL)
  */
 public class WhiteBoardController {
 
-    private String serverIP;
-    private int serverPort;
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private WhiteBoardView view;
 
     public WhiteBoardController(String serverIP, int serverPort) {
-        this.serverIP = serverIP;
-        this.serverPort = serverPort;
-        initClient();
+        connect(serverIP, serverPort);
     }
 
-    private void initClient() {
+    private void connect(String ip, int port) {
         new Thread(() -> {
             try {
-                // Kết nối tới server
-                socket = new Socket(serverIP, serverPort);
+                socket = new Socket(ip, port);
                 out = new ObjectOutputStream(socket.getOutputStream());
-                in = new ObjectInputStream(socket.getInputStream());
+                in  = new ObjectInputStream(socket.getInputStream());
 
-                // Tạo GUI WhiteBoard client
                 SwingUtilities.invokeLater(() -> {
-                    view = new WhiteBoardView(out, in);
+                    view = new WhiteBoardView(this::sendPacket);
                     view.setVisible(true);
                 });
 
+                // Thread lắng nghe server
+                new Thread(this::listenServer).start();
+
             } catch (Exception e) {
-                e.printStackTrace();
-                SwingUtilities.invokeLater(() -> {
+                SwingUtilities.invokeLater(() ->
                     JOptionPane.showMessageDialog(
                         null,
-                        "Không thể kết nối tới WhiteBoard server!\n" + e.getMessage(),
-                        "Lỗi kết nối",
+                        "Không thể kết nối WhiteBoard Server",
+                        "Lỗi",
                         JOptionPane.ERROR_MESSAGE
-                    );
-                });
+                    )
+                );
             }
         }).start();
     }
 
-    // Gửi stroke thủ công từ bên ngoài (nếu cần)
+    private void listenServer() {
+        try {
+            while (true) {
+                Object obj = in.readObject();
+                if (obj instanceof WhiteboardPacket packet) {
+                    SwingUtilities.invokeLater(() ->
+                        view.applyPacket(packet)
+                    );
+                }
+            }
+        } catch (Exception e) {
+            SwingUtilities.invokeLater(() ->
+                JOptionPane.showMessageDialog(
+                    view,
+                    "Mất kết nối WhiteBoard Server",
+                    "Lỗi",
+                    JOptionPane.ERROR_MESSAGE
+                )
+            );
+            close();
+        }
+    }
+
     public void sendPacket(WhiteboardPacket packet) {
         try {
             if (out != null) {
@@ -68,13 +83,12 @@ public class WhiteBoardController {
         }
     }
 
-    // Đóng kết nối khi client thoát
     public void close() {
         try {
+            if (out != null) out.close();
+            if (in != null) in.close();
             if (socket != null) socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException ignored) {}
     }
 }
 

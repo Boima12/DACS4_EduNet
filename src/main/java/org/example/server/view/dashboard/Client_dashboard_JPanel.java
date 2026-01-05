@@ -16,7 +16,11 @@ import java.util.ArrayList;
  */
 @SuppressWarnings({"FieldMayBeFinal", "JavadocBlankLines"})
 public class Client_dashboard_JPanel extends JPanel {
-    private static final Color SELECTED_BG = new Color(209, 237, 248);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static final Color SELECTED_BG = new Color(209, 237, 248);
     private static final Color UNSELECTED_BG = new Color(251, 251, 251);
 
     private String clientName;
@@ -44,18 +48,18 @@ public class Client_dashboard_JPanel extends JPanel {
         this.isConnected = isConnected;
         this.selectionCallback = selectionCallback;
 
-        setPreferredSize(new Dimension(125, 135));
+        setPreferredSize(new Dimension(150, 135));
         setLayout(null);
         setBackground(UNSELECTED_BG);
 
         lbl_item_icon = new JLabel();
-        lbl_item_icon.setBounds(25, 10, 75, 75);
+        lbl_item_icon.setBounds(37, 10, 75, 75);
         updateIcon();
         add(lbl_item_icon);
 
         JLabel lbl_item_name = new JLabel(name, SwingConstants.CENTER);
         lbl_item_name.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lbl_item_name.setBounds(10, 95, 105, 20);
+        lbl_item_name.setBounds(10, 95, 130, 20);
         add(lbl_item_name);
 
         // Add mouse listener for selection

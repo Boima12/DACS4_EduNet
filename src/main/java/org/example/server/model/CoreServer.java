@@ -168,7 +168,6 @@ public class CoreServer {
                 }
             });
 
-
             ServerStates.setOnWatchControllerShowListenerCallback(() -> {
                 if (watchController != null) {
                     watchController.showWatchView();

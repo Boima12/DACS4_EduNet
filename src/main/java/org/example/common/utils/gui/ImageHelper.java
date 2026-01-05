@@ -1,7 +1,6 @@
 package org.example.common.utils.gui;
 
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
 
 /**
