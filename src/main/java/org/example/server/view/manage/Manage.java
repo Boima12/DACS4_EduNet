@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,6 +21,7 @@ import javax.swing.JTextArea;
 import org.example.common.utils.gui.ImageHelper;
 import org.example.common.utils.gui.RoundedBorder;
 import org.example.server.ServerStates;
+import org.example.server.view.about.AboutModal;
 import org.example.server.view.manage.captures.Captures;
 
 
@@ -42,6 +44,14 @@ public class Manage {
 	private JLabel lbl_ram;
 	private JLabel lbl_INetAddress;
 	private JTextArea ta_diskStorages;
+
+	private Color mau081C15;
+
+	private Color mauD8F3DC;
+
+	private Color mau2D6A4F;
+
+	private Color mauB0B0B0;
 
 	/**
 	 * Create the application.
@@ -84,33 +94,77 @@ public class Manage {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		mau081C15 = Color.decode("#081C15");
+		mauD8F3DC = Color.decode("#D8F3DC");
+		mau2D6A4F = Color.decode("#2D6A4F");
+		mauB0B0B0 = Color.decode("#B0B0B0");
+		
 		frame = new JFrame();
+		
 		frame.getContentPane().setBackground(new Color(242, 242, 242));
-		frame.setBounds(100, 100, 1000, 639);
+		frame.setBounds(100, 50, 1300, 700);
 		frame.setTitle("InetAddress / Client name placeholder");
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		JPanel item_1 = new JPanel();
+		item_1.setLayout(null);
+		item_1.setBackground(mau081C15);
+		item_1.setBounds(0, 0, 75, 700);
+		frame.getContentPane().add(item_1);	
+		
+		JButton btn_about = new JButton("");
+		btn_about.setSize(new Dimension(30, 30));
+		btn_about.setBorderPainted(false);
+		btn_about.setBackground(mau081C15);
+		btn_about.setBounds(0, 590, 75, 75);
+		btn_about.setIcon(ImageHelper.getScaledIcon("/images/about_white.png", 27, 27));
+		btn_about.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				onAbout();
+			}
+		});
+		item_1.add(btn_about);
+		
+		JPanel item_2 = new JPanel();
+		item_2.setLayout(null);
+		item_2.setBackground(mau081C15);
+		item_2.setBounds(1050, 0, 250, 700);
+		frame.getContentPane().add(item_2);
+		
+		JPanel item_3 = new JPanel();
+		item_3.setLayout(null);
+		item_3.setBackground(mau2D6A4F);
+		item_3.setBounds(75, 0, 975, 20);
+		frame.getContentPane().add(item_3);
+		
+		JPanel item_4 = new JPanel();
+		item_4.setBackground(mauB0B0B0);
+		item_4.setBounds(75, 235, 975, 5);
+		frame.add(item_4);
+		
 		JPanel panel_top = new JPanel();
 	    panel_top.setLayout(null);
 		panel_top.setBackground(new Color(251, 251, 251));
-		panel_top.setBounds(10, 15, 965, 155);
+		panel_top.setBounds(75, 20, 975, 155);
 		frame.getContentPane().add(panel_top);
 
 	    JPanel client_item = new JPanel();
-	    client_item.setBounds(0, 0, 125, 135);
+	    client_item.setBounds(0, 0, 135, 145);
 	    client_item.setLayout(null);
 	    client_item.setBackground(new Color(251, 251, 251));
 	    panel_top.add(client_item);
 	    
 	    JLabel lbl_item_icon = new JLabel();
-	    lbl_item_icon.setBounds(15, 10, 95, 95);
+	    lbl_item_icon.setBounds(20, 10, 95, 95);
     	lbl_item_icon.setIcon(ImageHelper.getScaledIcon("/images/desktop.png", 95, 95));	    	
 	    client_item.add(lbl_item_icon);
 	    
 	    lbl_item_name = new JLabel("client_name", SwingConstants.CENTER);
 	    lbl_item_name.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	    lbl_item_name.setBounds(10, 110, 105, 20);
+	    lbl_item_name.setBounds(10, 110, 115, 20);
 	    client_item.add(lbl_item_name);
 	    
 	    JPanel panel_middle = new JPanel();
@@ -219,6 +273,15 @@ public class Manage {
 	
 	private void onSystemInfoRequest() {
         if (ServerStates.onSystemInfoRequestListener != null) ServerStates.onSystemInfoRequestListener.onSystemInfoRequest(client_name);
+	}
+	
+	private void onAbout() {
+	    JOptionPane.showMessageDialog(
+	            this.frame,
+	            AboutModal.createContent(),
+	            "Về hệ thống EduNet",
+	            JOptionPane.PLAIN_MESSAGE
+	    );
 	}
 	
 //	public static void main(String[] args) {

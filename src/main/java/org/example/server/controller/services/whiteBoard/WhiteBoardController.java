@@ -1,218 +1,109 @@
-//package org.example.server.controller;
-//
-//import java.io.*;
-//import java.net.ServerSocket;
-//import java.net.Socket;
-//import java.util.*;
-//import org.example.common.objects.services.whiteBoard.WhiteboardPacket;
-//import org.example.common.objects.services.whiteBoard.WhiteboardCommand;
-//import org.example.server.view.whiteboard.WhiteBoardView;
-//
-//public class WhiteBoardController {
-//
-//    private static List<ObjectOutputStream> clients = new ArrayList<>();
-//    private static WhiteBoardView serverView;
-//
-//    public static void main(String[] args) throws Exception {
-//        ServerSocket ss = new ServerSocket(9999);
-//
-//        // Tạo GUI Server
-//        serverView = new WhiteBoardView(packet -> {
-//            broadcast(packet);
-//            serverView.applyPacket(packet); // SERVER tự vẽ
-//        });
-//
-//        while (true) {
-//            Socket s = ss.accept();
-//            ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
-//            
-//            // Gửi toàn bộ lịch sử hiện tại cho client mới
-//            for (WhiteboardPacket p : serverView.getHistory()) {
-//                WhiteboardPacket syncPacket = new WhiteboardPacket(p.x, p.y, p.color);
-//                syncPacket.command = WhiteboardCommand.SYNC;
-//                out.writeObject(syncPacket);
-//            }
-//            out.flush();
-//
-//            clients.add(out);
-//
-//            // Bắt đầu lắng nghe client
-//            new Thread(() -> listen(s)).start();
-//        }
-//    }
-//
-//    private static void listen(Socket s) {
-//        try {
-//            ObjectInputStream in = new ObjectInputStream(s.getInputStream());
-//            while (true) {
-//                WhiteboardPacket p = (WhiteboardPacket) in.readObject();
-//                broadcast(p);
-//                serverView.applyPacket(p); // CLIENT vẽ -> SERVER hiển thị
-//            }
-//        } catch (Exception e) {
-//            System.out.println("Client disconnected.");
-//        }
-//    }
-//
-//    private static void broadcast(WhiteboardPacket p) {
-//        for (ObjectOutputStream out : clients) {
-//            try {
-//                out.writeObject(p);
-//                out.flush();
-//            } catch (Exception ignored) {}
-//        }
-//    }
-//    
-//    public WhiteBoardController(boolean isServerViewOnly) {
-//        if (isServerViewOnly) {
-//            serverView = new WhiteBoardView(packet -> {
-//                broadcast(packet);   // gửi tới tất cả client
-//                serverView.applyPacket(packet); // server tự vẽ
-//            });
-//        }
-//    }
-//
-//}
-
 package org.example.server.controller.services.whiteBoard;
 
 import org.example.common.objects.services.whiteBoard.WhiteboardPacket;
 import org.example.common.objects.services.whiteBoard.WhiteboardCommand;
 import org.example.server.view.whiteBoard.WhiteBoardView;
 
+import javax.swing.SwingUtilities;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * WhiteBoardController - Server WhiteBoard chạy trên LAN
+ * WhiteBoardController - Server WhiteBoard LAN (FIXED)
  */
 public class WhiteBoardController {
 
     private ServerSocket serverSocket;
     private List<ObjectOutputStream> clients = new CopyOnWriteArrayList<>();
     private WhiteBoardView serverView;
-    private int port; // port mặc định
+    private int port;
 
-    /**
-     * Khởi tạo server WhiteBoard
-     */
     public WhiteBoardController(int port) {
-    	this.port = port;
-        // Khởi tạo serverView ngay lập tức
+        this.port = port;
+
+        // GUI Server
         serverView = new WhiteBoardView(packet -> {
-            broadcast(packet);        // gửi packet tới tất cả client
-            serverView.applyPacket(packet); // server tự vẽ
+            broadcast(packet);
+            serverView.applyPacket(packet);
         });
 
-        // Tạo một thread lắng nghe client
-        new Thread(() -> startServer(port)).start();
+        new Thread(this::startServer).start();
     }
 
-    /**
-     * Khởi tạo GUI WhiteBoard server
-     */
-    private void initGUI() {
-        serverView = new WhiteBoardView(packet -> {
-            broadcast(packet);       // gửi packet đến tất cả client
-            serverView.applyPacket(packet); // server tự vẽ
-        });
-    }
+    private void startServer() {
+        try {
+            serverSocket = new ServerSocket(port);
+            System.out.println("[WhiteBoard Server] Listening on port " + port);
 
-    /**
-     * Khởi động server và lắng nghe client trên LAN
-     */
-    private void startServer(int port) {
-        try (ServerSocket ss = new ServerSocket(port)) {
-            System.out.println("[WhiteBoard Server] Đang lắng nghe trên port " + port);
             while (true) {
-                Socket s = ss.accept();
-                ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
+                Socket socket = serverSocket.accept();
+                System.out.println("[WhiteBoard Server] Client connected: " + socket.getInetAddress());
 
-                // gửi lịch sử cho client mới
-                for (WhiteboardPacket p : serverView.getHistory()) {
-                    WhiteboardPacket syncPacket = new WhiteboardPacket(p.x, p.y, p.color);
-                    syncPacket.command = WhiteboardCommand.SYNC;
-                    out.writeObject(syncPacket);
-                }
-                out.flush();
+                ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
                 clients.add(out);
 
-                // lắng nghe client
-                new Thread(() -> listen(s)).start();
+                // Gửi lịch sử cho client mới
+                for (WhiteboardPacket p : serverView.getHistory()) {
+                    WhiteboardPacket sync = new WhiteboardPacket(p.x, p.y, p.color);
+                    sync.command = WhiteboardCommand.SYNC;
+                    out.writeObject(sync);
+                }
+                out.flush();
+
+                // Thread lắng nghe client
+                new Thread(() -> listenClient(socket, in)).start();
             }
-        } catch (Exception e) {
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private Object listen(Socket s) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-     * Lắng nghe dữ liệu vẽ từ client
-     */
-    private void listenClient(Socket clientSocket, ObjectInputStream in) {
+    private void listenClient(Socket socket, ObjectInputStream in) {
         try {
             while (true) {
                 WhiteboardPacket packet = (WhiteboardPacket) in.readObject();
+
+                // Server tự vẽ
+                SwingUtilities.invokeLater(() -> {
+                    serverView.applyPacket(packet);
+                });
+
+                // Broadcast cho các client
                 broadcast(packet);
-                serverView.applyPacket(packet);
             }
         } catch (Exception e) {
-            System.out.println("[WhiteBoard Server] Client ngắt kết nối: " + clientSocket.getInetAddress());
-            removeClient(clientSocket);
+            System.out.println("[WhiteBoard Server] Client disconnected: " + socket.getInetAddress());
+            removeClient(socket);
         }
     }
 
-    /**
-     * Gửi dữ liệu vẽ tới tất cả client
-     */
     private void broadcast(WhiteboardPacket packet) {
         for (ObjectOutputStream out : clients) {
             try {
                 out.writeObject(packet);
                 out.flush();
             } catch (IOException e) {
-                // loại bỏ client lỗi
                 clients.remove(out);
             }
         }
     }
 
-    /**
-     * Loại bỏ client khi mất kết nối
-     */
-    private void removeClient(Socket clientSocket) {
+    private void removeClient(Socket socket) {
         clients.removeIf(out -> {
             try {
-                return ((Socket) out.getClass().getMethod("getSocket").invoke(out)).equals(clientSocket);
-            } catch (Exception e) {
-                return true;
-            }
+                out.close();
+            } catch (IOException ignored) {}
+            return true;
         });
     }
 
-    /**
-     * Hiển thị GUI WhiteBoard server
-     */
     public void showWindow() {
-        if (serverView != null) {
-            serverView.setVisible(true);
-        }
+        serverView.setVisible(true);
     }
-
-
-    /**
-     * Main test độc lập
-     */
-//    public static void main(String[] args) {
-//        new WhiteBoardController(); // khởi tạo server + GUI
-//    }
 }
-

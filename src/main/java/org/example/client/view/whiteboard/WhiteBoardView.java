@@ -1,160 +1,208 @@
 package org.example.client.view.whiteboard;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.Stack;
-import javax.swing.*;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Consumer;
 
 import org.example.common.objects.services.whiteBoard.WhiteboardCommand;
 import org.example.common.objects.services.whiteBoard.WhiteboardPacket;
+import org.example.common.utils.gui.ImageHelper;
+import org.example.server.view.about.AboutModal;
+import java.awt.event.ActionListener;
 
-/**
- * Code UI/Logic cho cửa sổ giao diện whiteboard của Client.
- *
- */
 public class WhiteBoardView extends JFrame {
 
     private boolean locked = false;
-    private boolean canDraw = true;
-    private Color currentColor = Color.BLACK;
 
-    private final Stack<WhiteboardPacket> strokes = new Stack<>();
-    private final JPanel board;
+    private final List<WhiteboardPacket> history = new CopyOnWriteArrayList<>();
+    
+	private JFrame frame;
+    
+    private final BoardPanel board;
+    
+	private Color mau081C15;
+	private Color mau2D6A4F;
+	private Color mauFFFFFF;
+    private Color mau000000;
 
-    public WhiteBoardView(ObjectOutputStream out, ObjectInputStream in) {
-        setTitle("CLIENT WHITEBOARD");
-        setSize(800, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+	
+    public WhiteBoardView(Consumer<WhiteboardPacket> sender) {
+        this.setBounds(100, 50, 1300, 700);
+        this.getContentPane().setLayout(null);
+        this.setUndecorated(true);
 
-        // ===== BOARD =====
-        board = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                synchronized (strokes) {
-                    for (WhiteboardPacket p : strokes) {
-                        if (p.command == WhiteboardCommand.DRAW || p.command == WhiteboardCommand.SYNC) {
-                            g.setColor(p.color != null ? p.color : Color.BLACK);
-                            g.fillOval(p.x, p.y, 5, 5);
-                        }
-                    }
-                }
-            }
-        };
+		mau081C15 = Color.decode("#081C15");
+		mau2D6A4F = Color.decode("#2D6A4F");
+		mauFFFFFF = Color.decode("#FFFFFF");
+		mau000000 = Color.decode("#000000");
+
+        JPanel jPanel = new JPanel(); 
+        jPanel.setBounds(0, 0, 1300, 700);
+        jPanel.setLayout(null);
+        getContentPane().add(jPanel);
+        
+        JPanel item_2 = new JPanel();
+        item_2.setBounds(75, 0, 1225, 10);
+        item_2.setLayout(null);
+        item_2.setBackground(mau2D6A4F);
+        jPanel.add(item_2);
+        
+        JPanel item_1 = new JPanel();
+        item_1.setBounds(0, 0, 75, 700);
+        item_1.setLayout(null);
+        item_1.setBackground(mau081C15);
+        jPanel.add(item_1);
+        
+        JButton btn_about = new JButton("");
+		btn_about.setSize(new Dimension(30, 30));
+		btn_about.setBorderPainted(false);
+		btn_about.setBackground(mau081C15);
+		btn_about.setBounds(0, 625, 75, 75);
+		btn_about.setIcon(ImageHelper.getScaledIcon("/images/about_white.png", 27, 27));
+		btn_about.addActionListener(e -> onAbout());
+		item_1.add(btn_about);
+		
+        JPanel tools = new JPanel();
+        tools.setBounds(75, 10, 1225, 60);
+        tools.setLayout(null); 
+        tools.setBackground(mau2D6A4F);
+        jPanel.add(tools);
+        
+        // Tool panel
+        // EXIT
+        JButton exit = new JButton("EXIT");
+        exit.setBackground(mauFFFFFF);
+        exit.setFont(new Font("Tahoma", Font.BOLD, 13));
+        exit.setBounds(10, 10, 150, 35);
+        exit.setBorder(null);
+        exit.addActionListener(e -> {
+            setVisible(false);
+            dispose();
+        });
+        tools.add(exit);
+        
+        //CLEAR
+        JButton clear = new JButton("CLEAR");
+        clear.setFont(new Font("Tahoma", Font.BOLD, 13));
+        clear.setBounds(170, 10, 150, 35);
+        clear.setBorder(null);
+        clear.setBackground(mauFFFFFF);
+        clear.addActionListener(e -> {
+            WhiteboardPacket p = new WhiteboardPacket(WhiteboardCommand.CLEAR);
+            applyPacket(p);
+            sender.accept(p);
+        });
+        tools.add(clear);
+
+        //DELATE
+        JButton undo = new JButton("DELETE");
+        undo.setFont(new Font("Tahoma", Font.BOLD, 13));
+        undo.setBounds(330, 10, 150, 35);
+        undo.setBorder(null);
+        undo.setBackground(mauFFFFFF);
+        undo.addActionListener(e -> {
+            WhiteboardPacket p = new WhiteboardPacket(WhiteboardCommand.UNDO);
+            applyPacket(p);
+            sender.accept(p);
+        });
+        tools.add(undo);
+        
+        //LOCK
+        JButton lockBtn = new JButton("LOCK");
+        lockBtn.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lockBtn.setBounds(490, 10, 150, 35);
+        lockBtn.setBorder(null);
+        lockBtn.setBackground(mauFFFFFF);
+        lockBtn.addActionListener(e -> {
+            locked = !locked;
+            WhiteboardPacket p = new WhiteboardPacket(WhiteboardCommand.LOCK);
+            p.lock = locked;
+            sender.accept(p);
+            lockBtn.setText(locked ? "UNLOCK" : "LOCK");
+        });
+        tools.add(lockBtn);
+
+        //COLOR
+        JButton colorBtn = new JButton("COLOR");
+        colorBtn.setBackground(new Color(255, 255, 255));
+        colorBtn.setFont(new Font("Tahoma", Font.BOLD, 13));
+        colorBtn.setBounds(650, 10, 150, 35);
+        colorBtn.setBorder(null);
+        colorBtn.setBackground(mauFFFFFF);
+        colorBtn.addActionListener(e -> {
+            Color c = JColorChooser.showDialog(this, "Chọn màu vẽ", mau000000);
+            if (c != null) mau000000 = c;
+        });
+        tools.add(colorBtn);
+        
+        //TOPIC
+        JLabel jLabel = new JLabel("WHITE BOARD");
+        jLabel.setForeground(new Color(255, 255, 255));
+        jLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        jLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
+        jLabel.setBounds(840, 10, 385, 35);
+        jLabel.setBorder(null);
+        tools.add(jLabel);
+        
+        board = new BoardPanel();
         board.setBackground(Color.WHITE);
+        board.setBounds(0, 70, 1300, 630);
 
-        // ===== DRAWING =====
         board.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                if (locked || !canDraw) return;
-                try {
-                    WhiteboardPacket p = new WhiteboardPacket(e.getX(), e.getY(), currentColor);
-                    p.command = WhiteboardCommand.DRAW;
+                if (locked) return;
 
-                    // Vẽ local trước
-                    synchronized (strokes) {
-                        strokes.push(p);
-                    }
-                    board.repaint();
+                WhiteboardPacket p = new WhiteboardPacket(e.getX(), e.getY());
+                p.command = WhiteboardCommand.DRAW;
+                p.color = mau000000;
 
-                    // Gửi lên server
-                    if (out != null) {
-                        out.writeObject(p);
-                        out.flush();
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+                applyPacket(p);     // vẽ local
+                sender.accept(p);   // gửi server
             }
         });
-
-        // ===== TOOLS =====
-        JButton toggleDraw = new JButton("TẮT VẼ");
-        toggleDraw.addActionListener(e -> {
-            canDraw = !canDraw;
-            toggleDraw.setText(canDraw ? "TẮT VẼ" : "BẬT VẼ");
-        });
-
-        JButton clear = new JButton("XÓA");
-        clear.addActionListener(e -> {
-            try {
-                // Xóa local trước
-                synchronized (strokes) {
-                    strokes.clear();
-                }
-                board.repaint();
-
-                // Gửi lệnh CLEAR tới server
-                if (out != null) {
-                    WhiteboardPacket p = new WhiteboardPacket(WhiteboardCommand.CLEAR);
-                    out.writeObject(p);
-                    out.flush();
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        });
-
-        JButton colorBtn = new JButton("CHỌN MÀU");
-        colorBtn.addActionListener(e -> {
-            Color c = JColorChooser.showDialog(this, "Chọn màu", currentColor);
-            if (c != null) currentColor = c;
-        });
-
-        JPanel tools = new JPanel();
-        tools.add(toggleDraw);
-        tools.add(clear);
-        tools.add(colorBtn);
-
-        add(tools, BorderLayout.NORTH);
-        add(board, BorderLayout.CENTER);
-
-        // ===== LISTEN SERVER =====
-        new Thread(() -> {
-            try {
-                while (true) {
-                    Object obj = in.readObject();
-                    if (!(obj instanceof WhiteboardPacket)) continue;
-                    WhiteboardPacket p = (WhiteboardPacket) obj;
-
-                    synchronized (strokes) {
-                        switch (p.command) {
-                            case DRAW, SYNC -> strokes.push(p); // Client nhận DRAW/SYNC từ server
-                            case CLEAR -> strokes.clear();      // Nhận CLEAR từ server
-                            case UNDO -> { if (!strokes.isEmpty()) strokes.pop(); }
-                            case LOCK -> locked = p.lock;       // Lock/Unlock
-                        }
-                    }
-
-                    // Cập nhật GUI an toàn
-                    SwingUtilities.invokeLater(board::repaint);
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(
-                        this,
-                        "Mất kết nối với server WhiteBoard!",
-                        "Lỗi kết nối",
-                        JOptionPane.ERROR_MESSAGE
-                ));
-            }
-        }).start();
-
-        setVisible(true);
+        jPanel.add(board);
+        
     }
 
-    // Hiển thị lỗi cho client
-    public void showError(String message) {
-        SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(
-                this,
-                message,
-                "Lỗi",
-                JOptionPane.ERROR_MESSAGE
-        ));
+    // Controller gọi vào đây
+    public void applyPacket(WhiteboardPacket p) {
+        switch (p.command) {
+            case DRAW, SYNC -> history.add(p);
+            case CLEAR -> history.clear();
+            case UNDO -> {
+                if (!history.isEmpty())
+                    history.remove(history.size() - 1);
+            }
+            case LOCK -> locked = p.lock;
+        }
+        board.repaint();
     }
+
+    class BoardPanel extends JPanel {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            for (WhiteboardPacket p : history) {
+                if (p.command == WhiteboardCommand.DRAW
+                        || p.command == WhiteboardCommand.SYNC) {
+                    g.setColor(p.color != null ? p.color : Color.BLACK);
+                    g.fillOval(p.x, p.y, 5, 5);
+                }
+            }
+        }
+    }
+    
+	private void onAbout() {
+	    JOptionPane.showMessageDialog(
+	            this.frame,
+	            AboutModal.createContent(),
+	            "Về hệ thống EduNet",
+	            JOptionPane.PLAIN_MESSAGE
+	    );
+	}
 }

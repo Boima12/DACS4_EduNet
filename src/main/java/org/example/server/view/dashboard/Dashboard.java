@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Watchable;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.swing.*;
@@ -14,6 +15,7 @@ import org.example.common.utils.gui.*;
 import org.example.server.ServerStates;
 import org.example.server.model.database.JDBCUtil;
 import org.example.server.view.manage.Manage;
+import org.example.server.view.watch.WatchView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,107 +26,119 @@ import org.slf4j.LoggerFactory;
  */
 @SuppressWarnings({"PatternVariableCanBeUsed", "Convert2Lambda"})
 public class Dashboard extends JFrame {
-    private static JFrame frame;
-    private static JLabel lbl_info_icon;
-    private static JLabel lbl_info_name;
-    public static JPanel client_dashboard;
+
     public static ArrayList<JPanel> client_dashboard_JPanelList = new ArrayList<>();
     public static String currentSelectedClientName = "none";
 
     private static final Logger log = LoggerFactory.getLogger(Dashboard.class);
+        
+    private static JFrame frame;
+    
+    private static JLabel lbl_info_icon;
+    private static JLabel lbl_info_name;
+    
+    private static JPanel client_dashboard;
+    
     private static JButton btn_manage;
     private static JButton btn_info_notificationSingle;
     private static JButton btn_info_placeholder3; 
-    private static JButton btn_info_placeholder4; 
+    private static JButton btn_info_placeholder4;
+    
+	private static Color mau081C15;
+	private static Color mauD8F3DC;
+	private static Color mau2D6A4F;
+	private static Color mauB0B0B0; 
     
     public Dashboard() {
-        initialize();   // line này dùng để bật WindowBuilder, nếu comment line này sẽ tối ưu ứng dụng nhưng không thể sài Eclipse windowBuilder trong file này
+    	// line này dùng để bật WindowBuilder, nếu comment line này sẽ tối ưu ứng dụng nhưng không thể sài Eclipse windowBuilder trong file này
+    	initialize();   
     }
 
     private void initialize() { 
         frame = new JFrame();
-        frame.setBounds(100, 100, 1300, 700);
+        frame.setBounds(100, 50, 1300, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(new BorderLayout());
         frame.getContentPane().add(build());
     }
 	
 	public static JPanel build() {
+		
+		mau081C15 = Color.decode("#081C15");
+		mauD8F3DC = Color.decode("#D8F3DC");
+		mau2D6A4F = Color.decode("#2D6A4F");
+		mauB0B0B0 = Color.decode("#B0B0B0");
+
 		JPanel dashboard = new JPanel(); 
 		dashboard.setLayout(null);
 		dashboard.setBackground(new Color(251, 251, 251));
-		dashboard.setBounds(10, 10, 1200, 700);
+		dashboard.setBounds(100, 50, 1300, 700);
+		
+		JPanel item_1 = new JPanel();
+		item_1.setBackground(mau2D6A4F);
+		item_1.setBounds(0, 0, 975, 10);
+		dashboard.add(item_1);
+		
+		JPanel item_2 = new JPanel();
+		item_2.setBackground(mauB0B0B0);
+		item_2.setBounds(0, 70, 975, 5);
+		dashboard.add(item_2);
 		
 		JPanel infobar = new JPanel();
-		infobar.setBackground(new Color(251, 251, 251));
-		infobar.setBounds(861, 0, 250, 730);
+		infobar.setBackground(mau081C15);
+		infobar.setBounds(975, 0, 250, 700);
 		infobar.setLayout(null);
 		dashboard.add(infobar);
 		
 		lbl_info_icon = new JLabel("");
 		lbl_info_icon.setBackground(new Color(240, 240, 240));
-		lbl_info_icon.setBounds(50, 75, 150, 150);
+		lbl_info_icon.setBounds(50, 50, 150, 150);
 		infobar.add(lbl_info_icon);
 		
 		lbl_info_name = new JLabel("Computer name");
+		lbl_info_name.setForeground(new Color(255, 255, 255));
 		lbl_info_name.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_info_name.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lbl_info_name.setBounds(10, 250, 230, 30);
+		lbl_info_name.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lbl_info_name.setBounds(10, 210, 230, 30);
 		infobar.add(lbl_info_name);
 		
 		btn_manage = new JButton("Quản lý");
 		btn_manage.setEnabled(false);
-		btn_manage.setBorder(new RoundedBorder(8));
+		btn_manage.setBorder(null);
 		btn_manage.setForeground(new Color(0, 0, 0));
 		btn_manage.setBackground(new Color(251, 251, 251));
-		btn_manage.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_manage.setBounds(50, 350, 150, 35);
-		btn_manage.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				onManage();
-			}
-		});
+		btn_manage.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btn_manage.setBounds(50, 300, 150, 35);
+		btn_manage.addActionListener(e -> onManage());
 		infobar.add(btn_manage);
 		
 		btn_info_notificationSingle = new JButton("Thông báo");
 		btn_info_notificationSingle.setEnabled(false);
-		btn_info_notificationSingle.setBorder(new RoundedBorder(8));
+		btn_info_notificationSingle.setBorder(null);
 		btn_info_notificationSingle.setForeground(new Color(0, 0, 0));
 		btn_info_notificationSingle.setBackground(new Color(251, 251, 251));
-		btn_info_notificationSingle.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_info_notificationSingle.setBounds(50, 413, 150, 35);
-		btn_info_notificationSingle.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-                onNotificationSingle();		// link method vào button
-			}
-		});
+		btn_info_notificationSingle.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btn_info_notificationSingle.setBounds(50, 350, 150, 35);
+		btn_info_notificationSingle.addActionListener(e -> onNotificationSingle());
 		infobar.add(btn_info_notificationSingle);
 		
 		btn_info_placeholder3 = new JButton("Khóa Máy");
 		btn_info_placeholder3.setEnabled(false);
-		btn_info_placeholder3.setBorder(new RoundedBorder(8));
 		btn_info_placeholder3.setForeground(new Color(0, 0, 0));
 		btn_info_placeholder3.setBackground(new Color(251, 251, 251));
-		btn_info_placeholder3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_info_placeholder3.setBounds(50, 476, 150, 35);
-		btn_info_placeholder3.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO
-                openLockServer();
-			}
-		});
+		btn_info_placeholder3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btn_info_placeholder3.setBounds(50, 400, 150, 35);
+		btn_info_placeholder3.setBorder(null);
+		btn_info_placeholder3.addActionListener(e -> openLockServer());
 		infobar.add(btn_info_placeholder3);
 		
 		btn_info_placeholder4 = new JButton("Button 4");
 		btn_info_placeholder4.setEnabled(false);
-		btn_info_placeholder4.setBorder(new RoundedBorder(8));
+		btn_info_placeholder4.setBorder(null);
 		btn_info_placeholder4.setForeground(new Color(0, 0, 0));
 		btn_info_placeholder4.setBackground(new Color(251, 251, 251));
-		btn_info_placeholder4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_info_placeholder4.setBounds(50, 539, 150, 35);
+		btn_info_placeholder4.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btn_info_placeholder4.setBounds(50, 450, 150, 35);
 		btn_info_placeholder4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -134,31 +148,26 @@ public class Dashboard extends JFrame {
 		infobar.add(btn_info_placeholder4);
 		
 		JPanel dashboard_options = new JPanel();
-		dashboard_options.setBackground(new Color(251, 251, 251));
-		dashboard_options.setBounds(0, 0, 862, 60);
+		dashboard_options.setBackground(mau2D6A4F);
+		dashboard_options.setBounds(0, 10, 975, 60);
 		dashboard_options.setLayout(null);
 		dashboard.add(dashboard_options);
 		
 		JButton btn_do_lkClient = new JButton("Liên kết Client");
 		btn_do_lkClient.setForeground(Color.BLACK);
-		btn_do_lkClient.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_do_lkClient.setBorder(new RoundedBorder(8));
+		btn_do_lkClient.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btn_do_lkClient.setBackground(new Color(251, 251, 251));
-		btn_do_lkClient.setBounds(0, 10, 150, 35);
-		btn_do_lkClient.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				onlkClient();
-			}
-		});
+		btn_do_lkClient.setBounds(10, 10, 150, 35);
+		btn_do_lkClient.setBorder(null);
+		btn_do_lkClient.addActionListener(e -> onlkClient());
 		dashboard_options.add(btn_do_lkClient);
 
 		JButton btn_do_lanScan = new JButton("Quét mạng tìm Client");
 		btn_do_lanScan.setForeground(Color.BLACK);
-		btn_do_lanScan.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btn_do_lanScan.setBorder(new RoundedBorder(8));
+		btn_do_lanScan.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btn_do_lanScan.setBackground(new Color(251, 251, 251));
-		btn_do_lanScan.setBounds(149, 11, 150, 35);
+		btn_do_lanScan.setBounds(170, 10, 150, 35);
+		btn_do_lanScan.setBorder(null);
 		btn_do_lanScan.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -169,75 +178,63 @@ public class Dashboard extends JFrame {
 		
 		JButton btn_do_notificationAll = new JButton("Thông báo tất cả");
 		btn_do_notificationAll.setForeground(Color.BLACK);
-		btn_do_notificationAll.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_do_notificationAll.setBorder(new RoundedBorder(8));
+		btn_do_notificationAll.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btn_do_notificationAll.setBackground(new Color(251, 251, 251));
-		btn_do_notificationAll.setBounds(298, 10, 150, 35);
-		btn_do_notificationAll.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-                onNotificationAll(); 		// link method vào button
-			}
-		});
+		btn_do_notificationAll.setBounds(330, 10, 150, 35);
+		btn_do_notificationAll.setBorder(null);
+		//Câu lệnh chức năng 
+		btn_do_notificationAll.addActionListener(e -> onNotificationAll());
 		dashboard_options.add(btn_do_notificationAll);
 		
 		JButton btn_do_watch = new JButton("Quan sát all Client");
 		btn_do_watch.setForeground(Color.BLACK);
-		btn_do_watch.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_do_watch.setBorder(new RoundedBorder(8));
+		btn_do_watch.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btn_do_watch.setBackground(new Color(251, 251, 251));
-		btn_do_watch.setBounds(448, 10, 150, 35);
-		
-		btn_do_watch.addActionListener(e -> {
-            if (ServerStates.onWatchControllerShowListener != null) ServerStates.onWatchControllerShowListener.onWatchControllerShow();
-        });
+		btn_do_watch.setBounds(490, 10, 150, 35);
+		btn_do_watch.setBorder(null);
+		btn_do_watch.addActionListener(e -> showWatchController());
 
 		dashboard_options.add(btn_do_watch);
 		
 		JButton btn_do_whiteBoard = new JButton("White Board");
 		btn_do_whiteBoard.setForeground(Color.BLACK);
-		btn_do_whiteBoard.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_do_whiteBoard.setBorder(new RoundedBorder(8));
+		btn_do_whiteBoard.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btn_do_whiteBoard.setBackground(new Color(251, 251, 251));
-		btn_do_whiteBoard.setBounds(601, 15, 150, 35);
+		btn_do_whiteBoard.setBounds(650, 10, 150, 35);
+		btn_do_whiteBoard.setBorder(null);
 		btn_do_whiteBoard.addActionListener(e -> openWhiteBoardServer());
 		dashboard_options.add(btn_do_whiteBoard);
 
         JButton bton_nopbaitap = new JButton("Baitap");
         bton_nopbaitap.setForeground(Color.BLACK);
-        bton_nopbaitap.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        bton_nopbaitap.setBorder(new RoundedBorder(8));
+        bton_nopbaitap.setFont(new Font("Tahoma", Font.BOLD, 12));
         bton_nopbaitap.setBackground(new Color(251, 251, 251));
-        bton_nopbaitap.setBounds(750, 15, 150, 35);
+        bton_nopbaitap.setBounds(810, 10, 150, 35);
+        bton_nopbaitap.setBorder(null);
         bton_nopbaitap.addActionListener(e -> onExercise());
         dashboard_options.add(bton_nopbaitap);
 		
 		JTextArea ta_log = new JTextArea();
-		ta_log.setBackground(new Color(240, 240, 240));
+		ta_log.setBackground(mauD8F3DC);
 		ta_log.setLineWrap(true);
 		ta_log.setEditable(false);
-		ta_log.setBounds(0, 495, 862, 235);
+		ta_log.setBounds(0, 475, 975, 225);
 		dashboard.add(ta_log);
 		
 		client_dashboard = new JPanel();
 		client_dashboard.setBackground(new Color(245, 245, 245));
-		client_dashboard.setBounds(75, 59, 862, 435);
+		client_dashboard.setBounds(75, 75, 975, 400);
 		client_dashboard.setLayout(new WrapLayout(FlowLayout.LEFT, 10, 10));
+		
 		JScrollPane client_dashboardScrollPane = new JScrollPane(client_dashboard);
 		client_dashboardScrollPane.setBorder(null);
-		client_dashboardScrollPane.setBounds(0, 59, 862, 435);
+		client_dashboardScrollPane.setBounds(0, 75, 975, 400);
 		client_dashboardScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		client_dashboardScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		dashboard.add(client_dashboardScrollPane);
 		
 		return dashboard;
 	}
-	
-
-	public static void onlkClient() {
-        ServerStates.lkModal = new LienKetModal(frame);
-        ServerStates.lkModal.setVisible(true);
-    }
 	
 	/**
 	 * Create a new client item panel with selection callback
@@ -430,9 +427,7 @@ public class Dashboard extends JFrame {
     private static boolean isLocked = false;
 
     private static void openLockServer() {
-
         if (ServerStates.onLockListener == null) return;
-
         if (!isLocked) {
             // gửi yêu cầu LOCK
             ServerStates.onLockListener.onLock("LOCK");
@@ -446,7 +441,20 @@ public class Dashboard extends JFrame {
             btn_info_placeholder3.setText("Khóa máy");
             btn_info_placeholder3.setBackground(new Color(251, 251, 251));
         }
-
         isLocked = !isLocked;
     }
+    
+	public static void onlkClient() {
+        ServerStates.lkModal = new LienKetModal(frame);
+        ServerStates.lkModal.setVisible(true);
+    }
+	
+	
+    public  WatchView view = new WatchView();
+	
+	public static void showWatchController() {
+	    if (ServerStates.onWatchControllerShowListener != null) {
+	        ServerStates.onWatchControllerShowListener.onWatchControllerShow();
+	    }
+	}
 }

@@ -33,16 +33,18 @@ public class EClientConnector {
     private static final Logger log = LoggerFactory.getLogger(EClientConnector.class);
 	
 	private JFrame frame;
+	
 	private JTextField tf_serverIP;
-	private JButton btn_connect;
 	private JTextField tf_port;
 	private JTextField tf_clientName;
 	private JTextField tf_maLienKet; 
+	
 	private JLabel lbl_lan_icon;
 	private JLabel lbl_lan_status;
+	
+	private JButton btn_connect;
 	private JButton btn_lan_open;
 	private JButton btn_lan_close;
-
 
 	/**
 	 * Create the application.
@@ -58,7 +60,6 @@ public class EClientConnector {
 	public void undisplay() {
 		frame.setVisible(false);
 	}
-
 
 	/**
 	 * Initialize the contents of the frame.
@@ -238,7 +239,6 @@ public class EClientConnector {
 	private void toggleLanConnector() {
 		if (!isLanModeConnector) {
 			// TODO open LAN network for server to perform a LAN client scan
-			
 			lbl_lan_icon.setIcon(ImageHelper.getScaledIcon("/images/lan_connect_green.png", 90, 90));
 			lbl_lan_status.setText("<html><div style='text-align: center;'>Đang mở luồng mạng Lan chờ server quét</div></html>");
 			btn_lan_open.setEnabled(false);
@@ -246,9 +246,7 @@ public class EClientConnector {
 			
 			isLanModeConnector = true;
 		} else {
-			
 			// TODO close LAN network, server can no longer found this client when perform a LAN client scan
-			
 			lbl_lan_icon.setIcon(ImageHelper.getScaledIcon("/images/lan_connect_gray.png", 90, 90));
 			lbl_lan_status.setText("<html><div style='text-align: center;'>Mở luồng quét mạng Lan để Server quét và tự kết nối</div></html>");
 			btn_lan_open.setEnabled(true);

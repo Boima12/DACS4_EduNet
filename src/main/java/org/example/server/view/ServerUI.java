@@ -22,6 +22,7 @@ import org.example.server.view.dashboard.Dashboard;
 import org.example.server.view.settings.Settings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.awt.FlowLayout;
 
 
 /**
@@ -29,7 +30,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 @SuppressWarnings({"FieldMayBeFinal", "PatternVariableCanBeUsed"})
-public class ServerUI {
+public class ServerUI { 
 
 	private static final Logger log = LoggerFactory.getLogger(ServerUI.class);
 	
@@ -37,11 +38,18 @@ public class ServerUI {
     private boolean isServerStarted = false;
 	
 	private JFrame frame;
+	
 	private CardLayout cardLayout = new CardLayout();
+	
 	private JPanel viewMain;
+	
 	private JButton btn_power;
 	private JButton btn_dashboard;
-	private JButton btn_layerHolder; 
+	private JButton btn_layerHolder;
+
+	private Color mau081C15;
+
+	private Color mauD8F3DC; 
 
 	/**
 	 * Create the application.
@@ -69,13 +77,16 @@ public class ServerUI {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(240, 240, 240));
 		frame.getContentPane().setLayout(null);
-		frame.setBounds(100, 100, 1200, 767);
+		frame.setBounds(100, 50, 1300, 700);
         frame.setTitle("Dashboard - " + ServerLocalAddress);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
+		mau081C15 = Color.decode("#081C15");
+		mauD8F3DC = Color.decode("#D8F3DC");
+		
 		JPanel sidebar = new JPanel();
-		sidebar.setBackground(new Color(38, 139, 255));
-		sidebar.setBounds(0, 0, 75, 730);
+		sidebar.setBackground(mau081C15);
+		sidebar.setBounds(0, 0, 75, 700);
 		sidebar.setLayout(null);
 		frame.getContentPane().add(sidebar);
 		
@@ -100,7 +111,7 @@ public class ServerUI {
 		btn_dashboard = new JButton("");
 		btn_dashboard.setSize(new Dimension(30, 30));
 		btn_dashboard.setBorderPainted(false);
-		btn_dashboard.setBackground(new Color(36, 128, 234));
+		btn_dashboard.setBackground(mau081C15);
 		btn_dashboard.setBounds(0, 75, 75, 75);
 		btn_dashboard.setIcon(ImageHelper.getScaledIcon("/images/dashboard_white.png", 45, 45));
 		btn_dashboard.addActionListener(new ActionListener() {
@@ -114,7 +125,7 @@ public class ServerUI {
 		btn_layerHolder = new JButton("");
 		btn_layerHolder.setSize(new Dimension(30, 30));
 		btn_layerHolder.setBorderPainted(false);
-		btn_layerHolder.setBackground(new Color(38, 139, 255));
+		btn_layerHolder.setBackground(mau081C15);
 		btn_layerHolder.setBounds(0, 150, 75, 75);
 		btn_layerHolder.setIcon(ImageHelper.getScaledIcon("/images/about_white.png", 27, 27));
 		btn_layerHolder.addActionListener(new ActionListener() {
@@ -128,8 +139,8 @@ public class ServerUI {
 		JButton btn_about = new JButton("");
 		btn_about.setSize(new Dimension(30, 30));
 		btn_about.setBorderPainted(false);
-		btn_about.setBackground(new Color(38, 139, 255));
-		btn_about.setBounds(0, 655, 75, 75);
+		btn_about.setBackground(mau081C15);
+		btn_about.setBounds(0, 590, 75, 75);
 		btn_about.setIcon(ImageHelper.getScaledIcon("/images/about_white.png", 27, 27));
 		btn_about.addActionListener(new ActionListener() {
 			@Override
@@ -140,21 +151,20 @@ public class ServerUI {
 		sidebar.add(btn_about);
 		
 		viewMain = new JPanel(cardLayout);
-		viewMain.setBounds(75, 0, 1111, 730);
+		viewMain.setBounds(75, 0, 1225, 700);
 		frame.getContentPane().add(viewMain);
-		
 		
 		// == LOBBY ==
 		JPanel lobby = new JPanel();
+		lobby.setBackground(mauD8F3DC);
+		lobby.setBounds(75, 0, 1225, 700);
 		lobby.setLayout(null);
-		lobby.setBackground(new Color(251, 251, 251));
-		lobby.setBounds(75, 0, 1111, 730);
 		viewMain.add(lobby, "LOBBY");
 		
 		JLabel lbl_lobbyText = new JLabel("Vui lòng khởi động server để hiển thị các màn hình quản lý");
 		lbl_lobbyText.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_lobbyText.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lbl_lobbyText.setBounds(300, 304, 500, 50);
+		lbl_lobbyText.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lbl_lobbyText.setBounds(0, 0, 1215, 665);
 		lobby.add(lbl_lobbyText);
 		
 		// == DASHBOARD ==
@@ -198,8 +208,8 @@ public class ServerUI {
 	
 	private void switchViewLayer(Integer layerNum) {
 	    // reset sidebar button state
-	    btn_dashboard.setBackground(new Color(38, 139, 255));
-	    btn_layerHolder.setBackground(new Color(38, 139, 255));
+	    btn_dashboard.setBackground(mau081C15);
+	    btn_layerHolder.setBackground(mau081C15);
 
 	    switch (layerNum) {
 	        case 1 : {
@@ -207,12 +217,12 @@ public class ServerUI {
 	            break;
 	        }
 	        case 2 : {
-	            btn_dashboard.setBackground(new Color(36, 128, 234));
+	            btn_dashboard.setBackground(mau081C15);
 	            cardLayout.show(viewMain, "DASHBOARD");
 	            break;
 	        }
 	        case 3 : {
-	            btn_layerHolder.setBackground(new Color(36, 128, 234));
+	            btn_layerHolder.setBackground(mau081C15);
 	            cardLayout.show(viewMain, "SETTINGS");
 	            break;
 	        }
