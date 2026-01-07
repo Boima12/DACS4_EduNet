@@ -1,5 +1,6 @@
 package org.example.server.controller;
 
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 import java.security.SecureRandom;
@@ -11,6 +12,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 
+import org.example.common.objects.messages.capture.CaptureRequestJSON;
 import org.example.common.objects.messages.connection.ConnectionResponseJSON;
 import org.example.common.objects.messages.establish.EstablishingResponseJSON;
 import org.example.common.objects.messages.notification.NotificationRequestJSON;
@@ -21,11 +23,14 @@ import org.example.common.objects.services.exercise.PacketType;
 import org.example.common.objects.services.exercise.Submission;
 import org.example.common.utils.gson.GsonHelper;
 import org.example.common.utils.network.NetworkUtils;
+import org.example.common.utils.system.CryptUtils;
 import org.example.server.ServerStates;
 import org.example.server.controller.services.exercise.ExerciseController;
 import org.example.server.model.database.JDBCUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.imageio.ImageIO;
 
 import static org.example.server.controller.ServerNetwork.clients;
 
@@ -101,6 +106,10 @@ public class ServerNetworkHandler {
 
                         case "systemInfoResponse":
                             hear_systemInfoResponse(json);
+                            break;
+
+                        case "captureResponse":
+                            hear_captureResponse(json);
                             break;
 
                         // --- CHỨC NĂNG BÀI TẬP (NEW) ---
@@ -343,6 +352,28 @@ public class ServerNetworkHandler {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String sql = "INSERT INTO notifications (client_name, content, createdAt) VALUES (?, ?, ?)";
         JDBCUtil.runUpdate(sql, client_name, message, sdf.format(new Date()));
+    }
+
+
+// == Capture (Yêu cầu chụp ảnh) ==
+    public void speak_captureRequest() {
+        CaptureRequestJSON captureRequestJSON = new CaptureRequestJSON();
+        String jsonString = GsonHelper.toJson(captureRequestJSON);
+        speak(jsonString);
+    }
+
+    private void hear_captureResponse(JsonObject json) throws Exception {
+        String imageName = json.get("imageName").getAsString();
+        String imageDataBase64 = json.get("imageData").getAsString();
+
+        // Save image into serverLocalStorage/captures/<client_name>/<imageName>
+        BufferedImage imageData = CryptUtils.decodeFromBase64(imageDataBase64);
+        String filePath = "serverLocalStorage/captures/" + client_name + "/" + imageName;
+        File output = new File(filePath);
+        output.getParentFile().mkdirs();    // Create directories if not exist
+        ImageIO.write(imageData, "png", output);
+
+        if (ServerStates.onCaptureResponseistener != null) ServerStates.onCaptureResponseistener.onCaptureResponse(output.getAbsolutePath(), imageName);
     }
 
 

@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
 import org.example.common.utils.gui.ImageHelper;
 import org.example.common.utils.gui.RoundedBorder;
 import org.example.server.ServerStates;
+import org.example.server.view.manage.captures.Captures;
 
 
 /**
@@ -28,7 +29,7 @@ import org.example.server.ServerStates;
  * Có thể nâng cấp để mở nhiều cửa sổ Manage cùng lúc cho từng client 1 nhưng hiện tại tạm thời bỏ qua vì logic cũng tương đối phức tạp
  *
  */
-@SuppressWarnings({"FieldMayBeFinal", "Convert2Lambda"})
+@SuppressWarnings({"FieldMayBeFinal", "Convert2Lambda", "AccessStaticViaInstance"})
 public class Manage {
 
     private String client_name;
@@ -46,10 +47,10 @@ public class Manage {
 	 * Create the application.
 	 */
 	public Manage(String client_name) { 
+        this.client_name = client_name;
 		initialize();
 		onClosingEvent();
 
-        this.client_name = client_name;
 
         // setup callback làm mới thông tin hệ thống cho cửa sổ Manage
         ServerStates.setOnSystemInfoResponseListenerCallback((os, cpu_cores, cpu_load, ram, inet_address, disk_storages) -> {
@@ -176,17 +177,14 @@ public class Manage {
 		tabbedPane.setBackground(new Color(251, 251, 251));
 		tabbedPane.setBounds(10, 185, 965, 407);
 		frame.getContentPane().add(tabbedPane);
-		
-		JPanel tabbed_panel1 = new JPanel();
-		tabbed_panel1.setBackground(new Color(251, 251, 251));
-		tabbedPane.addTab("tab 1", null, tabbed_panel1, null);
-		tabbed_panel1.setLayout(null);
-		
-		JLabel lbl_text1 = new JLabel("JTabbedPanel placeholder", SwingConstants.CENTER);
-		lbl_text1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lbl_text1.setBounds(297, 168, 350, 15);
-		tabbed_panel1.add(lbl_text1);
-		
+
+
+        // == CAPTURES ==
+        Captures captures = new Captures(frame, client_name);
+		JPanel capturesTabbedPanel = captures.build();
+		tabbedPane.addTab("Captures", null, capturesTabbedPanel, null);
+
+
 		JPanel tabbed_panel2 = new JPanel();
 		tabbed_panel2.setLayout(null);
 		tabbed_panel2.setBackground(new Color(251, 251, 251));

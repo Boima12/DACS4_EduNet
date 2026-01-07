@@ -1,4 +1,4 @@
-package org.example.server.view.dashboard;
+package org.example.common.utils.gui;
 
 import javax.swing.*;
 import java.awt.*;
