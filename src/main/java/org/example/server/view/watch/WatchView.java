@@ -24,9 +24,9 @@ public class WatchView extends JFrame {
     }
 
     private void initUI() {
-    	this.setBounds(182, 152, 975, 450);
+    	this.setBounds(100, 60, 1300, 700);
         this.getContentPane().setLayout(null);
-        this.setUndecorated(true);
+        //this.setUndecorated(true);
 
 		mau081C15 = Color.decode("#081C15");
 		mauD8F3DC = Color.decode("#D8F3DC");
@@ -34,15 +34,15 @@ public class WatchView extends JFrame {
         // Video container
         videoContainer = new JPanel(new WrapLayout(FlowLayout.LEFT, 10, 10));
         videoContainer.setBackground(new Color(240, 240, 240));
-        videoContainer.setBounds(0, 0, 975, 400);
+        videoContainer.setBounds(0, 0, 1300, 700);
 
         JScrollPane scrollPane = new JScrollPane(videoContainer);   
-        scrollPane.setBounds(0, 0, 975, 400);
+        scrollPane.setBounds(0, 0, 1300, 650);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         getContentPane().add(scrollPane, BorderLayout.CENTER);
         
         JPanel panel = new JPanel();
-        panel.setBounds(0, 400, 975, 50);
+        panel.setBounds(0, 650, 1300, 50);
         panel.setBackground(mau081C15);
         panel.setLayout(null);
         getContentPane().add(panel);
