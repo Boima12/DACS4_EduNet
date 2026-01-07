@@ -10,6 +10,8 @@ import org.example.server.view.exercise.OnSubmissionReceivedListener;
 import org.example.server.view.manage.Manage;
 import org.example.server.view.manage.OnSystemInfoRequestListener;
 import org.example.server.view.manage.OnSystemInfoResponseListener;
+import org.example.server.view.manage.captures.OnCaptureRequestListener;
+import org.example.server.view.manage.captures.OnCaptureResponseListener;
 import org.example.server.view.watch.OnWatchControllerShowListener;
 import org.example.server.view.whiteBoard.OnWhiteBoardControllerShowListener;
 
@@ -81,6 +83,16 @@ public class ServerStates {
     public static OnNotificationSingleRequestListener onNotificationSingleRequestListener;
     public static void setOnNotificationSingleRequestListenerCallback(OnNotificationSingleRequestListener callback) {
         onNotificationSingleRequestListener = callback;
+    }
+
+    public static OnCaptureRequestListener onCaptureRequestListener;
+    public static void setOnCaptureRequestListenerCallback(OnCaptureRequestListener listener) {
+        onCaptureRequestListener = listener;
+    }
+
+    public static OnCaptureResponseListener onCaptureResponseistener;
+    public static void setOnCaptureResponseListenerCallback(OnCaptureResponseListener listener) {
+        onCaptureResponseistener = listener;
     }
 
     /* ================= TOOLS (WATCH, WHITEBOARD, LOCK) ================= */

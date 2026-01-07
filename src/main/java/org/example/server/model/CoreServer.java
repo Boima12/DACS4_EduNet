@@ -14,6 +14,7 @@ import org.example.server.view.ServerUI;
 import org.example.server.view.exercise.ExerciseView;
 import org.example.server.view.login.Login;
 import org.example.server.view.dashboard.Dashboard;
+import org.example.server.view.manage.captures.Captures;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,6 +80,8 @@ public class CoreServer {
                     }
                 }
             }
+
+            Captures.onCleanup();
 
             log.info("Clean up protocol completed. Total clients now: {}", clients.size());
         });
@@ -154,7 +157,22 @@ public class CoreServer {
                     }
                 }
             });
-            
+
+            ServerStates.setOnCaptureRequestListenerCallback((client_name) -> {
+                synchronized (ServerNetwork.clients) {
+                    for (var client : ServerNetwork.clients) {
+                        if (client.getClient_name().equals(client_name)) {
+                            if (!client.isClosed()) {
+                                client.speak_captureRequest();
+                            } else {
+                                System.out.println("[NotificationSingleRequestListener] Client " + client_name + " connection is closed, did the old one not remove from ArrayList correctly?");
+                            }
+                            break;
+                        }
+                    }
+                }
+            });
+
             ServerStates.setOnLockListenerCallback(cmd -> {
                 if (lockController == null) return;
 

@@ -22,6 +22,7 @@ import org.example.common.utils.gui.ImageHelper;
 import org.example.common.utils.gui.RoundedBorder;
 import org.example.server.ServerStates;
 import org.example.server.view.about.AboutModal;
+import org.example.server.view.manage.captures.Captures;
 
 
 /**
@@ -30,7 +31,7 @@ import org.example.server.view.about.AboutModal;
  * Có thể nâng cấp để mở nhiều cửa sổ Manage cùng lúc cho từng client 1 nhưng hiện tại tạm thời bỏ qua vì logic cũng tương đối phức tạp
  *
  */
-@SuppressWarnings({"FieldMayBeFinal", "Convert2Lambda"})
+@SuppressWarnings({"FieldMayBeFinal", "Convert2Lambda", "AccessStaticViaInstance"})
 public class Manage {
 
     private String client_name;
@@ -56,10 +57,10 @@ public class Manage {
 	 * Create the application.
 	 */
 	public Manage(String client_name) { 
+        this.client_name = client_name;
 		initialize();
 		onClosingEvent();
 
-        this.client_name = client_name;
 
         // setup callback làm mới thông tin hệ thống cho cửa sổ Manage
         ServerStates.setOnSystemInfoResponseListenerCallback((os, cpu_cores, cpu_load, ram, inet_address, disk_storages) -> {
@@ -226,112 +227,37 @@ public class Manage {
 		});
 		panel_top.add(btn_refresh);
 		
-		
-		//
-		JPanel dashboard_options = new JPanel();
-		dashboard_options.setBackground(mau2D6A4F);
-		dashboard_options.setBounds(75, 175, 975, 60);
-		dashboard_options.setLayout(null);
-		frame.getContentPane().add(dashboard_options);
-		
-		JButton btn_do_lkClient = new JButton("Yêu cầu chụp ảnh");
-		btn_do_lkClient.setForeground(Color.BLACK);
-		btn_do_lkClient.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btn_do_lkClient.setBackground(new Color(251, 251, 251));
-		btn_do_lkClient.setBounds(10, 10, 150, 35);
-		btn_do_lkClient.setBorder(null);
-		//btn_do_lkClient.addActionListener(e -> onlkClient());
-		dashboard_options.add(btn_do_lkClient);
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBackground(new Color(251, 251, 251));
+		tabbedPane.setBounds(10, 185, 965, 407);
+		frame.getContentPane().add(tabbedPane);
 
-		JButton btn_do_lanScan = new JButton("Xem ảnh");
-		btn_do_lanScan.setForeground(Color.BLACK);
-		btn_do_lanScan.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btn_do_lanScan.setBackground(new Color(251, 251, 251));
-		btn_do_lanScan.setBounds(170, 10, 150, 35);
-		btn_do_lanScan.setBorder(null);
-		btn_do_lanScan.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO
-			}
-		});
-		dashboard_options.add(btn_do_lanScan);
-		
-		JButton btn_do_notificationAll = new JButton("Xóa ảnh");
-		btn_do_notificationAll.setForeground(Color.BLACK);
-		btn_do_notificationAll.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btn_do_notificationAll.setBackground(new Color(251, 251, 251));
-		btn_do_notificationAll.setBounds(330, 10, 150, 35);
-		btn_do_notificationAll.setBorder(null);
-		//Câu lệnh chức năng 
-		//btn_do_notificationAll.addActionListener(e -> onNotificationAll());
-		dashboard_options.add(btn_do_notificationAll);
-		
-		JButton btn_do_watch = new JButton("Thông báo");
-		btn_do_watch.setForeground(Color.BLACK);
-		btn_do_watch.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btn_do_watch.setBackground(new Color(251, 251, 251));
-		btn_do_watch.setBounds(490, 10, 150, 35);
-		btn_do_watch.setBorder(null);
-		//btn_do_watch.addActionListener(e -> showWatchController());
-		dashboard_options.add(btn_do_watch);
-		
-		JButton btn_do_whiteBoard = new JButton("Khóa máy");
-		btn_do_whiteBoard.setForeground(Color.BLACK);
-		btn_do_whiteBoard.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btn_do_whiteBoard.setBackground(new Color(251, 251, 251));
-		btn_do_whiteBoard.setBounds(650, 10, 150, 35);
-		btn_do_whiteBoard.setBorder(null);
-		//btn_do_whiteBoard.addActionListener(e -> openWhiteBoardServer());
-		dashboard_options.add(btn_do_whiteBoard);
 
-        JButton bton_nopbaitap = new JButton("Tắt máy");
-        bton_nopbaitap.setForeground(Color.BLACK);
-        bton_nopbaitap.setFont(new Font("Tahoma", Font.BOLD, 12));
-        bton_nopbaitap.setBackground(new Color(251, 251, 251));
-        bton_nopbaitap.setBounds(810, 10, 150, 35);
-        bton_nopbaitap.setBorder(null);
-        //bton_nopbaitap.addActionListener(e -> onExercise());
-        dashboard_options.add(bton_nopbaitap);
+        // == CAPTURES ==
+        Captures captures = new Captures(frame, client_name);
+		JPanel capturesTabbedPanel = captures.build();
+		tabbedPane.addTab("Captures", null, capturesTabbedPanel, null);
+
+
+		JPanel tabbed_panel2 = new JPanel();
+		tabbed_panel2.setLayout(null);
+		tabbed_panel2.setBackground(new Color(251, 251, 251));
+		tabbedPane.addTab("tab 2", null, tabbed_panel2, null);
 		
+		JLabel lbl_text2 = new JLabel("JTabbedPanel placeholder", SwingConstants.CENTER);
+		lbl_text2.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lbl_text2.setBounds(297, 168, 350, 15);
+		tabbed_panel2.add(lbl_text2);
 		
-		//
+		JPanel tabbed_panel3 = new JPanel();
+		tabbed_panel3.setLayout(null);
+		tabbed_panel3.setBackground(new Color(251, 251, 251));
+		tabbedPane.addTab("tab 3", null, tabbed_panel3, null);
 		
-		
-//		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-//		tabbedPane.setBackground(new Color(251, 251, 251));
-//		tabbedPane.setBounds(56, 203, 965, 407);
-//		frame.getContentPane().add(tabbedPane);
-		
-//		JPanel tabbed_panel1 = new JPanel();
-//		tabbed_panel1.setBackground(new Color(251, 251, 251));
-//		tabbedPane.addTab("tab 1", null, tabbed_panel1, null);
-//		tabbed_panel1.setLayout(null);
-//		
-//		JLabel lbl_text1 = new JLabel("JTabbedPanel placeholder", SwingConstants.CENTER);
-//		lbl_text1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-//		lbl_text1.setBounds(297, 168, 350, 15);
-//		tabbed_panel1.add(lbl_text1);
-//		
-//		JPanel tabbed_panel2 = new JPanel();
-//		tabbed_panel2.setLayout(null);
-//		tabbed_panel2.setBackground(new Color(251, 251, 251));
-//		tabbedPane.addTab("tab 2", null, tabbed_panel2, null);
-//		
-//		JLabel lbl_text2 = new JLabel("JTabbedPanel placeholder", SwingConstants.CENTER);
-//		lbl_text2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-//		lbl_text2.setBounds(297, 168, 350, 15);
-//		tabbed_panel2.add(lbl_text2);
-//		
-//		JPanel tabbed_panel3 = new JPanel();
-//		tabbed_panel3.setLayout(null);
-//		tabbed_panel3.setBackground(new Color(251, 251, 251));
-//		tabbedPane.addTab("tab 3", null, tabbed_panel3, null);
-//		
-//		JLabel lbl_text3 = new JLabel("JTabbedPanel placeholder", SwingConstants.CENTER);
-//		lbl_text3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-//		lbl_text3.setBounds(297, 168, 350, 15);
-//		tabbed_panel3.add(lbl_text3);
+		JLabel lbl_text3 = new JLabel("JTabbedPanel placeholder", SwingConstants.CENTER);
+		lbl_text3.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lbl_text3.setBounds(297, 168, 350, 15);
+		tabbed_panel3.add(lbl_text3);
 	}
 	
     private void onClosingEvent() {
