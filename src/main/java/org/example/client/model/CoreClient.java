@@ -142,11 +142,13 @@ public class CoreClient {
                         eClientWindow = new EClient(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
                     }
 
-                    exerciseController = new ExerciseController(clientNetwork);
-
                     eClientConnectorWindow.undisplay();
                     eClientWindow.display();
+
+                    // TODO Nếu để exerciseController lên đằng trước sẽ bị block thread, anh Hoàng kiểm tra xem có while/for gì đó chạy vô tận mà không ở trong thread không.
+                    exerciseController = new ExerciseController(clientNetwork);
                });
+
             });
 
         } catch (IOException e) {
@@ -173,10 +175,11 @@ public class CoreClient {
                                 eClientWindow = new EClient(memoryBox.server_IP, Integer.parseInt(memoryBox.server_port));
                             }
 
-                            exerciseController = new ExerciseController(clientNetwork);
-
                             eClientConnectorWindow.undisplay();
                             eClientWindow.display();
+
+                            // TODO Nếu để exerciseController lên đằng trước sẽ bị block thread, anh Hoàng kiểm tra xem có while/for gì đó chạy vô tận mà không ở trong thread không.
+                            exerciseController = new ExerciseController(clientNetwork);
                         });
                     });
 

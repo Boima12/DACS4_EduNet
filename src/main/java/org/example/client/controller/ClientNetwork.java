@@ -3,14 +3,18 @@ package org.example.client.controller;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.example.client.ClientStates;
+import org.example.client.model.services.capture.Capture;
 import org.example.client.model.services.systemInfo.SystemInfo;
 import org.example.common.objects.MemoryBox;
+import org.example.common.objects.messages.capture.CaptureResponseJSON;
 import org.example.common.objects.messages.connection.ConnectionRequestJSON;
 import org.example.common.objects.messages.establish.EstablishingRequestJSON;
 import org.example.common.objects.services.exercise.Assignment;
@@ -157,6 +161,10 @@ public class ClientNetwork {
 
                         case "notificationRequest":
                             hear_notificationRequest(json);
+                            break;
+
+                        case "captureRequest":
+                            hear_captureRequest();
                             break;
 
                         case "ASSIGNMENT_LIST":
@@ -335,6 +343,18 @@ public class ClientNetwork {
     private void hear_notificationRequest(JsonObject json) {
         String notificationMessage = json.get("msg").getAsString();
         Alert.showInfo(notificationMessage);
+    }
+
+
+// == Capture (Yêu cầu chụp ảnh) ==
+    private void hear_captureRequest() throws Exception {
+        Capture capture = new Capture();
+
+        CaptureResponseJSON captureResponseJSON = new CaptureResponseJSON();
+        captureResponseJSON.imageName = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".png";
+        captureResponseJSON.imageData = capture.getScreenShotEncodedBase64();
+        String jsonString = GsonHelper.toJson(captureResponseJSON);
+        speak(jsonString);
     }
 
 
